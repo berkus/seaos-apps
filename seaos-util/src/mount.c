@@ -17,7 +17,7 @@ int main(int argc, char **argv)
 	int opt;
 	char * type=0;
 	if(argc == 1)
-		execl("/bin/cat", "/bin/cat", "/proc/mounts");
+		execl("/bin/df", "df", "-h");
 	while((opt = getopt(argc, argv, "ht:")) != -1) {
 		switch(opt) {
 			case 'h':
