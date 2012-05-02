@@ -11,6 +11,8 @@
 #include <sys/stat.h>
 #include <unistd.h>
 #include <signal.h>
+#include <string.h>
+#include <errno.h>
 
 void sigint_h(int g)
 {
@@ -58,11 +60,14 @@ int main(int argc, char **argv)
 			fprintf(stderr, "preinit: could not chroot to mounted root device!\n");
 			exit(3);
 		}
+		int r = 0;
 		printf("ok\n    * devfs -> /dev: ");
-		mount_filesystem(0, "/dev", "devfs");
-		printf("ok\n    * procfs -> /proc: ");
-		mount_filesystem(0, "/proc", "procfs");
-		printf("ok\n");
+		r = mount_filesystem(0, "/dev", "devfs");
+		printf("%s\n    * procfs -> /proc: ", r < 0 ? strerror(errno) : "ok");
+		r = mount_filesystem(0, "/proc", "procfs");
+		printf("%s\n    * tmpfs -> /tmp: ", r < 0 ? strerror(errno) : "ok");
+		r = mount_filesystem(0, "/tmp", "tmpfs");
+		printf("%s\n", r < 0 ? strerror(errno) : "ok");
 	}
 	printf("Starting init process '%s'\n", argv[2]);
 	execl(argv[2], (char *)basename(argv[2]), 0);
