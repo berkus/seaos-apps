@@ -1,8 +1,8 @@
 export MTHREAD=-j2
 cd ported
-MOST_PKGS="bash binutils coreutils diffutils e2fsprogs findutils gawk grep grub gzip less make nano nasm ncurses newlib patch readline seaos-util sed tar termcap which"
+MOST_PKGS="bash binutils coreutils diffutils e2fsprogs findutils gawk grep grub less make nano nasm ncurses newlib patch readline seaos-util sed termcap which"
 ALL_PKGS="$MOST_PKGS gcc"
-
+BROKEN="gzip tar"
 PKGS="$@"
 if [ "$PKGS" = "all" ]; then
 	PKGS="$ALL_PKGS"
@@ -12,6 +12,9 @@ if [ "$PKGS" = "" ]; then
 fi
 if [ "$PKGS" = "most" ]; then
 	PKGS="$MOST_PKGS"
+fi
+if [ "$PKGS" = "broken" ]; then
+	PKGS="$BROKEN"
 fi
 
 echo building: $PKGS
