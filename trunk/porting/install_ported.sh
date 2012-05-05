@@ -1,6 +1,6 @@
 export MTHREAD=-j2
 cd ported
-MOST_PKGS="bash binutils coreutils diffutils e2fsprogs findutils gawk grep grub less make nano nasm ncurses newlib patch readline seaos-util sed tar termcap which"
+MOST_PKGS="bash binutils coreutils diffutils e2fsprogs findutils gawk grep grub gzip less make nano nasm ncurses newlib patch readline seaos-util sed tar termcap which"
 ALL_PKGS="$MOST_PKGS gcc"
 
 PKGS="$@"
