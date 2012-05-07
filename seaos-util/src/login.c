@@ -5,6 +5,7 @@
 #include <time.h>
 #include <string.h>
 #include <signal.h>
+#include <sys/utsname.h>
 char out_tty=0;
 int pid;
 char *name;
@@ -76,9 +77,12 @@ int main(int argc, char **argv)
 	setbuf(stdout, NULL);
 	waitpid(pid, 0, 0);
 	signal(SIGINT, sigint_h);
+	struct utsname name;
+	uname(&name);
 	/* Main loop */
 	while(1)
 	{
+		printf("\nKernel \"%s\" version %s (tty%d)\nor: How I learned to stop worrying about system crashes and love my computer.\n\n", name.version, name.release, ioctl(0, 8, 0));
 		char username[128];
 		memset(username, 0, 128);
 		printf("Login: ");
