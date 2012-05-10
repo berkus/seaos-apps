@@ -36,15 +36,15 @@ bin_PROGRAMS = init$(EXEEXT) bring$(EXEEXT) dmod$(EXEEXT) \
 	ioctl$(EXEEXT) lmod$(EXEEXT) login$(EXEEXT) losetup$(EXEEXT) \
 	lscpu$(EXEEXT) lsmod$(EXEEXT) lspci$(EXEEXT) mon$(EXEEXT) \
 	mount$(EXEEXT) pidof$(EXEEXT) preinit$(EXEEXT) sps$(EXEEXT) \
-	shutdown$(EXEEXT) spawn$(EXEEXT) sudo$(EXEEXT) swap$(EXEEXT) \
-	t$(EXEEXT) umount$(EXEEXT)
+	shutdown$(EXEEXT) sudo$(EXEEXT) swap$(EXEEXT) t$(EXEEXT) \
+	umount$(EXEEXT)
 subdir = src
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.in
 am__configure_deps = $(am__aclocal_m4_deps) $(CONFIGURE_DEPENDENCIES) \
 	$(ACLOCAL_M4)
-mkinstalldirs = $(install_sh) -d
+mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
@@ -95,9 +95,6 @@ preinit_LDADD = $(LDADD)
 am_shutdown_OBJECTS = shutdown.$(OBJEXT)
 shutdown_OBJECTS = $(am_shutdown_OBJECTS)
 shutdown_LDADD = $(LDADD)
-am_spawn_OBJECTS = spawn.$(OBJEXT)
-spawn_OBJECTS = $(am_spawn_OBJECTS)
-spawn_LDADD = $(LDADD)
 am_sps_OBJECTS = ps.$(OBJEXT)
 sps_OBJECTS = $(am_sps_OBJECTS)
 sps_LDADD = $(LDADD)
@@ -126,15 +123,15 @@ SOURCES = $(bring_SOURCES) $(dmod_SOURCES) $(init_SOURCES) \
 	$(losetup_SOURCES) $(lscpu_SOURCES) $(lsmod_SOURCES) \
 	$(lspci_SOURCES) $(mon_SOURCES) $(mount_SOURCES) \
 	$(pidof_SOURCES) $(preinit_SOURCES) $(shutdown_SOURCES) \
-	$(spawn_SOURCES) $(sps_SOURCES) $(sudo_SOURCES) \
-	$(swap_SOURCES) $(t_SOURCES) $(umount_SOURCES)
+	$(sps_SOURCES) $(sudo_SOURCES) $(swap_SOURCES) $(t_SOURCES) \
+	$(umount_SOURCES)
 DIST_SOURCES = $(bring_SOURCES) $(dmod_SOURCES) $(init_SOURCES) \
 	$(ioctl_SOURCES) $(lmod_SOURCES) $(login_SOURCES) \
 	$(losetup_SOURCES) $(lscpu_SOURCES) $(lsmod_SOURCES) \
 	$(lspci_SOURCES) $(mon_SOURCES) $(mount_SOURCES) \
 	$(pidof_SOURCES) $(preinit_SOURCES) $(shutdown_SOURCES) \
-	$(spawn_SOURCES) $(sps_SOURCES) $(sudo_SOURCES) \
-	$(swap_SOURCES) $(t_SOURCES) $(umount_SOURCES)
+	$(sps_SOURCES) $(sudo_SOURCES) $(swap_SOURCES) $(t_SOURCES) \
+	$(umount_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -239,7 +236,6 @@ pidof_SOURCES = pidof.c
 preinit_SOURCES = preinit.c
 sps_SOURCES = ps.c
 shutdown_SOURCES = shutdown.c
-spawn_SOURCES = spawn.c
 sudo_SOURCES = sudo.c
 swap_SOURCES = swap.c
 t_SOURCES = t.c
@@ -361,9 +357,6 @@ preinit$(EXEEXT): $(preinit_OBJECTS) $(preinit_DEPENDENCIES)
 shutdown$(EXEEXT): $(shutdown_OBJECTS) $(shutdown_DEPENDENCIES) 
 	@rm -f shutdown$(EXEEXT)
 	$(LINK) $(shutdown_OBJECTS) $(shutdown_LDADD) $(LIBS)
-spawn$(EXEEXT): $(spawn_OBJECTS) $(spawn_DEPENDENCIES) 
-	@rm -f spawn$(EXEEXT)
-	$(LINK) $(spawn_OBJECTS) $(spawn_LDADD) $(LIBS)
 sps$(EXEEXT): $(sps_OBJECTS) $(sps_DEPENDENCIES) 
 	@rm -f sps$(EXEEXT)
 	$(LINK) $(sps_OBJECTS) $(sps_LDADD) $(LIBS)
@@ -403,7 +396,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ps.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rc.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shutdown.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/spawn.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sudo.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/swap.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/t.Po@am__quote@
