@@ -32,12 +32,11 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-bin_PROGRAMS = init$(EXEEXT) bring$(EXEEXT) dmod$(EXEEXT) \
-	ioctl$(EXEEXT) lmod$(EXEEXT) login$(EXEEXT) losetup$(EXEEXT) \
-	lscpu$(EXEEXT) lsmod$(EXEEXT) lspci$(EXEEXT) mon$(EXEEXT) \
-	mount$(EXEEXT) pidof$(EXEEXT) preinit$(EXEEXT) sps$(EXEEXT) \
-	shutdown$(EXEEXT) sudo$(EXEEXT) swap$(EXEEXT) t$(EXEEXT) \
-	umount$(EXEEXT)
+bin_PROGRAMS = dmod$(EXEEXT) ioctl$(EXEEXT) lmod$(EXEEXT) \
+	login$(EXEEXT) losetup$(EXEEXT) lscpu$(EXEEXT) lsmod$(EXEEXT) \
+	lspci$(EXEEXT) mon$(EXEEXT) mount$(EXEEXT) pidof$(EXEEXT) \
+	sps$(EXEEXT) shutdown$(EXEEXT) sudo$(EXEEXT) swap$(EXEEXT) \
+	t$(EXEEXT) umount$(EXEEXT)
 subdir = src
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -50,15 +49,9 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
-am_bring_OBJECTS = bring.$(OBJEXT)
-bring_OBJECTS = $(am_bring_OBJECTS)
-bring_LDADD = $(LDADD)
 am_dmod_OBJECTS = dmod.$(OBJEXT)
 dmod_OBJECTS = $(am_dmod_OBJECTS)
 dmod_LDADD = $(LDADD)
-am_init_OBJECTS = main.$(OBJEXT) rc.$(OBJEXT)
-init_OBJECTS = $(am_init_OBJECTS)
-init_LDADD = $(LDADD)
 am_ioctl_OBJECTS = ioctl.$(OBJEXT)
 ioctl_OBJECTS = $(am_ioctl_OBJECTS)
 ioctl_LDADD = $(LDADD)
@@ -89,9 +82,6 @@ mount_LDADD = $(LDADD)
 am_pidof_OBJECTS = pidof.$(OBJEXT)
 pidof_OBJECTS = $(am_pidof_OBJECTS)
 pidof_LDADD = $(LDADD)
-am_preinit_OBJECTS = preinit.$(OBJEXT)
-preinit_OBJECTS = $(am_preinit_OBJECTS)
-preinit_LDADD = $(LDADD)
 am_shutdown_OBJECTS = shutdown.$(OBJEXT)
 shutdown_OBJECTS = $(am_shutdown_OBJECTS)
 shutdown_LDADD = $(LDADD)
@@ -118,18 +108,16 @@ COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 CCLD = $(CC)
 LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
-SOURCES = $(bring_SOURCES) $(dmod_SOURCES) $(init_SOURCES) \
-	$(ioctl_SOURCES) $(lmod_SOURCES) $(login_SOURCES) \
-	$(losetup_SOURCES) $(lscpu_SOURCES) $(lsmod_SOURCES) \
-	$(lspci_SOURCES) $(mon_SOURCES) $(mount_SOURCES) \
-	$(pidof_SOURCES) $(preinit_SOURCES) $(shutdown_SOURCES) \
+SOURCES = $(dmod_SOURCES) $(ioctl_SOURCES) $(lmod_SOURCES) \
+	$(login_SOURCES) $(losetup_SOURCES) $(lscpu_SOURCES) \
+	$(lsmod_SOURCES) $(lspci_SOURCES) $(mon_SOURCES) \
+	$(mount_SOURCES) $(pidof_SOURCES) $(shutdown_SOURCES) \
 	$(sps_SOURCES) $(sudo_SOURCES) $(swap_SOURCES) $(t_SOURCES) \
 	$(umount_SOURCES)
-DIST_SOURCES = $(bring_SOURCES) $(dmod_SOURCES) $(init_SOURCES) \
-	$(ioctl_SOURCES) $(lmod_SOURCES) $(login_SOURCES) \
-	$(losetup_SOURCES) $(lscpu_SOURCES) $(lsmod_SOURCES) \
-	$(lspci_SOURCES) $(mon_SOURCES) $(mount_SOURCES) \
-	$(pidof_SOURCES) $(preinit_SOURCES) $(shutdown_SOURCES) \
+DIST_SOURCES = $(dmod_SOURCES) $(ioctl_SOURCES) $(lmod_SOURCES) \
+	$(login_SOURCES) $(losetup_SOURCES) $(lscpu_SOURCES) \
+	$(lsmod_SOURCES) $(lspci_SOURCES) $(mon_SOURCES) \
+	$(mount_SOURCES) $(pidof_SOURCES) $(shutdown_SOURCES) \
 	$(sps_SOURCES) $(sudo_SOURCES) $(swap_SOURCES) $(t_SOURCES) \
 	$(umount_SOURCES)
 ETAGS = etags
@@ -221,7 +209,6 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-bring_SOURCES = bring.c
 dmod_SOURCES = dmod.c
 ioctl_SOURCES = ioctl.c
 lmod_SOURCES = lmod.c
@@ -233,14 +220,12 @@ lspci_SOURCES = lspci.c
 mon_SOURCES = mon.c
 mount_SOURCES = mount.c
 pidof_SOURCES = pidof.c
-preinit_SOURCES = preinit.c
 sps_SOURCES = ps.c
 shutdown_SOURCES = shutdown.c
 sudo_SOURCES = sudo.c
 swap_SOURCES = swap.c
 t_SOURCES = t.c
 umount_SOURCES = umount.c
-init_SOURCES = main.c rc.c
 all: all-am
 
 .SUFFIXES:
@@ -312,15 +297,9 @@ uninstall-binPROGRAMS:
 
 clean-binPROGRAMS:
 	-test -z "$(bin_PROGRAMS)" || rm -f $(bin_PROGRAMS)
-bring$(EXEEXT): $(bring_OBJECTS) $(bring_DEPENDENCIES) 
-	@rm -f bring$(EXEEXT)
-	$(LINK) $(bring_OBJECTS) $(bring_LDADD) $(LIBS)
 dmod$(EXEEXT): $(dmod_OBJECTS) $(dmod_DEPENDENCIES) 
 	@rm -f dmod$(EXEEXT)
 	$(LINK) $(dmod_OBJECTS) $(dmod_LDADD) $(LIBS)
-init$(EXEEXT): $(init_OBJECTS) $(init_DEPENDENCIES) 
-	@rm -f init$(EXEEXT)
-	$(LINK) $(init_OBJECTS) $(init_LDADD) $(LIBS)
 ioctl$(EXEEXT): $(ioctl_OBJECTS) $(ioctl_DEPENDENCIES) 
 	@rm -f ioctl$(EXEEXT)
 	$(LINK) $(ioctl_OBJECTS) $(ioctl_LDADD) $(LIBS)
@@ -351,9 +330,6 @@ mount$(EXEEXT): $(mount_OBJECTS) $(mount_DEPENDENCIES)
 pidof$(EXEEXT): $(pidof_OBJECTS) $(pidof_DEPENDENCIES) 
 	@rm -f pidof$(EXEEXT)
 	$(LINK) $(pidof_OBJECTS) $(pidof_LDADD) $(LIBS)
-preinit$(EXEEXT): $(preinit_OBJECTS) $(preinit_DEPENDENCIES) 
-	@rm -f preinit$(EXEEXT)
-	$(LINK) $(preinit_OBJECTS) $(preinit_LDADD) $(LIBS)
 shutdown$(EXEEXT): $(shutdown_OBJECTS) $(shutdown_DEPENDENCIES) 
 	@rm -f shutdown$(EXEEXT)
 	$(LINK) $(shutdown_OBJECTS) $(shutdown_LDADD) $(LIBS)
@@ -379,7 +355,6 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/bring.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dmod.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ioctl.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lmod.Po@am__quote@
@@ -388,13 +363,10 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lscpu.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lsmod.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lspci.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/main.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mon.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mount.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pidof.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/preinit.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ps.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/rc.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shutdown.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sudo.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/swap.Po@am__quote@
