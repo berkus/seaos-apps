@@ -57,12 +57,12 @@ int display_task(struct task_stat *stat)
 	}
 	printf(" ");
 	if(!full)
-		printf("%s", stat->exe);
+		printf("%s", stat->cmd);
 	else
 	{
 		printf("%s ",  states[stat->state+1]);
-		if(stat->exe)
-			printf("%s", (char *)stat->exe);
+		if(stat->cmd)
+			printf("%s", stat->cmd);
 	}
 	
 	printf("\n");
