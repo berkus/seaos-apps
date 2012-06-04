@@ -34,9 +34,9 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 bin_PROGRAMS = dmod$(EXEEXT) ioctl$(EXEEXT) lmod$(EXEEXT) \
 	login$(EXEEXT) losetup$(EXEEXT) lscpu$(EXEEXT) lsmod$(EXEEXT) \
-	lspci$(EXEEXT) mon$(EXEEXT) mount$(EXEEXT) pidof$(EXEEXT) \
-	sps$(EXEEXT) shutdown$(EXEEXT) sudo$(EXEEXT) swap$(EXEEXT) \
-	t$(EXEEXT) umount$(EXEEXT)
+	lspci$(EXEEXT) mon$(EXEEXT) mount$(EXEEXT) sps$(EXEEXT) \
+	shutdown$(EXEEXT) sudo$(EXEEXT) swap$(EXEEXT) t$(EXEEXT) \
+	umount$(EXEEXT)
 subdir = src
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -79,9 +79,6 @@ mon_LDADD = $(LDADD)
 am_mount_OBJECTS = mount.$(OBJEXT)
 mount_OBJECTS = $(am_mount_OBJECTS)
 mount_LDADD = $(LDADD)
-am_pidof_OBJECTS = pidof.$(OBJEXT)
-pidof_OBJECTS = $(am_pidof_OBJECTS)
-pidof_LDADD = $(LDADD)
 am_shutdown_OBJECTS = shutdown.$(OBJEXT)
 shutdown_OBJECTS = $(am_shutdown_OBJECTS)
 shutdown_LDADD = $(LDADD)
@@ -111,15 +108,13 @@ LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
 SOURCES = $(dmod_SOURCES) $(ioctl_SOURCES) $(lmod_SOURCES) \
 	$(login_SOURCES) $(losetup_SOURCES) $(lscpu_SOURCES) \
 	$(lsmod_SOURCES) $(lspci_SOURCES) $(mon_SOURCES) \
-	$(mount_SOURCES) $(pidof_SOURCES) $(shutdown_SOURCES) \
-	$(sps_SOURCES) $(sudo_SOURCES) $(swap_SOURCES) $(t_SOURCES) \
-	$(umount_SOURCES)
+	$(mount_SOURCES) $(shutdown_SOURCES) $(sps_SOURCES) \
+	$(sudo_SOURCES) $(swap_SOURCES) $(t_SOURCES) $(umount_SOURCES)
 DIST_SOURCES = $(dmod_SOURCES) $(ioctl_SOURCES) $(lmod_SOURCES) \
 	$(login_SOURCES) $(losetup_SOURCES) $(lscpu_SOURCES) \
 	$(lsmod_SOURCES) $(lspci_SOURCES) $(mon_SOURCES) \
-	$(mount_SOURCES) $(pidof_SOURCES) $(shutdown_SOURCES) \
-	$(sps_SOURCES) $(sudo_SOURCES) $(swap_SOURCES) $(t_SOURCES) \
-	$(umount_SOURCES)
+	$(mount_SOURCES) $(shutdown_SOURCES) $(sps_SOURCES) \
+	$(sudo_SOURCES) $(swap_SOURCES) $(t_SOURCES) $(umount_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -219,7 +214,6 @@ lsmod_SOURCES = lsmod.c
 lspci_SOURCES = lspci.c
 mon_SOURCES = mon.c
 mount_SOURCES = mount.c
-pidof_SOURCES = pidof.c
 sps_SOURCES = ps.c
 shutdown_SOURCES = shutdown.c
 sudo_SOURCES = sudo.c
@@ -327,9 +321,6 @@ mon$(EXEEXT): $(mon_OBJECTS) $(mon_DEPENDENCIES)
 mount$(EXEEXT): $(mount_OBJECTS) $(mount_DEPENDENCIES) 
 	@rm -f mount$(EXEEXT)
 	$(LINK) $(mount_OBJECTS) $(mount_LDADD) $(LIBS)
-pidof$(EXEEXT): $(pidof_OBJECTS) $(pidof_DEPENDENCIES) 
-	@rm -f pidof$(EXEEXT)
-	$(LINK) $(pidof_OBJECTS) $(pidof_LDADD) $(LIBS)
 shutdown$(EXEEXT): $(shutdown_OBJECTS) $(shutdown_DEPENDENCIES) 
 	@rm -f shutdown$(EXEEXT)
 	$(LINK) $(shutdown_OBJECTS) $(shutdown_LDADD) $(LIBS)
@@ -365,7 +356,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lspci.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mon.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mount.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/pidof.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ps.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shutdown.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sudo.Po@am__quote@

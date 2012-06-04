@@ -1,5 +1,5 @@
 
-bin_PROGRAMS = dmod ioctl lmod login losetup lscpu lsmod lspci mon mount pidof sps shutdown sudo swap t umount
+bin_PROGRAMS = dmod ioctl lmod login losetup lscpu lsmod lspci mon mount sps shutdown sudo swap t umount
 
 dmod_SOURCES = dmod.c
 ioctl_SOURCES = ioctl.c
@@ -11,7 +11,6 @@ lsmod_SOURCES = lsmod.c
 lspci_SOURCES = lspci.c
 mon_SOURCES = mon.c
 mount_SOURCES = mount.c
-pidof_SOURCES = pidof.c
 sps_SOURCES = ps.c
 shutdown_SOURCES = shutdown.c
 sudo_SOURCES = sudo.c
