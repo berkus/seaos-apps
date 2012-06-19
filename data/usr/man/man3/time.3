@@ -1,0 +1,41 @@
+.TH time 3 "" "" ""
+.SH SYNOPSIS
+time \- get current calendar time (as single number)
+.SH ANSI_SYNOPSIS
+#include <time.h>
+.br
+time_t time(time_t *
+.IR t );
+.br
+.SH TRAD_SYNOPSIS
+#include <time.h>
+.br
+time_t time(
+.IR t )
+.br
+time_t *
+.IR t ;
+.br
+.SH DESCRIPTION
+.BR time 
+looks up the best available representation of the current
+time and returns it, encoded as a 
+.BR time_t .
+It stores the same
+value at 
+.IR t 
+unless the argument is 
+.BR NULL .
+.SH RETURNS
+A 
+.BR -1 
+result means the current time is not available; otherwise the
+result represents the current time.
+.SH PORTABILITY
+ANSI C requires 
+.BR time .
+
+Supporting OS subroutine required: Some implementations require
+.BR gettimeofday .
+.SH SOURCE
+src/newlib/libc/time/time.c

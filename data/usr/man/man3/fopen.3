@@ -1,0 +1,172 @@
+.TH fopen 3 "" "" ""
+.SH SYNOPSIS
+fopen \- open a file
+.SH ANSI_SYNOPSIS
+#include <stdio.h>
+.br
+FILE *fopen(const char *
+.IR file ,
+const char *
+.IR mode );
+.br
+
+FILE *_fopen_r(void *
+.IR reent ,
+.br
+const char *
+.IR file ,
+const char *
+.IR mode );
+.br
+.SH TRAD_SYNOPSIS
+#include <stdio.h>
+.br
+FILE *fopen(
+.IR file ,
+.IR mode )
+.br
+char *
+.IR file ;
+.br
+char *
+.IR mode ;
+.br
+
+FILE *_fopen_r(
+.IR reent ,
+.IR file ,
+.IR mode )
+.br
+char *
+.IR reent ;
+.br
+char *
+.IR file ;
+.br
+char *
+.IR mode ;
+.br
+.SH DESCRIPTION
+.BR fopen 
+initializes the data structures needed to read or write a
+file. Specify the file's name as the string at 
+.IR file ,
+and the kind
+of access you need to the file with the string at 
+.IR mode .
+
+The alternate function 
+.BR _fopen_r 
+is a reentrant version.
+The extra argument 
+.IR reent 
+is a pointer to a reentrancy structure.
+
+Three fundamental kinds of access are available: read, write, and append.
+.BR *<[mode >>
+must begin with one of the three characters `
+.BR r ',
+`
+.BR w ',
+or `
+.BR a ',
+to select one of these:
+
+o+
+o r
+Open the file for reading; the operation will fail if the file does
+not exist, or if the host system does not permit you to read it.
+
+o w
+Open the file for writing @emph{from the beginning} of the file:
+effectively, this always creates a new file. If the file whose name you
+specified already existed, its old contents are discarded.
+
+o a
+Open the file for appending data, that is writing from the end of
+file. When you open a file this way, all data always goes to the
+current end of file; you cannot change this using 
+.BR fseek .
+o-
+
+Some host systems distinguish between ``binary'' and ``text'' files.
+Such systems may perform data transformations on data written to, or
+read from, files opened as ``text''.
+If your system is one of these, then you can append a `
+.BR b '
+to any
+of the three modes above, to specify that you are opening the file as
+a binary file (the default is to open the file as a text file).
+
+`
+.BR rb ',
+then, means ``read binary''; `
+.BR wb ',
+``write binary''; and
+`
+.BR ab ',
+``append binary''.
+
+To make C programs more portable, the `
+.BR b '
+is accepted on all
+systems, whether or not it makes a difference.
+
+Finally, you might need to both read and write from the same file.
+You can also append a `
+.BR + '
+to any of the three modes, to permit
+this. (If you want to append both `
+.BR b '
+and `
+.BR + ',
+you can do it
+in either order: for example, 
+.BR "rb+" 
+means the same thing as
+.BR "r+b" 
+when used as a mode string.)
+
+Use 
+.BR "r+" 
+(or 
+.BR "rb+" )
+to permit reading and writing anywhere in
+an existing file, without discarding any data; 
+.BR "w+" 
+(or 
+.BR "wb+" )
+to create a new file (or begin by discarding all data from an old one)
+that permits reading and writing anywhere in it; and 
+.BR "a+" 
+(or
+.BR "ab+" )
+to permit reading anywhere in an existing file, but writing
+only at the end.
+.SH RETURNS
+.BR fopen 
+returns a file pointer which you can use for other file
+operations, unless the file you requested could not be opened; in that
+situation, the result is 
+.BR NULL .
+If the reason for failure was an
+invalid string at 
+.IR mode ,
+.BR errno 
+is set to 
+.BR EINVAL .
+.SH PORTABILITY
+.BR fopen 
+is required by ANSI C.
+
+Supporting OS subroutines required: 
+.BR close ,
+.BR fstat ,
+.BR isatty ,
+.BR lseek ,
+.BR open ,
+.BR read ,
+.BR sbrk ,
+.BR write .
+.SH SOURCE
+src/newlib/libc/stdio/fopen.c

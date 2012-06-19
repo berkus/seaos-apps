@@ -1,0 +1,45 @@
+.TH _read_r 3 "" "" ""
+.SH SYNOPSIS
+_read_r \- Reentrant version of read
+.SH ANSI_SYNOPSIS
+#include <reent.h>
+.br
+long _read_r(struct _reent *
+.IR ptr ,
+.br
+int 
+.IR fd ,
+void *
+.IR buf ,
+size_t 
+.IR cnt );
+.br
+.SH TRAD_SYNOPSIS
+#include <reent.h>
+.br
+long _read_r(
+.IR ptr ,
+.IR fd ,
+.IR buf ,
+.IR cnt )
+.br
+struct _reent *
+.IR ptr ;
+.br
+int 
+.IR fd ;
+.br
+char *
+.IR buf ;
+.br
+size_t 
+.IR cnt ;
+.br
+.SH DESCRIPTION
+This is a reentrant version of 
+.BR read .
+It
+takes a pointer to the global data block, which holds
+.BR errno .
+.SH SOURCE
+src/newlib/libc/reent/readr.c

@@ -1,0 +1,38 @@
+.TH _kill_r 3 "" "" ""
+.SH SYNOPSIS
+_kill_r \- Reentrant version of kill
+.SH ANSI_SYNOPSIS
+#include <reent.h>
+.br
+int _kill_r(struct _reent *
+.IR ptr ,
+int 
+.IR pid ,
+int 
+.IR sig );
+.br
+.SH TRAD_SYNOPSIS
+#include <reent.h>
+.br
+int _kill_r(
+.IR ptr ,
+.IR pid ,
+.IR sig )
+.br
+struct _reent *
+.IR ptr ;
+.br
+int 
+.IR pid ;
+.br
+int 
+.IR sig ;
+.br
+.SH DESCRIPTION
+This is a reentrant version of 
+.BR kill .
+It
+takes a pointer to the global data block, which holds
+.BR errno .
+.SH SOURCE
+src/newlib/libc/reent/signalr.c

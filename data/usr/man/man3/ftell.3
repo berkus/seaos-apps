@@ -1,0 +1,71 @@
+.TH ftell 3 "" "" ""
+.SH SYNOPSIS
+ftell \- return position in a stream or file
+.SH ANSI_SYNOPSIS
+#include <stdio.h>
+.br
+long ftell(FILE *
+.IR fp );
+.br
+.SH TRAD_SYNOPSIS
+#include <stdio.h>
+.br
+long ftell(
+.IR fp )
+.br
+FILE *
+.IR fp ;
+.br
+.SH DESCRIPTION
+Objects of type 
+.BR FILE 
+can have a ``position'' that records how much
+of the file your program has already read. Many of the 
+.BR stdio 
+functions
+depend on this position, and many change it as a side effect.
+
+The result of 
+.BR ftell 
+is the current position for a file
+identified by 
+.IR fp .
+If you record this result, you can later
+use it with 
+.BR fseek 
+to return the file to this
+position.
+
+In the current implementation, 
+.BR ftell 
+simply uses a character
+count to represent the file position; this is the same number that
+would be recorded by 
+.BR fgetpos .
+.SH RETURNS
+.BR ftell 
+returns the file position, if possible. If it cannot do
+this, it returns 
+.BR -1L .
+Failure occurs on streams that do not support
+positioning; the global 
+.BR errno 
+indicates this condition with the
+value 
+.BR ESPIPE .
+.SH PORTABILITY
+.BR ftell 
+is required by the ANSI C standard, but the meaning of its
+result (when successful) is not specified beyond requiring that it be
+acceptable as an argument to 
+.BR fseek .
+In particular, other
+conforming C implementations may return a different result from
+.BR ftell 
+than what 
+.BR fgetpos 
+records.
+
+No supporting OS subroutines are required.
+.SH SOURCE
+src/newlib/libc/stdio/ftell.c

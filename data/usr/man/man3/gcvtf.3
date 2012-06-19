@@ -1,0 +1,94 @@
+.TH gcvtf 3 "" "" ""
+.SH SYNOPSIS
+gvcvt, gcvtf \- format double or float as string
+.SH ANSI_SYNOPSIS
+#include <stdlib.h>
+.br
+
+char *gcvt(double 
+.IR val ,
+int 
+.IR precision ,
+char *
+.IR buf );
+.br
+char *gcvtf(float 
+.IR val ,
+int 
+.IR precision ,
+char *
+.IR buf );
+.br
+.SH TRAD_SYNOPSIS
+#include <stdlib.h>
+.br
+
+char *gcvt(
+.IR val ,
+.IR precision ,
+.IR buf );
+.br
+double 
+.IR val ;
+.br
+int 
+.IR precision ;
+.br
+char *
+.IR buf ;
+.br
+char *gcvtf(
+.IR val ,
+.IR precision ,
+.IR buf );
+.br
+float 
+.IR val ;
+.br
+int 
+.IR precision ;
+.br
+char *
+.IR buf ;
+.br
+.SH DESCRIPTION
+.BR gcvt 
+writes a fully formatted number as a null-terminated
+string in the buffer 
+.BR *<[buf >>.
+.BR gdvtf 
+produces corresponding
+character representations of 
+.BR float 
+numbers.
+
+.BR gcvt 
+uses the same rules as the 
+.BR printf 
+format
+`
+.BR %.<[precision g>>'---only
+negative values are signed (with
+`
+.BR - '),
+and either exponential or ordinary decimal-fraction format
+is chosen depending on the number of significant digits (specified by
+.IR precision ).
+.SH RETURNS
+The result is a pointer to the formatted representation of 
+.IR val 
+(the same as the argument 
+.IR buf ).
+.SH PORTABILITY
+Neither function is ANSI C.
+
+Supporting OS subroutines required: 
+.BR close ,
+.BR fstat ,
+.BR isatty ,
+.BR lseek ,
+.BR read ,
+.BR sbrk ,
+.BR write .
+.SH SOURCE
+src/newlib/libstdlib/efgcvt.c

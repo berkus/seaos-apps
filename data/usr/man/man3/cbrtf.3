@@ -1,0 +1,33 @@
+.TH cbrtf 3 "" "" ""
+.SH SYNOPSIS
+cbrt, cbrtf \- cube root
+.SH ANSI_SYNOPSIS
+#include <math.h>
+.br
+double cbrt(double 
+.IR x );
+.br
+float  cbrtf(float 
+.IR x );
+.br
+.SH TRAD_SYNOPSIS
+#include <math.h>
+.br
+double cbrt(
+.IR x );
+.br
+float  cbrtf(
+.IR x );
+.br
+.SH DESCRIPTION
+.BR cbrt 
+computes the cube root of the argument.
+.SH RETURNS
+The cube root is returned. 
+.SH PORTABILITY
+.BR cbrt 
+is in System V release 4. 
+.BR cbrtf 
+is an extension.
+.SH SOURCE
+src/newlib/libm/common/s_cbrt.c

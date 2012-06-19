@@ -1,0 +1,39 @@
+.TH _fstat_r 3 "" "" ""
+.SH SYNOPSIS
+_fstat_r \- Reentrant version of fstat
+.SH ANSI_SYNOPSIS
+#include <reent.h>
+.br
+int _fstat_r(struct _reent *
+.IR ptr ,
+.br
+int 
+.IR fd ,
+struct stat *
+.IR pstat );
+.br
+.SH TRAD_SYNOPSIS
+#include <reent.h>
+.br
+int _fstat_r(
+.IR ptr ,
+.IR fd ,
+.IR pstat )
+.br
+struct _reent *
+.IR ptr ;
+.br
+int 
+.IR fd ;
+.br
+struct stat *
+.IR pstat ;
+.br
+.SH DESCRIPTION
+This is a reentrant version of 
+.BR fstat .
+It
+takes a pointer to the global data block, which holds
+.BR errno .
+.SH SOURCE
+src/newlib/libc/reent/fstatr.c

@@ -1,0 +1,45 @@
+.TH _lseek_r 3 "" "" ""
+.SH SYNOPSIS
+_lseek_r \- Reentrant version of lseek
+.SH ANSI_SYNOPSIS
+#include <reent.h>
+.br
+off_t _lseek_r(struct _reent *
+.IR ptr ,
+.br
+int 
+.IR fd ,
+off_t 
+.IR pos ,
+int 
+.IR whence );
+.br
+.SH TRAD_SYNOPSIS
+#include <reent.h>
+.br
+off_t _lseek_r(
+.IR ptr ,
+.IR fd ,
+.IR pos ,
+.IR whence )
+.br
+struct _reent *
+.IR ptr ;
+.br
+int 
+.IR fd ;
+.br
+off_t 
+.IR pos ;
+.br
+int 
+.IR whence ;
+.br
+.SH DESCRIPTION
+This is a reentrant version of 
+.BR lseek .
+It
+takes a pointer to the global data block, which holds
+.BR errno .
+.SH SOURCE
+src/newlib/libc/reent/lseekr.c

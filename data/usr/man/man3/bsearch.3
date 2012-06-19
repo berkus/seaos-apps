@@ -1,0 +1,86 @@
+.TH bsearch 3 "" "" ""
+.SH SYNOPSIS
+bsearch \- binary search
+.SH ANSI_SYNOPSIS
+#include <stdlib.h>
+.br
+void *bsearch(const void *
+.IR key ,
+const void *
+.IR base ,
+.br
+size_t 
+.IR nmemb ,
+size_t 
+.IR size ,
+.br
+int (*
+.IR compar )(const
+void *, const void *));
+.br
+.SH TRAD_SYNOPSIS
+#include <stdlib.h>
+.br
+char *bsearch(
+.IR key ,
+.IR base ,
+.IR nmemb ,
+.IR size ,
+.IR compar )
+.br
+char *
+.IR key ;
+.br
+char *
+.IR base ;
+.br
+size_t 
+.IR nmemb ,
+.IR size ;
+.br
+int (*
+.IR compar )();
+.br
+.SH DESCRIPTION
+.BR bsearch 
+searches an array beginning at 
+.IR base 
+for any element
+that matches 
+.IR key ,
+using binary search. 
+.IR nmemb 
+is the element
+count of the array; 
+.IR size 
+is the size of each element.
+
+The array must be sorted in ascending order with respect to the
+comparison function 
+.IR compar 
+(which you supply as the last argument of
+.BR bsearch ).
+
+You must define the comparison function 
+.BR (*<[compar )>>
+to have two
+arguments; its result must be negative if the first argument is
+less than the second, zero if the two arguments match, and
+positive if the first argument is greater than the second (where
+``less than'' and ``greater than'' refer to whatever arbitrary
+ordering is appropriate).
+.SH RETURNS
+Returns a pointer to an element of 
+.IR array 
+that matches 
+.IR key .
+If
+more than one matching element is available, the result may point to
+any of them.
+.SH PORTABILITY
+.BR bsearch 
+is ANSI.
+
+No supporting OS subroutines are required.
+.SH SOURCE
+src/newlib/libc/stdlib/bsearch.c

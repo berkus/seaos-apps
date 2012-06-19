@@ -1,0 +1,48 @@
+.TH strchr 3 "" "" ""
+.SH SYNOPSIS
+strchr \- search for character in string
+.SH ANSI_SYNOPSIS
+#include <string.h>
+.br
+char * strchr(const char *
+.IR string ,
+int 
+.IR c );
+.br
+.SH TRAD_SYNOPSIS
+#include <string.h>
+.br
+char * strchr(
+.IR string ,
+.IR c );
+.br
+char *
+.IR string ;
+.br
+int *
+.IR c ;
+.br
+.SH DESCRIPTION
+This function finds the first occurence of 
+.IR c 
+(converted to
+a char) in the string pointed to by 
+.IR string 
+(including the
+terminating null character).
+.SH RETURNS
+Returns a pointer to the located character, or a null pointer
+if 
+.IR c 
+does not occur in 
+.IR string .
+.SH PORTABILITY
+.BR strchr 
+is ANSI C.
+
+.BR strchr 
+requires no supporting OS subroutines.
+.SH QUICKREF
+strchr ansi pure
+.SH SOURCE
+src/newlib/libc/string/strchr.c

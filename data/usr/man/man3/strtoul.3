@@ -1,0 +1,182 @@
+.TH strtoul 3 "" "" ""
+.SH SYNOPSIS
+strtoul \- string to unsigned long
+.SH ANSI_SYNOPSIS
+#include <stdlib.h>
+.br
+unsigned long strtoul(const char *
+.IR s ,
+char **
+.IR ptr ,
+.br
+int 
+.IR base );
+.br
+
+unsigned long _strtoul_r(void *
+.IR reent ,
+const char *
+.IR s ,
+.br
+char **
+.IR ptr ,
+int 
+.IR base );
+.br
+.SH TRAD_SYNOPSIS
+#include <stdlib.h>
+.br
+unsigned long strtoul(
+.IR s ,
+.IR ptr ,
+.IR base )
+.br
+char *
+.IR s ;
+.br
+char **
+.IR ptr ;
+.br
+int 
+.IR base ;
+.br
+
+unsigned long _strtoul_r(
+.IR reent ,
+.IR s ,
+.IR ptr ,
+.IR base )
+.br
+char *
+.IR reent ;
+.br
+char *
+.IR s ;
+.br
+char **
+.IR ptr ;
+.br
+int 
+.IR base ;
+.br
+.SH DESCRIPTION
+The function 
+.BR strtoul 
+converts the string 
+.BR *<[s >>
+to
+an 
+.BR unsigned long .
+First, it breaks down the string into three parts:
+leading whitespace, which is ignored; a subject string consisting
+of the digits meaningful in the radix specified by 
+.IR base 
+(for example, 
+.BR 0 
+through 
+.BR 7 
+if the value of 
+.IR base 
+is 8);
+and a trailing portion consisting of one or more unparseable characters,
+which always includes the terminating null character. Then, it attempts
+to convert the subject string into an unsigned long integer, and returns the
+result.
+
+If the value of 
+.IR base 
+is zero, the subject string is expected to look
+like a normal C integer constant (save that no optional sign is permitted):
+a possible 
+.BR 0x 
+indicating hexadecimal radix, and a number.
+If 
+.IR base 
+is between 2 and 36, the expected form of the subject is a
+sequence of digits (which may include letters, depending on the
+base) representing an integer in the radix specified by 
+.IR base .
+The letters 
+.BR a --<<z>>
+(or 
+.BR A --<<Z>>)
+are used as digits valued from
+10 to 35. If 
+.IR base 
+is 16, a leading 
+.BR 0x 
+is permitted.
+
+The subject sequence is the longest initial sequence of the input
+string that has the expected form, starting with the first
+non-whitespace character. If the string is empty or consists entirely
+of whitespace, or if the first non-whitespace character is not a
+permissible digit, the subject string is empty.
+
+If the subject string is acceptable, and the value of 
+.IR base 
+is zero,
+.BR strtoul 
+attempts to determine the radix from the input string. A
+string with a leading 
+.BR 0x 
+is treated as a hexadecimal value; a string with
+a leading 
+.BR 0 
+and no 
+.BR x 
+is treated as octal; all other strings are
+treated as decimal. If 
+.IR base 
+is between 2 and 36, it is used as the
+conversion radix, as described above. Finally, a pointer to the first
+character past the converted subject string is stored in 
+.IR ptr ,
+if
+.IR ptr 
+is not 
+.BR NULL .
+
+If the subject string is empty (that is, if 
+.BR * <[s]>
+does not start
+with a substring in acceptable form), no conversion
+is performed and the value of 
+.IR s 
+is stored in 
+.IR ptr 
+(if 
+.IR ptr 
+is
+not 
+.BR NULL ).
+
+The alternate function 
+.BR _strtoul_r 
+is a reentrant version. The
+extra argument 
+.IR reent 
+is a pointer to a reentrancy structure.
+.SH RETURNS
+.BR strtoul 
+returns the converted value, if any. If no conversion was
+made, 
+.BR 0 
+is returned.
+
+.BR strtoul 
+returns 
+.BR ULONG_MAX 
+if the magnitude of the converted
+value is too large, and sets 
+.BR errno 
+to 
+.BR ERANGE .
+.SH PORTABILITY
+.BR strtoul 
+is ANSI.
+
+.BR strtoul 
+requires no supporting OS subroutines.
+.SH SOURCE
+src/newlib/libc/stdlib/strtoul.c

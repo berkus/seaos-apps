@@ -1,0 +1,44 @@
+.TH bzero 3 "" "" ""
+.SH SYNOPSIS
+bzero \- initialize memory to zero
+.SH ANSI_SYNOPSIS
+#include <string.h>
+.br
+void bzero(char *
+.IR b ,
+size_t 
+.IR length );
+.br
+.SH TRAD_SYNOPSIS
+#include <string.h>
+.br
+void bzero(
+.IR b ,
+.IR length )
+.br
+char *
+.IR b ;
+.br
+size_t 
+.IR length ;
+.br
+.SH DESCRIPTION
+.BR bzero 
+initializes 
+.IR length 
+bytes of memory, starting at address
+.IR b ,
+to zero.
+.SH RETURNS
+.BR bzero 
+does not return a result.
+.SH PORTABILITY
+.BR bzero 
+is in the Berkeley Software Distribution.
+Neither ANSI C nor the System V Interface Definition (Issue 2) require
+.BR bzero .
+
+.BR bzero 
+requires no supporting OS subroutines.
+.SH SOURCE
+src/newlib/libc/string/bzero.c

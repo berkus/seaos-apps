@@ -1,0 +1,66 @@
+.TH fgets 3 "" "" ""
+.SH SYNOPSIS
+fgets \- get character string from a file or stream
+.SH ANSI_SYNOPSIS
+#include <stdio.h>
+.br
+char *fgets(char *
+.IR buf ,
+int 
+.IR n ,
+FILE *
+.IR fp );
+.br
+.SH TRAD_SYNOPSIS
+#include <stdio.h>
+.br
+char *fgets(
+.IR buf ,<[n]>,<[fp]>)
+.br
+char *
+.IR buf ;
+.br
+int 
+.IR n ;
+.br
+FILE *
+.IR fp ;
+.br
+.SH DESCRIPTION
+Reads at most 
+.IR n-1 
+characters from 
+.IR fp 
+until a newline
+is found. The characters including to the newline are stored
+in 
+.IR buf .
+The buffer is terminated with a 0.
+.SH RETURNS
+.BR fgets 
+returns the buffer passed to it, with the data
+filled in. If end of file occurs with some data already
+accumulated, the data is returned with no other indication. If
+no data are read, NULL is returned instead.
+.SH PORTABILITY
+.BR fgets 
+should replace all uses of 
+.BR gets .
+Note however
+that 
+.BR fgets 
+returns all of the data, while 
+.BR gets 
+removes
+the trailing newline (with no indication that it has done so.)
+
+Supporting OS subroutines required: 
+.BR close ,
+.BR fstat ,
+.BR isatty ,
+.BR lseek ,
+.BR read ,
+.BR sbrk ,
+.BR write .
+.SH SOURCE
+src/newlib/libc/stdio/fgets.c

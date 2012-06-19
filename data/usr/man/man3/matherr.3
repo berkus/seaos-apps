@@ -1,0 +1,133 @@
+.TH matherr 3 "" "" ""
+.SH SYNOPSIS
+matherr \- modifiable math error handler
+.SH INDEX 
+matherr
+.SH ANSI_SYNOPSIS
+#include <math.h>
+.br
+int matherr(struct exception *
+.IR e );
+.br
+.SH TRAD_SYNOPSIS
+#include <math.h>
+.br
+int matherr(*
+.IR e )
+.br
+struct exception *
+.IR e ;
+.br
+.SH DESCRIPTION
+.BR matherr 
+is called whenever a math library function generates an error.
+You can replace 
+.BR matherr 
+by your own subroutine to customize
+error treatment. The customized 
+.BR matherr 
+must return 0 if
+it fails to resolve the error, and non-zero if the error is resolved.
+
+When 
+.BR matherr 
+returns a nonzero value, no error message is printed
+and the value of 
+.BR errno 
+is not modified. You can accomplish either
+or both of these things in your own 
+.BR matherr 
+using the information
+passed in the structure 
+.BR *<[e >>.
+
+This is the 
+.BR exception 
+structure (defined in `
+.BR math.h '):
+. struct exception {
+. int type;
+. char *name;
+. double arg1, arg2, retval;
+. int err;
+. };
+
+The members of the exception structure have the following meanings:
+o+
+o type
+The type of mathematical error that occured; macros encoding error
+types are also defined in `
+.BR math.h '.
+
+o name
+a pointer to a null-terminated string holding the
+name of the math library function where the error occurred.
+
+o arg1, arg2
+The arguments which caused the error.
+
+o retval
+The error return value (what the calling function will return).
+
+o err
+If set to be non-zero, this is the new value assigned to 
+.BR errno .
+o-
+
+The error types defined in `
+.BR math.h '
+represent possible mathematical
+errors as follows:
+
+o+
+o DOMAIN
+An argument was not in the domain of the function; e.g. 
+.BR log(-1.0) .
+
+o SING
+The requested calculation would result in a singularity; e.g. 
+.BR pow(0.0,-2.0) 
+
+o OVERFLOW
+A calculation would produce a result too large to represent; e.g.
+.BR exp(1000.0) .
+
+o UNDERFLOW
+A calculation would produce a result too small to represent; e.g.
+.BR exp(-1000.0) .
+
+o TLOSS
+Total loss of precision. The result would have no significant digits;
+e.g. 
+.BR sin(10e70) .
+
+o PLOSS
+Partial loss of precision.
+o-
+.SH RETURNS
+The library definition for 
+.BR matherr 
+returns 
+.BR 0 
+in all cases.
+
+You can change the calling function's result from a customized 
+.BR matherr 
+by modifying 
+.BR e->retval ,
+which propagates backs to the caller.
+
+If 
+.BR matherr 
+returns 
+.BR 0 
+(indicating that it was not able to resolve
+the error) the caller sets 
+.BR errno 
+to an appropriate value, and prints
+an error message.
+.SH PORTABILITY
+.BR matherr 
+is not ANSI C. 
+.SH SOURCE
+src/newlib/libm/common/s_matherr.c

@@ -1,0 +1,89 @@
+.TH mbtowc 3 "" "" ""
+.SH SYNOPSIS
+mbtowc \- minimal multibyte to wide char converter
+.SH ANSI_SYNOPSIS
+#include <stdlib.h>
+.br
+int mbtowc(wchar_t *
+.IR pwc ,
+const char *
+.IR s ,
+size_t 
+.IR n );
+.br
+.SH TRAD_SYNOPSIS
+#include <stdlib.h>
+.br
+int mbtowc(
+.IR pwc ,
+.IR s ,
+.IR n )
+.br
+wchar_t *
+.IR pwc ;
+.br
+const char *
+.IR s ;
+.br
+size_t 
+.IR n ;
+.br
+.SH DESCRIPTION
+When MB_CAPABLE is not defined, this is a minimal ANSI-conforming 
+implementation of 
+.BR mbtowc .
+In this case,
+only ``multi-byte character sequences'' recognized are single bytes,
+and they are ``converted'' to themselves.
+Each call to 
+.BR mbtowc 
+copies one character from 
+.BR *<[s >>
+to
+.BR *<[pwc >>,
+unless 
+.IR s 
+is a null pointer. The argument n
+is ignored.
+
+When MB_CAPABLE is defined, this routine calls 
+.BR _mbtowc_r 
+to perform
+the conversion, passing a state variable to allow state dependent
+decoding. The result is based on the locale setting which may
+be restricted to a defined set of locales.
+.SH RETURNS
+This implementation of 
+.BR mbtowc 
+returns 
+.BR 0 
+if
+.IR s 
+is 
+.BR NULL 
+or is the empty string; 
+it returns 
+.BR 1 
+if not MB_CAPABLE or
+the character is a single-byte character; it returns 
+.BR -1 
+if n is 
+.BR 0 
+or the multi-byte character is invalid; 
+otherwise it returns the number of bytes in the multibyte character.
+If the return value is -1, no changes are made to the 
+.BR pwc 
+output string. If the input is the empty string, a wchar_t nul
+is placed in the output string and 0 is returned. If the input
+has a length of 0, no changes are made to the 
+.BR pwc 
+output string.
+.SH PORTABILITY
+.BR mbtowc 
+is required in the ANSI C standard. However, the precise
+effects vary with the locale.
+
+.BR mbtowc 
+requires no supporting OS subroutines.
+.SH SOURCE
+src/newlib/libc/stdlib/mbtowc.c

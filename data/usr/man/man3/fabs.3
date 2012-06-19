@@ -1,0 +1,50 @@
+.TH fabs 3 "" "" ""
+.SH SYNOPSIS
+fabs, fabsf \- absolute value (magnitude)
+.SH ANSI_SYNOPSIS
+#include <math.h>
+.br
+double fabs(double 
+.IR x );
+.br
+float fabsf(float 
+.IR x );
+.br
+.SH TRAD_SYNOPSIS
+#include <math.h>
+.br
+double fabs(
+.IR x )
+.br
+double 
+.IR x ;
+.br
+
+float fabsf(
+.IR x )
+.br
+float 
+.IR x ;
+.br
+.SH DESCRIPTION
+.BR fabs 
+and 
+.BR fabsf 
+calculate
+@tex
+$|x|$,
+@end tex
+the absolute value (magnitude) of the argument 
+.IR x ,
+by direct
+manipulation of the bit representation of 
+.IR x .
+.SH RETURNS
+The calculated value is returned.
+.SH PORTABILITY
+.BR fabs 
+is ANSI.
+.BR fabsf 
+is an extension.
+.SH SOURCE
+src/newlib/libm/mathfp/s_fabs.c

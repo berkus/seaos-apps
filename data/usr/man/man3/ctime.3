@@ -1,0 +1,52 @@
+.TH ctime 3 "" "" ""
+.SH SYNOPSIS
+ctime \- convert time to local and format as string
+.SH ANSI_SYNOPSIS
+#include <time.h>
+.br
+char *ctime(time_t 
+.IR clock );
+.br
+char *ctime_r(time_t 
+.IR clock ,
+char *
+.IR buf );
+.br
+.SH TRAD_SYNOPSIS
+#include <time.h>
+.br
+char *ctime(
+.IR clock )
+.br
+time_t 
+.IR clock ;
+.br
+char *ctime_r(
+.IR clock ,
+.IR buf )
+.br
+time_t 
+.IR clock ;
+.br
+char *
+.IR buf ;
+.br
+.SH DESCRIPTION
+Convert the time value at 
+.IR clock 
+to local time (like 
+.BR localtime )
+and format it into a string of the form
+. Wed Jun 15 11:38:07 1988\n\0
+(like 
+.BR asctime ).
+.SH RETURNS
+A pointer to the string containing a formatted timestamp.
+.SH PORTABILITY
+ANSI C requires 
+.BR ctime .
+
+.BR ctime 
+requires no supporting OS subroutines.
+.SH SOURCE
+src/newlib/libc/time/ctime.c

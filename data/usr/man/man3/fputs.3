@@ -1,0 +1,54 @@
+.TH fputs 3 "" "" ""
+.SH SYNOPSIS
+fputs \- write a character string in a file or stream
+.SH ANSI_SYNOPSIS
+#include <stdio.h>
+.br
+int fputs(const char *
+.IR s ,
+FILE *
+.IR fp );
+.br
+.SH TRAD_SYNOPSIS
+#include <stdio.h>
+.br
+int fputs(
+.IR s ,
+.IR fp )
+.br
+char *
+.IR s ;
+.br
+FILE *
+.IR fp ;
+.br
+.SH DESCRIPTION
+.BR fputs 
+writes the string at 
+.IR s 
+(but without the trailing null)
+to the file or stream identified by 
+.IR fp .
+.SH RETURNS
+If successful, the result is 
+.BR 0 ;
+otherwise, the result is 
+.BR EOF .
+.SH PORTABILITY
+ANSI C requires 
+.BR fputs ,
+but does not specify that the result on
+success must be 
+.BR 0 ;
+any non-negative value is permitted.
+
+Supporting OS subroutines required: 
+.BR close ,
+.BR fstat ,
+.BR isatty ,
+.BR lseek ,
+.BR read ,
+.BR sbrk ,
+.BR write .
+.SH SOURCE
+src/newlib/libc/stdio/fputs.c

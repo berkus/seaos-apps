@@ -1,0 +1,78 @@
+.TH freopen 3 "" "" ""
+.SH SYNOPSIS
+freopen \- open a file using an existing file descriptor
+.SH ANSI_SYNOPSIS
+#include <stdio.h>
+.br
+FILE *freopen(const char *
+.IR file ,
+const char *
+.IR mode ,
+.br
+FILE *
+.IR fp );
+.br
+.SH TRAD_SYNOPSIS
+#include <stdio.h>
+.br
+FILE *freopen(
+.IR file ,
+.IR mode ,
+.IR fp )
+.br
+char *
+.IR file ;
+.br
+char *
+.IR mode ;
+.br
+FILE *
+.IR fp ;
+.br
+.SH DESCRIPTION
+Use this variant of 
+.BR fopen 
+if you wish to specify a particular file
+descriptor 
+.IR fp 
+(notably 
+.BR stdin ,
+.BR stdout ,
+or 
+.BR stderr )
+for
+the file.
+
+If 
+.IR fp 
+was associated with another file or stream, 
+.BR freopen 
+closes that other file or stream (but ignores any errors while closing
+it).
+
+.IR file 
+and 
+.IR mode 
+are used just as in 
+.BR fopen .
+.SH RETURNS
+If successful, the result is the same as the argument 
+.IR fp .
+If the
+file cannot be opened as specified, the result is 
+.BR NULL .
+.SH PORTABILITY
+ANSI C requires 
+.BR freopen .
+
+Supporting OS subroutines required: 
+.BR close ,
+.BR fstat ,
+.BR isatty ,
+.BR lseek ,
+.BR open ,
+.BR read ,
+.BR sbrk ,
+.BR write .
+.SH SOURCE
+src/newlib/libc/stdio/freopen.c

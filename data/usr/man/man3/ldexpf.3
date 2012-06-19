@@ -1,0 +1,82 @@
+.TH ldexpf 3 "" "" ""
+.SH SYNOPSIS
+ldexp, ldexpf \- load exponent
+.SH ANSI_SYNOPSIS
+#include <math.h>
+.br
+double ldexp(double 
+.IR val ,
+int 
+.IR exp );
+.br
+float ldexpf(float 
+.IR val ,
+int 
+.IR exp );
+.br
+.SH TRAD_SYNOPSIS
+#include <math.h>
+.br
+
+double ldexp(
+.IR val ,
+.IR exp )
+.br
+double 
+.IR val ;
+.br
+int 
+.IR exp ;
+.br
+
+float ldexpf(
+.IR val ,
+.IR exp )
+.br
+float 
+.IR val ;
+.br
+int 
+.IR exp ;
+.br
+.SH DESCRIPTION
+.BR ldexp 
+calculates the value
+@ifinfo
+.IR val 
+times 2 to the power 
+.IR exp .
+@end ifinfo
+@tex
+$val\times 2^{exp}$.
+@end tex
+.BR ldexpf 
+is identical, save that it takes and returns 
+.BR float 
+rather than 
+.BR double 
+values.
+.SH RETURNS
+.BR ldexp 
+returns the calculated value.
+
+Underflow and overflow both set 
+.BR errno 
+to 
+.BR ERANGE .
+On underflow, 
+.BR ldexp 
+and 
+.BR ldexpf 
+return 0.0.
+On overflow, 
+.BR ldexp 
+returns plus or minus 
+.BR HUGE_VAL .
+.SH PORTABILITY
+.BR ldexp 
+is ANSI, 
+.BR ldexpf 
+is an extension.
+.SH SOURCE
+src/newlib/libm/mathfp/s_ldexp.c

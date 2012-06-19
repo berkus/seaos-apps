@@ -1,0 +1,31 @@
+.TH _getpid_r 3 "" "" ""
+.SH SYNOPSIS
+_getpid_r \- Reentrant version of getpid
+.SH ANSI_SYNOPSIS
+#include <reent.h>
+.br
+int _getpid_r(struct _reent *
+.IR ptr );
+.br
+.SH TRAD_SYNOPSIS
+#include <reent.h>
+.br
+int _getpid_r(
+.IR ptr )
+.br
+struct _reent *
+.IR ptr ;
+.br
+.SH DESCRIPTION
+This is a reentrant version of 
+.BR getpid .
+It
+takes a pointer to the global data block, which holds
+.BR errno .
+
+We never need 
+.BR errno ,
+of course, but for consistency we
+still must have the reentrant pointer argument.
+.SH SOURCE
+src/newlib/libreent/signalr.c

@@ -1,0 +1,357 @@
+.TH realloc 3 "" "" ""
+.SH SYNOPSIS
+malloc, realloc, free \- manage memory
+.SH ANSI_SYNOPSIS
+#include <stdlib.h>
+.br
+void *malloc(size_t 
+.IR nbytes );
+.br
+void *realloc(void *
+.IR aptr ,
+size_t 
+.IR nbytes );
+.br
+void free(void *
+.IR aptr );
+.br
+
+void *memalign(size_t 
+.IR align ,
+size_t 
+.IR nbytes );
+.br
+
+size_t malloc_usable_size(void *
+.IR aptr );
+.br
+
+void *_malloc_r(void *
+.IR reent ,
+size_t 
+.IR nbytes );
+.br
+void *_realloc_r(void *
+.IR reent ,
+.br
+void *
+.IR aptr ,
+size_t 
+.IR nbytes );
+.br
+void _free_r(void *
+.IR reent ,
+void *
+.IR aptr );
+.br
+
+void *_memalign_r(void *
+.IR reent ,
+.br
+size_t 
+.IR align ,
+size_t 
+.IR nbytes );
+.br
+
+size_t _malloc_usable_size_r(void *
+.IR reent ,
+void *
+.IR aptr );
+.br
+.SH TRAD_SYNOPSIS
+#include <stdlib.h>
+.br
+char *malloc(
+.IR nbytes )
+.br
+size_t 
+.IR nbytes ;
+.br
+
+char *realloc(
+.IR aptr ,
+.IR nbytes )
+.br
+char *
+.IR aptr ;
+.br
+size_t 
+.IR nbytes ;
+.br
+
+void free(
+.IR aptr )
+.br
+char *
+.IR aptr ;
+.br
+
+char *memalign(
+.IR align ,
+.IR nbytes )
+.br
+size_t 
+.IR align ;
+.br
+size_t 
+.IR nbytes ;
+.br
+
+size_t malloc_usable_size(
+.IR aptr )
+.br
+char *
+.IR aptr ;
+.br
+
+char *_malloc_r(
+.IR reent ,<[nbytes]>)
+.br
+char *
+.IR reent ;
+.br
+size_t 
+.IR nbytes ;
+.br
+
+char *_realloc_r(
+.IR reent ,
+.IR aptr ,
+.IR nbytes )
+.br
+char *
+.IR reent ;
+.br
+char *
+.IR aptr ;
+.br
+size_t 
+.IR nbytes ;
+.br
+
+void _free_r(
+.IR reent ,
+.IR aptr )
+.br
+char *
+.IR reent ;
+.br
+char *
+.IR aptr ;
+.br
+
+char *_memalign_r(
+.IR reent ,
+.IR align ,
+.IR nbytes )
+.br
+char *
+.IR reent ;
+.br
+size_t 
+.IR align ;
+.br
+size_t 
+.IR nbytes ;
+.br
+
+size_t malloc_usable_size(
+.IR reent ,
+.IR aptr )
+.br
+char *
+.IR reent ;
+.br
+char *
+.IR aptr ;
+.br
+.SH DESCRIPTION
+These functions manage a pool of system memory.
+
+Use 
+.BR malloc 
+to request allocation of an object with at least
+.IR nbytes 
+bytes of storage available. If the space is available,
+.BR malloc 
+returns a pointer to a newly allocated block as its result.
+
+If you already have a block of storage allocated by 
+.BR malloc ,
+but
+you no longer need all the space allocated to it, you can make it
+smaller by calling 
+.BR realloc 
+with both the object pointer and the
+new desired size as arguments. 
+.BR realloc 
+guarantees that the
+contents of the smaller object match the beginning of the original object.
+
+Similarly, if you need more space for an object, use 
+.BR realloc 
+to
+request the larger size; again, 
+.BR realloc 
+guarantees that the
+beginning of the new, larger object matches the contents of the
+original object.
+
+When you no longer need an object originally allocated by 
+.BR malloc 
+or 
+.BR realloc 
+(or the related function 
+.BR calloc ),
+return it to the
+memory storage pool by calling 
+.BR free 
+with the address of the object
+as the argument. You can also use 
+.BR realloc 
+for this purpose by
+calling it with 
+.BR 0 
+as the 
+.IR nbytes 
+argument.
+
+The 
+.BR memalign 
+function returns a block of size 
+.IR nbytes 
+aligned
+to a 
+.IR align 
+boundary. The 
+.IR align 
+argument must be a power of
+two.
+
+The 
+.BR malloc_usable_size 
+function takes a pointer to a block
+allocated by 
+.BR malloc .
+It returns the amount of space that is
+available in the block. This may or may not be more than the size
+requested from 
+.BR malloc ,
+due to alignment or minimum size
+constraints.
+
+The alternate functions 
+.BR _malloc_r ,
+.BR _realloc_r ,
+.BR _free_r ,
+.BR _memalign_r ,
+and 
+.BR _malloc_usable_size_r 
+are reentrant versions.
+The extra argument 
+.IR reent 
+is a pointer to a reentrancy structure.
+
+If you have multiple threads of execution which may call any of these
+routines, or if any of these routines may be called reentrantly, then
+you must provide implementations of the 
+.BR __malloc_lock 
+and
+.BR __malloc_unlock 
+functions for your system. See the documentation
+for those functions.
+
+These functions operate by calling the function 
+.BR _sbrk_r 
+or
+.BR sbrk ,
+which allocates space. You may need to provide one of these
+functions for your system. 
+.BR _sbrk_r 
+is called with a positive
+value to allocate more space, and with a negative value to release
+previously allocated space if it is no longer required.
+@xref{Stubs}.
+.SH RETURNS
+.BR malloc 
+returns a pointer to the newly allocated space, if
+successful; otherwise it returns 
+.BR NULL .
+If your application needs
+to generate empty objects, you may use 
+.BR malloc(0) 
+for this purpose.
+
+.BR realloc 
+returns a pointer to the new block of memory, or 
+.BR NULL 
+if a new block could not be allocated. 
+.BR NULL 
+is also the result
+when you use `
+.BR realloc(<[aptr ,0)>>'
+(which has the same effect as
+`
+.BR free(<[aptr )>>').
+You should always check the result of
+.BR realloc ;
+successful reallocation is not guaranteed even when
+you request a smaller object.
+
+.BR free 
+does not return a result.
+
+.BR memalign 
+returns a pointer to the newly allocated space.
+
+.BR malloc_usable_size 
+returns the usable size.
+.SH PORTABILITY
+.BR malloc ,
+.BR realloc ,
+and 
+.BR free 
+are specified by the ANSI C
+standard, but other conforming implementations of 
+.BR malloc 
+may
+behave differently when 
+.IR nbytes 
+is zero.
+
+.BR memalign 
+is part of SVR4.
+
+.BR malloc_usable_size 
+is not portable.
+
+Supporting OS subroutines required: 
+.BR sbrk .
+*/
+
+#include <_ansi.h>
+#include <reent.h>
+#include <stdlib.h>
+#include <malloc.h>
+
+#ifndef _REENT_ONLY
+.SH _PTR
+_DEFUN (malloc, (nbytes),
+size_t nbytes) /* get a block */
+{
+return _malloc_r (_REENT, nbytes);
+}
+
+void
+_DEFUN (free, (aptr),
+_PTR aptr)
+{
+_free_r (_REENT, aptr);
+}
+
+#endif
+
+#endif /* ! defined (MALLOC_PROVIDED) */
+.SH SOURCE
+src/newlib/libc/stdlib/malloc.c

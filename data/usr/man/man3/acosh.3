@@ -1,0 +1,83 @@
+.TH acosh 3 "" "" ""
+.SH SYNOPSIS
+acosh, acoshf \- inverse hyperbolic cosine
+.SH ANSI_SYNOPSIS
+#include <math.h>
+.br
+double acosh(double 
+.IR x );
+.br
+float acoshf(float 
+.IR x );
+.br
+.SH TRAD_SYNOPSIS
+#include <math.h>
+.br
+double acosh(
+.IR x )
+.br
+double 
+.IR x ;
+.br
+
+float acoshf(
+.IR x )
+.br
+float 
+.IR x ;
+.br
+.SH DESCRIPTION
+.BR acosh 
+calculates the inverse hyperbolic cosine of 
+.IR x .
+.BR acosh 
+is defined as
+@ifinfo
+. log(
+.IR x 
++ sqrt(
+.IR x *<[x]>-1))
+@end ifinfo
+@tex
+$$ln\Bigl(x + \sqrt{x^2-1}\Bigr)$$
+@end tex
+
+.IR x 
+must be a number greater than or equal to 1.
+
+.BR acoshf 
+is identical, other than taking and returning floats.
+.SH RETURNS
+.BR acosh 
+and 
+.BR acoshf 
+return the calculated value. If 
+.IR x 
+less than 1, the return value is NaN and 
+.BR errno 
+is set to 
+.BR EDOM .
+
+You can change the error-handling behavior with the non-ANSI
+.BR matherr 
+function.
+.SH PORTABILITY
+Neither 
+.BR acosh 
+nor 
+.BR acoshf 
+are ANSI C. They are not recommended
+for portable programs.
+.SH QUICKREF ANSI SVID POSIX RENTRANT
+acos n,n,n,m
+acosf n,n,n,m
+.SH MATHREF
+acosh, NAN, arg,DOMAIN,EDOM
+acosh, < 1.0, NAN,DOMAIN,EDOM
+acosh, >=1.0, acosh(arg),,,
+.SH MATHREF
+acoshf, NAN, arg,DOMAIN,EDOM
+acoshf, < 1.0, NAN,DOMAIN,EDOM
+acoshf, >=1.0, acosh(arg),,,
+.SH SOURCE
+src/newlib/libm/mathfp/e_acosh.c

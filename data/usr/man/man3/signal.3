@@ -1,0 +1,157 @@
+.TH signal 3 "" "" ""
+.SH SYNOPSIS
+signal \- specify handler subroutine for a signal
+.SH ANSI_SYNOPSIS
+#include <signal.h>
+.br
+void ( * signal(int 
+.IR sig ,
+void(*
+.IR func )(int))
+)(int);
+.br
+
+void ( * _signal_r(void *
+.IR reent ,
+.br
+int 
+.IR sig ,
+void(*
+.IR func )(int))
+)(int);
+.br
+
+int raise (int 
+.IR sig );
+.br
+
+int _raise_r (void *
+.IR reent ,
+int 
+.IR sig );
+.br
+.SH TRAD_SYNOPSIS
+#include <signal.h>
+.br
+char ( * signal(
+.IR sig ,
+.IR func )
+)()
+.br
+int 
+.IR sig ;
+.br
+char ( * 
+.IR func 
+)();
+.br
+
+char ( * _signal_r(
+.IR reent ,
+.IR sig ,
+.IR func )
+)()
+.br
+char *
+.IR reent ;
+.br
+int 
+.IR sig ;
+.br
+char ( * 
+.IR func 
+)();
+.br
+
+int raise (
+.IR sig )()
+.br
+int 
+.IR sig ;
+.br
+
+int _raise_r (
+.IR reent ,
+.IR sig )()
+.br
+char *
+.IR reent ;
+.br
+int 
+.IR sig ;
+.br
+.SH DESCRIPTION
+.BR signal, raise 
+provide a simple signal/raise implementation for embedded
+targets.
+
+.BR signal 
+allows you to request changed treatment for a particular
+signal 
+.IR sig .
+You can use one of the predefined macros 
+.BR SIG_DFL 
+(select system default handling) or 
+.BR SIG_IGN 
+(ignore this signal)
+as the value of 
+.IR func ;
+otherwise, 
+.IR func 
+is a function pointer
+that identifies a subroutine in your program as the handler for this signal.
+
+Some of the execution environment for signal handlers is
+unpredictable; notably, the only library function required to work
+correctly from within a signal handler is @code{signal} itself, and
+only when used to redefine the handler for the current signal value.
+
+Static storage is likewise unreliable for signal handlers, with one
+exception: if you declare a static storage location as `<<volatile
+sig_atomic_t>>', then you may use that location in a signal handler to
+store signal values.
+
+If your signal handler terminates using 
+.BR return 
+(or implicit
+return), your program's execution continues at the point
+where it was when the signal was raised (whether by your program
+itself, or by an external event). Signal handlers can also
+use functions such as 
+.BR exit 
+and 
+.BR abort 
+to avoid returning.
+
+.BR raise 
+sends the signal sig to the executing program. It returns zero if
+successful, non-zero if unsuccessful.
+
+The alternate functions 
+.BR _signal_r, _raise_r 
+are the reentrant versions.
+The extra argument 
+.IR reent 
+is a pointer to a reentrancy structure.
+
+@c FIXME: do we have setjmp.h and assoc fns?
+.SH RETURNS
+If your request for a signal handler cannot be honored, the result is
+.BR SIG_ERR ;
+a specific error number is also recorded in 
+.BR errno .
+
+Otherwise, the result is the previous handler (a function pointer or
+one of the predefined macros).
+.SH PORTABILITY
+ANSI C requires 
+.BR raise ,
+.BR signal .
+
+No supporting OS subroutines are required to link with 
+.BR signal ,
+but
+it will not have any useful effects, except for software generated signals,
+without an operating system that can actually raise exceptions.
+.SH SOURCE
+src/newlib/libc/signal/signal.c

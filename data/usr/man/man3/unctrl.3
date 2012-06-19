@@ -1,0 +1,48 @@
+.TH unctrl 3 "" "" ""
+.SH SYNOPSIS
+unctrl \- translate characters to upper case
+.SH ANSI_SYNOPSIS
+#include <unctrl.h>
+.br
+char *unctrl(int 
+.IR c );
+.br
+int unctrllen(int 
+.IR c );
+.br
+.SH TRAD_SYNOPSIS
+#include <unctrl.h>
+.br
+char *unctrl(
+.IR c );
+.br
+int unctrllen(
+.IR c );
+.br
+.SH DESCRIPTION
+.BR unctrl 
+is a macro which returns the printable representation of 
+.IR c 
+as a string.
+.BR unctrllen 
+is a macro which returns the length of the printable
+representation of 
+.IR c .
+.SH RETURNS
+.BR unctrl 
+returns a string of the printable representation of 
+.IR c .
+
+.BR unctrllen 
+returns the length of the string which is the printable
+representation of 
+.IR c .
+.SH PORTABILITY
+.BR unctrl 
+and 
+.BR unctrllen 
+are not ANSI C.
+
+No supporting OS subroutines are required.
+.SH SOURCE
+src/newlib/libc/misc/unctrl.c

@@ -1,0 +1,105 @@
+.TH fseek 3 "" "" ""
+.SH SYNOPSIS
+fseek \- set file position
+.SH ANSI_SYNOPSIS
+#include <stdio.h>
+.br
+int fseek(FILE *
+.IR fp ,
+long 
+.IR offset ,
+int 
+.IR whence )
+.br
+.SH TRAD_SYNOPSIS
+#include <stdio.h>
+.br
+int fseek(
+.IR fp ,
+.IR offset ,
+.IR whence )
+.br
+FILE *
+.IR fp ;
+.br
+long 
+.IR offset ;
+.br
+int 
+.IR whence ;
+.br
+.SH DESCRIPTION
+Objects of type 
+.BR FILE 
+can have a ``position'' that records how much
+of the file your program has already read. Many of the 
+.BR stdio 
+functions
+depend on this position, and many change it as a side effect.
+
+You can use 
+.BR fseek 
+to set the position for the file identified by
+.IR fp .
+The value of 
+.IR offset 
+determines the new position, in one
+of three ways selected by the value of 
+.IR whence 
+(defined as macros
+in `
+.BR stdio.h '):
+
+.BR SEEK_SET ---<[offset]>
+is the absolute file position (an offset
+from the beginning of the file) desired. 
+.IR offset 
+must be positive.
+
+.BR SEEK_CUR ---<[offset]>
+is relative to the current file position.
+.IR offset 
+can meaningfully be either positive or negative.
+
+.BR SEEK_END ---<[offset]>
+is relative to the current end of file.
+.IR offset 
+can meaningfully be either positive (to increase the size
+of the file) or negative.
+
+See 
+.BR ftell 
+to determine the current file position.
+.SH RETURNS
+.BR fseek 
+returns 
+.BR 0 
+when successful. If 
+.BR fseek 
+fails, the
+result is 
+.BR EOF .
+The reason for failure is indicated in 
+.BR errno :
+either 
+.BR ESPIPE 
+(the stream identified by 
+.IR fp 
+doesn't support
+repositioning) or 
+.BR EINVAL 
+(invalid file position).
+.SH PORTABILITY
+ANSI C requires 
+.BR fseek .
+
+Supporting OS subroutines required: 
+.BR close ,
+.BR fstat ,
+.BR isatty ,
+.BR lseek ,
+.BR read ,
+.BR sbrk ,
+.BR write .
+.SH SOURCE
+src/newlib/libc/stdio/fseek.c

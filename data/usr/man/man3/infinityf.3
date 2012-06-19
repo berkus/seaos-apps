@@ -1,0 +1,28 @@
+.TH infinityf 3 "" "" ""
+.SH SYNOPSIS
+infinity, infinityf \- representation of infinity
+.SH ANSI_SYNOPSIS
+#include <math.h>
+.br
+double infinity(void);
+.br
+float infinityf(void);
+.br
+.SH TRAD_SYNOPSIS
+#include <math.h>
+.br
+double infinity();
+.br
+float infinityf();
+.br
+.SH DESCRIPTION
+.BR infinity 
+and 
+.BR infinityf 
+return the special number IEEE
+infinity in double and single precision arithmetic
+respectivly.
+.SH QUICKREF
+infinity - pure
+.SH SOURCE
+src/newlib/libm/common/s_infinity.c

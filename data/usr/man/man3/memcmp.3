@@ -1,0 +1,55 @@
+.TH memcmp 3 "" "" ""
+.SH SYNOPSIS
+memcmp \- compare two memory areas
+.SH ANSI_SYNOPSIS
+#include <string.h>
+.br
+int memcmp(const void *
+.IR s1 ,
+const void *
+.IR s2 ,
+size_t 
+.IR n );
+.br
+.SH TRAD_SYNOPSIS
+#include <string.h>
+.br
+int memcmp(
+.IR s1 ,
+.IR s2 ,
+.IR n )
+.br
+void *
+.IR s1 ;
+.br
+void *
+.IR s2 ;
+.br
+size_t 
+.IR n ;
+.br
+.SH DESCRIPTION
+This function compares not more than 
+.IR n 
+characters of the
+object pointed to by 
+.IR s1 
+with the object pointed to by 
+.IR s2 .
+.SH RETURNS
+The function returns an integer greater than, equal to or
+less than zero according to whether the object pointed to by
+.IR s1 
+is greater than, equal to or less than the object
+pointed to by 
+.IR s2 .
+.SH PORTABILITY
+.BR memcmp 
+is ANSI C.
+
+.BR memcmp 
+requires no supporting OS subroutines.
+.SH QUICKREF
+memcmp ansi pure
+.SH SOURCE
+src/newlib/libc/string/memcmp.c

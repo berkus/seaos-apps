@@ -1,0 +1,71 @@
+.TH fiprintf 3 "" "" ""
+.SH SYNOPSIS
+fiprintf \- format output to file (integer only)
+.SH ANSI_SYNOPSIS
+#include <stdio.h>
+.br
+
+int fiprintf(FILE *
+.IR fd ,
+const char *
+.IR format ,
+...);
+.br
+.SH TRAD_SYNOPSIS
+#include <stdio.h>
+.br
+
+int fiprintf(
+.IR fd ,
+.IR format 
+[, 
+.IR arg ,
+...]);
+.br
+FILE *
+.IR fd ;
+.br
+char *
+.IR format ;
+.br
+.SH DESCRIPTION
+.BR fiprintf 
+is a restricted version of 
+.BR fprintf :
+it has the same
+arguments and behavior, save that it cannot perform any floating-point
+formatting---the 
+.BR f ,
+.BR g ,
+.BR G ,
+.BR e ,
+and 
+.BR F 
+type specifiers
+are not recognized.
+.SH RETURNS
+.BR fiprintf 
+returns the number of bytes in the output string,
+save that the concluding 
+.BR NULL 
+is not counted.
+.BR fiprintf 
+returns when the end of the format string is
+encountered. If an error occurs, 
+.BR fiprintf 
+returns 
+.BR EOF .
+.SH PORTABILITY
+.BR fiprintf 
+is not required by ANSI C.
+
+Supporting OS subroutines required: 
+.BR close ,
+.BR fstat ,
+.BR isatty ,
+.BR lseek ,
+.BR read ,
+.BR sbrk ,
+.BR write .
+.SH SOURCE
+src/newlib/libc/stdio/fiprintf.c

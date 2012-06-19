@@ -1,0 +1,117 @@
+.TH ilogbf 3 "" "" ""
+.SH SYNOPSIS
+ilogb, ilogbf \- get exponent of floating point number
+.SH ANSI_SYNOPSIS
+#include <math.h>
+.br
+int ilogb(double 
+.IR val );
+.br
+int ilogbf(float 
+.IR val );
+.br
+.SH TRAD_SYNOPSIS
+#include <math.h>
+.br
+int ilogb(
+.IR val )
+.br
+double 
+.IR val ;
+.br
+
+int ilogbf(
+.IR val )
+.br
+float 
+.IR val ;
+.br
+.SH DESCRIPTION
+All non zero, normal numbers can be described as 
+.IR m 
+*
+2**
+.IR p .
+.BR ilogb 
+and 
+.BR ilogbf 
+examine the argument
+.IR val ,
+and return 
+.IR p .
+The functions 
+.BR frexp 
+and
+.BR frexpf 
+are similar to 
+.BR ilogb 
+and 
+.BR ilogbf ,
+but also
+return 
+.IR m .
+.SH RETURNS
+.BR ilogb 
+and 
+.BR ilogbf 
+return the power of two used to form the
+floating point argument. If 
+.IR val 
+is 
+.BR 0 ,
+they return <<-
+INT_MAX>> (
+.BR INT_MAX 
+is defined in limits.h). If 
+.IR val 
+is
+infinite, or NaN, they return 
+.BR INT_MAX .
+.SH PORTABILITY
+Neither 
+.BR ilogb 
+nor 
+.BR ilogbf 
+is required by ANSI C or by
+the System V Interface Definition (Issue 2). */
+
+/* ilogb(double x)
+* return the binary exponent of non-zero x
+* ilogb(0) = 0x80000001
+* ilogb(inf/NaN) = 0x7fffffff (no signal is raised)
+*/
+
+#include "fdlibm.h"
+#include <limits.h>
+
+#ifndef _DOUBLE_IS_32BITS
+
+#ifdef __STDC__
+int ilogb(double x)
+#else
+int ilogb(x)
+double x;
+#endif
+{
+__int32_t hx,lx,ix;
+
+EXTRACT_WORDS(hx,lx,x);
+hx &= 0x7fffffff;
+if(hx<0x00100000) {
+if((hx|lx)==0) 
+return - INT_MAX; /* ilogb(0) = 0x80000001 */
+else /* subnormal x */
+if(hx==0) {
+for (ix = -1043; lx>0; lx<<=1) ix -=1;
+} else {
+for (ix = -1022,hx<<=11; hx>0; hx<<=1) ix -=1;
+}
+return ix;
+}
+else if (hx<0x7ff00000) return (hx>>20)-1023;
+else return INT_MAX;
+}
+
+#endif /* _DOUBLE_IS_32BITS */
+.SH SOURCE
+src/newlib/libm/common/s_ilogb.c

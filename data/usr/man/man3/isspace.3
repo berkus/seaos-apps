@@ -1,0 +1,43 @@
+.TH isspace 3 "" "" ""
+.SH SYNOPSIS
+isspace \- whitespace character predicate
+.SH ANSI_SYNOPSIS
+#include <ctype.h>
+.br
+int isspace(int 
+.IR c );
+.br
+.SH TRAD_SYNOPSIS
+#include <ctype.h>
+.br
+int isspace(
+.IR c );
+.br
+.SH DESCRIPTION
+.BR isspace 
+is a macro which classifies ASCII integer values by table
+lookup. It is a predicate returning non-zero for whitespace
+characters, and 0 for other characters. It is defined only when 
+.BR isascii (<[c]>)
+is true or 
+.IR c 
+is EOF.
+
+You can use a compiled subroutine instead of the macro definition by
+undefining the macro using `
+.BR #undef isspace '.
+.SH RETURNS
+.BR isspace 
+returns non-zero if 
+.IR c 
+is a space, tab, carriage return, new
+line, vertical tab, or formfeed (
+.BR 0x09 --<<0x0D>>,
+.BR 0x20 ).
+.SH PORTABILITY
+.BR isspace 
+is ANSI C.
+
+No supporting OS subroutines are required.
+.SH SOURCE
+src/newlib/libc/ctype/isspace.c

@@ -1,0 +1,55 @@
+.TH abs 3 "" "" ""
+.SH SYNOPSIS
+abs \- integer absolute value (magnitude)
+.SH ANSI_SYNOPSIS
+#include <stdlib.h>
+.br
+int abs(int 
+.IR i );
+.br
+.SH TRAD_SYNOPSIS
+#include <stdlib.h>
+.br
+int abs(
+.IR i )
+.br
+int 
+.IR i ;
+.br
+.SH DESCRIPTION
+.BR abs 
+returns
+@tex
+$|x|$,
+@end tex
+the absolute value of 
+.IR i 
+(also called the magnitude
+of 
+.IR i ).
+That is, if 
+.IR i 
+is negative, the result is the opposite
+of 
+.IR i ,
+but if 
+.IR i 
+is nonnegative the result is 
+.IR i .
+
+The similar function 
+.BR labs 
+uses and returns 
+.BR long 
+rather than 
+.BR int 
+values.
+.SH RETURNS
+The result is a nonnegative integer.
+.SH PORTABILITY
+.BR abs 
+is ANSI.
+
+No supporting OS subroutines are required.
+.SH SOURCE
+src/newlib/libc/stdlib/abs.c

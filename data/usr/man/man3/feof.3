@@ -1,0 +1,36 @@
+.TH feof 3 "" "" ""
+.SH SYNOPSIS
+feof \- test for end of file
+.SH ANSI_SYNOPSIS
+#include <stdio.h>
+.br
+int feof(FILE *
+.IR fp );
+.br
+.SH TRAD_SYNOPSIS
+#include <stdio.h>
+.br
+int feof(
+.IR fp )
+.br
+FILE *
+.IR fp ;
+.br
+.SH DESCRIPTION
+.BR feof 
+tests whether or not the end of the file identified by 
+.IR fp 
+has been reached.
+.SH RETURNS
+.BR feof 
+returns 
+.BR 0 
+if the end of file has not yet been reached; if
+at end of file, the result is nonzero.
+.SH PORTABILITY
+.BR feof 
+is required by ANSI C.
+
+No supporting OS subroutines are required.
+.SH SOURCE
+src/newlib/libc/stdio/feof.c

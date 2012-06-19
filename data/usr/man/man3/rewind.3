@@ -1,0 +1,35 @@
+.TH rewind 3 "" "" ""
+.SH SYNOPSIS
+rewind \- reinitialize a file or stream
+.SH ANSI_SYNOPSIS
+#include <stdio.h>
+.br
+void rewind(FILE *
+.IR fp );
+.br
+.SH TRAD_SYNOPSIS
+#include <stdio.h>
+.br
+void rewind(
+.IR fp )
+.br
+FILE *
+.IR fp ;
+.br
+.SH DESCRIPTION
+.BR rewind 
+returns the file position indicator (if any) for the file
+or stream identified by 
+.IR fp 
+to the beginning of the file. It also
+clears any error indicator and flushes any pending output.
+.SH RETURNS
+.BR rewind 
+does not return a result.
+.SH PORTABILITY
+ANSI C requires 
+.BR rewind .
+
+No supporting OS subroutines are required.
+.SH SOURCE
+src/newlib/libc/stdio/rewind.c

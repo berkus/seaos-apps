@@ -1,0 +1,100 @@
+.TH atan2 3 "" "" ""
+.SH SYNOPSIS
+atan, atanf, atan2, atan2f, atangent, atangentf \- arc tangent
+.SH ANSI_SYNOPSIS
+#include <math.h>
+.br
+double atan(double 
+.IR x );
+.br
+float atan(float 
+.IR x );
+.br
+double atan2(double 
+.IR y ,double
+.IR x );
+.br
+float atan2f(float 
+.IR y ,float
+.IR x );
+.br
+.SH TRAD_SYNOPSIS
+#include <math.h>
+.br
+double atan2(
+.IR y ,<[x]>);
+.br
+double 
+.IR y ;
+.br
+double 
+.IR x ;
+.br
+
+float atan2f(
+.IR y ,<[x]>);
+.br
+float 
+.IR y ;
+.br
+float 
+.IR x ;
+.br
+
+#include <math.h>
+.br
+double atan(
+.IR x );
+.br
+double 
+.IR x ;
+.br
+
+float atanf(
+.IR x );
+.br
+float 
+.IR x ;
+.br
+.SH DESCRIPTION
+.BR atan2 
+computes the inverse tangent (arc tangent) of y / x.
+
+.BR atan2f 
+is identical to 
+.BR atan2 ,
+save that it operates on 
+.BR floats .
+
+.BR atan 
+computes the inverse tangent (arc tangent) of the input value.
+
+.BR atanf 
+is identical to 
+.BR atan ,
+save that it operates on 
+.BR floats .
+.SH RETURNS
+@ifinfo
+.BR atan 
+returns a value in radians, in the range of -pi/2 to pi/2.
+.BR atan2 
+returns a value in radians, in the range of -pi/2 to pi/2.
+@end ifinfo
+@tex
+.BR atan 
+returns a value in radians, in the range of $-\pi/2$ to $\pi/2$.
+.BR atan2 
+returns a value in radians, in the range of $-\pi/2$ to $\pi/2$.
+@end tex
+.SH PORTABILITY
+.BR atan 
+is ANSI C. 
+.BR atanf 
+is an extension.
+.BR atan2 
+is ANSI C. 
+.BR atan2f 
+is an extension.
+.SH SOURCE
+src/newlib/libm/mathfp/s_atangent.c

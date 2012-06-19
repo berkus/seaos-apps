@@ -1,0 +1,81 @@
+.TH fwrite 3 "" "" ""
+.SH SYNOPSIS
+fwrite \- write array elements
+.SH ANSI_SYNOPSIS
+#include <stdio.h>
+.br
+size_t fwrite(const void *
+.IR buf ,
+size_t 
+.IR size ,
+.br
+size_t 
+.IR count ,
+FILE *
+.IR fp );
+.br
+.SH TRAD_SYNOPSIS
+#include <stdio.h>
+.br
+size_t fwrite(
+.IR buf ,
+.IR size ,
+.IR count ,
+.IR fp )
+.br
+char *
+.IR buf ;
+.br
+size_t 
+.IR size ;
+.br
+size_t 
+.IR count ;
+.br
+FILE *
+.IR fp ;
+.br
+.SH DESCRIPTION
+.BR fwrite 
+attempts to copy, starting from the memory location
+.IR buf ,
+.IR count 
+elements (each of size 
+.IR size )
+into the file or
+stream identified by 
+.IR fp .
+.BR fwrite 
+may copy fewer elements than
+.IR count 
+if an error intervenes.
+
+.BR fwrite 
+also advances the file position indicator (if any) for
+.IR fp 
+by the number of @emph{characters} actually written.
+.SH RETURNS
+If 
+.BR fwrite 
+succeeds in writing all the elements you specify, the
+result is the same as the argument 
+.IR count .
+In any event, the
+result is the number of complete elements that 
+.BR fwrite 
+copied to
+the file.
+.SH PORTABILITY
+ANSI C requires 
+.BR fwrite .
+
+Supporting OS subroutines required: 
+.BR close ,
+.BR fstat ,
+.BR isatty ,
+.BR lseek ,
+.BR read ,
+.BR sbrk ,
+.BR write .
+.SH SOURCE
+src/newlib/libc/stdio/fwrite.c

@@ -1,0 +1,41 @@
+.TH strlen 3 "" "" ""
+.SH SYNOPSIS
+strlen \- character string length
+.SH ANSI_SYNOPSIS
+#include <string.h>
+.br
+size_t strlen(const char *
+.IR str );
+.br
+.SH TRAD_SYNOPSIS
+#include <string.h>
+.br
+size_t strlen(
+.IR str )
+.br
+char *
+.IR src ;
+.br
+.SH DESCRIPTION
+The 
+.BR strlen 
+function works out the length of the string
+starting at 
+.BR *<[str >>
+by counting chararacters until it
+reaches a 
+.BR NULL 
+character.
+.SH RETURNS
+.BR strlen 
+returns the character count.
+.SH PORTABILITY
+.BR strlen 
+is ANSI C.
+
+.BR strlen 
+requires no supporting OS subroutines.
+.SH QUICKREF
+strlen ansi pure
+.SH SOURCE
+src/newlib/libc/string/strlen.c

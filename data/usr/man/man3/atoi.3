@@ -1,0 +1,54 @@
+.TH atoi 3 "" "" ""
+.SH SYNOPSIS
+atoi, atol \- string to integer
+.SH ANSI_SYNOPSIS
+#include <stdlib.h>
+.br
+int atoi(const char *
+.IR s );
+.br
+long atol(const char *
+.IR s );
+.br
+.SH TRAD_SYNOPSIS
+#include <stdlib.h>
+.br
+int atoi(
+.IR s )
+.br
+char *
+.IR s ;
+.br
+
+long atol(
+.IR s )
+.br
+char *
+.IR s ;
+.br
+.SH DESCRIPTION
+.BR atoi 
+converts the initial portion of a string to an 
+.BR int .
+.BR atol 
+converts the initial portion of a string to a 
+.BR long .
+
+.BR atoi(s) 
+is implemented as 
+.BR (int)strtol(s, NULL, 10). 
+.BR atol(s) 
+is implemented as 
+.BR strtol(s, NULL, 10). 
+.SH RETURNS
+The functions return the converted value, if any. If no conversion was
+made, 
+.BR 0 
+is returned.
+.SH PORTABILITY
+.BR atoi 
+is ANSI.
+
+No supporting OS subroutines are required.
+.SH SOURCE
+src/newlib/libc/stdlib/atoi.c

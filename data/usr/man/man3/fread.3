@@ -1,0 +1,75 @@
+.TH fread 3 "" "" ""
+.SH SYNOPSIS
+fread \- read array elements from a file
+.SH ANSI_SYNOPSIS
+#include <stdio.h>
+.br
+size_t fread(void *
+.IR buf ,
+size_t 
+.IR size ,
+size_t 
+.IR count ,
+.br
+FILE *
+.IR fp );
+.br
+.SH TRAD_SYNOPSIS
+#include <stdio.h>
+.br
+size_t fread(
+.IR buf ,
+.IR size ,
+.IR count ,
+.IR fp )
+.br
+char *
+.IR buf ;
+.br
+size_t 
+.IR size ;
+.br
+size_t 
+.IR count ;
+.br
+FILE *
+.IR fp ;
+.br
+.SH DESCRIPTION
+.BR fread 
+attempts to copy, from the file or stream identified by
+.IR fp ,
+.IR count 
+elements (each of size 
+.IR size )
+into memory,
+starting at 
+.IR buf .
+.BR fread 
+may copy fewer elements than
+.IR count 
+if an error, or end of file, intervenes.
+
+.BR fread 
+also advances the file position indicator (if any) for
+.IR fp 
+by the number of @emph{characters} actually read.
+.SH RETURNS
+The result of 
+.BR fread 
+is the number of elements it succeeded in
+reading.
+.SH PORTABILITY
+ANSI C requires 
+.BR fread .
+
+Supporting OS subroutines required: 
+.BR close ,
+.BR fstat ,
+.BR isatty ,
+.BR lseek ,
+.BR read ,
+.BR sbrk ,
+.BR write .
+.SH SOURCE
+src/newlib/libc/stdio/fread.c

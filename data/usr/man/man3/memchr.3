@@ -1,0 +1,68 @@
+.TH memchr 3 "" "" ""
+.SH SYNOPSIS
+memchr \- find character in memory
+.SH ANSI_SYNOPSIS
+#include <string.h>
+.br
+void *memchr(const void *
+.IR src ,
+int 
+.IR c ,
+size_t 
+.IR length );
+.br
+.SH TRAD_SYNOPSIS
+#include <string.h>
+.br
+void *memchr(
+.IR src ,
+.IR c ,
+.IR length )
+.br
+void *
+.IR src ;
+.br
+void *
+.IR c ;
+.br
+size_t 
+.IR length ;
+.br
+.SH DESCRIPTION
+This function searches memory starting at 
+.BR *<[src >>
+for the
+character 
+.IR c .
+The search only ends with the first
+occurrence of 
+.IR c ,
+or after 
+.IR length 
+characters; in
+particular, 
+.BR NULL 
+does not terminate the search.
+.SH RETURNS
+If the character 
+.IR c 
+is found within 
+.IR length 
+characters
+of 
+.BR *<[src >>,
+a pointer to the character is returned. If
+.IR c 
+is not found, then 
+.BR NULL 
+is returned.
+.SH PORTABILITY
+.BR memchr >
+is ANSI C.
+
+.BR memchr 
+requires no supporting OS subroutines.
+.SH QUICKREF
+memchr ansi pure
+.SH SOURCE
+src/newlib/libc/string/memchr.c

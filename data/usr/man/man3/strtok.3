@@ -1,0 +1,104 @@
+.TH strtok 3 "" "" ""
+.SH SYNOPSIS
+strtok \- get next token from a string
+.SH ANSI_SYNOPSIS
+#include <string.h>
+.br
+char *strtok(char *
+.IR source ,
+const char *
+.IR delimiters )
+.br
+char *strtok_r(char *
+.IR source ,
+const char *
+.IR delimiters ,
+.br
+char **
+.IR lasts )
+.br
+.SH TRAD_SYNOPSIS
+#include <string.h>
+.br
+char *strtok(
+.IR source ,
+.IR delimiters )
+.br
+char *
+.IR source ;
+.br
+char *
+.IR delimiters ;
+.br
+
+char *strtok_r(
+.IR source ,
+.IR delimiters ,
+.IR lasts )
+.br
+char *
+.IR source ;
+.br
+char *
+.IR delimiters ;
+.br
+char **
+.IR lasts ;
+.br
+.SH DESCRIPTION
+The 
+.BR strtok 
+function is used to isolate sequential tokens in a 
+null-terminated string, 
+.BR *<[source >>.
+These tokens are delimited 
+in the string by at least one of the characters in 
+.BR *<[delimiters >>.
+The first time that 
+.BR strtok 
+is called, 
+.BR *<[source >>
+should be
+specified; subsequent calls, wishing to obtain further tokens from
+the same string, should pass a null pointer instead. The separator
+string, 
+.BR *<[delimiters >>,
+must be supplied each time, and may 
+change between calls.
+
+The 
+.BR strtok 
+function returns a pointer to the beginning of each 
+subsequent token in the string, after replacing the separator 
+character itself with a NUL character. When no more tokens remain, 
+a null pointer is returned.
+
+The 
+.BR strtok_r 
+function has the same behavior as 
+.BR strtok ,
+except
+a pointer to placeholder 
+.BR *[lasts >
+must be supplied by the caller.
+.SH RETURNS
+.BR strtok 
+returns a pointer to the next token, or 
+.BR NULL 
+if
+no more tokens can be found.
+.SH NOTES
+.BR strtok 
+is unsafe for multi-thread applications. 
+.BR strtok_r 
+is MT-Safe and should be used instead.
+.SH PORTABILITY
+.BR strtok 
+is ANSI C.
+
+.BR strtok 
+requires no supporting OS subroutines.
+.SH QUICKREF
+strtok ansi impure
+.SH SOURCE
+src/newlib/libc/string/strtok.c

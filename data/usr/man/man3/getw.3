@@ -1,0 +1,80 @@
+.TH getw 3 "" "" ""
+.SH SYNOPSIS
+getw \- read a word (int)
+.SH ANSI_SYNOPSIS
+#include <stdio.h>
+.br
+int getw(FILE *
+.IR fp );
+.br
+.SH TRAD_SYNOPSIS
+#include <stdio.h>
+.br
+int getw(
+.IR fp )
+.br
+FILE *
+.IR fp ;
+.br
+.SH DESCRIPTION
+.BR getw 
+is a function, defined in 
+.BR stdio.h .
+You can use 
+.BR getw 
+to get the next word from the file or stream identified by 
+.IR fp .
+As
+a side effect, 
+.BR getw 
+advances the file's current position
+indicator.
+
+RETURNS The next word (read as an 
+.BR int ),
+unless there is no more
+data, or the host system reports a read error; in either of these
+situations, 
+.BR getw 
+returns 
+.BR EOF .
+Since 
+.BR EOF 
+is a valid
+.BR int ,
+you must use 
+.BR ferror 
+or 
+.BR feof 
+to distinguish these
+situations.
+.SH PORTABILITY
+.BR getw 
+is a remnant of K&R C, it is not part of any ISO C Standard.
+.BR fread 
+should be used instead. In fact, this implementation of
+.BR getw 
+is based upon 
+.BR fread .
+
+Supporting OS subroutines required: 
+.BR fread .
+*/
+
+#if defined(LIBC_SCCS) && !defined(lint)
+static char sccsid[] = "%W% (Berkeley) %G%";
+#endif /* LIBC_SCCS and not lint */
+
+#include <stdio.h>
+
+int
+getw (fp)
+register FILE *fp;
+{
+int result;
+if (fread((char*)&result, sizeof(result), 1, fp) != 1)
+return EOF;
+return result;
+}
+.SH SOURCE
+src/newlib/libc/stdio/getw.c

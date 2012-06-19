@@ -1,0 +1,61 @@
+.TH asinhf 3 "" "" ""
+.SH SYNOPSIS
+asinh, asinhf \- inverse hyperbolic sine 
+.SH ANSI_SYNOPSIS
+#include <math.h>
+.br
+double asinh(double 
+.IR x );
+.br
+float asinhf(float 
+.IR x );
+.br
+.SH TRAD_SYNOPSIS
+#include <math.h>
+.br
+double asinh(
+.IR x )
+.br
+double 
+.IR x ;
+.br
+
+float asinhf(
+.IR x )
+.br
+float 
+.IR x ;
+.br
+.SH DESCRIPTION
+.BR asinh 
+calculates the inverse hyperbolic sine of 
+.IR x .
+.BR asinh 
+is defined as 
+@ifinfo
+. sgn(
+.IR x )
+* log(abs(
+.IR x )
++ sqrt(1+
+.IR x *<[x]>))
+@end ifinfo
+@tex
+$$sign(x) \times ln\Bigl(|x| + \sqrt{1+x^2}\Bigr)$$
+@end tex
+
+.BR asinhf 
+is identical, other than taking and returning floats.
+.SH RETURNS
+.BR asinh 
+and 
+.BR asinhf 
+return the calculated value.
+.SH PORTABILITY
+Neither 
+.BR asinh 
+nor 
+.BR asinhf 
+are ANSI C.
+.SH SOURCE
+src/newlib/libm/mathfp/s_asinh.c

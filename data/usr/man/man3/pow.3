@@ -1,0 +1,197 @@
+.TH pow 3 "" "" ""
+.SH SYNOPSIS
+pow, powf \- x to the power y
+.SH ANSI_SYNOPSIS
+#include <math.h>
+.br
+double pow(double 
+.IR x ,
+double 
+.IR y );
+.br
+float pow(float 
+.IR x ,
+float 
+.IR y );
+.br
+.SH TRAD_SYNOPSIS
+#include <math.h>
+.br
+double pow(
+.IR x ,
+.IR y );
+.br
+double 
+.IR x ,
+.IR y ;
+.br
+
+float pow(
+.IR x ,
+.IR y );
+.br
+float 
+.IR x ,
+.IR y ;
+.br
+.SH DESCRIPTION
+.BR pow 
+and 
+.BR powf 
+calculate 
+.IR x 
+raised to the exp1.0nt 
+.IR y .
+@tex
+(That is, $x^y$.)
+@end tex
+.SH RETURNS
+On success, 
+.BR pow 
+and 
+.BR powf 
+return the value calculated.
+
+When the argument values would produce overflow, 
+.BR pow 
+returns 
+.BR HUGE_VAL 
+and set 
+.BR errno 
+to 
+.BR ERANGE .
+If the
+argument 
+.IR x 
+passed to 
+.BR pow 
+or 
+.BR powf 
+is a negative
+noninteger, and 
+.IR y 
+is also not an integer, then 
+.BR errno 
+is set to 
+.BR EDOM .
+If 
+.IR x 
+and 
+.IR y 
+are both 0, then
+.BR pow 
+and 
+.BR powf 
+return 
+.BR 1 .
+
+You can modify error handling for these functions using 
+.BR matherr .
+.SH PORTABILITY
+.BR pow 
+is ANSI C. 
+.BR powf 
+is an extension. */
+
+#include <float.h>
+#include "fdlibm.h"
+#include "zmath.h"
+
+#ifndef _DOUBLE_IS_32BITS
+
+double pow (double x, double y)
+{
+double d, t, r = 1.0;
+int n, k, sign = 0;
+__uint32_t px;
+
+GET_HIGH_WORD (px, x);
+
+k = modf (y, &d);
+if (k == 0.0) 
+{
+if (modf (ldexp (y, -1), &t))
+sign = 0;
+else
+sign = 1; 
+}
+
+if (x == 0.0 && y <= 0.0) 
+errno = EDOM;
+
+else if ((t = y * log (fabs (x))) >= BIGX) 
+{
+errno = ERANGE;
+if (px & 0x80000000) 
+{
+if (!k) 
+{
+errno = EDOM;
+x = 0.0;
+}
+else if (sign)
+x = -z_infinity.d;
+else
+x = z_infinity.d;
+}
+
+else 
+x = z_infinity.d;
+}
+
+else if (t < SMALLX)
+{
+errno = ERANGE;
+x = 0.0;
+}
+
+else 
+{
+if ( k && fabs(d) <= 32767 ) 
+{
+n = (int) d;
+
+if (sign = (n < 0))
+n = -n;
+
+while ( n > 0 ) 
+{
+if ((unsigned int) n % 2) 
+r *= x;
+x *= x;
+n = (unsigned int) n / 2;
+}
+
+if (sign)
+r = 1.0 / r;
+
+return r;
+}
+
+else 
+{
+if ( px & 0x80000000 ) 
+{
+if ( !k ) 
+{
+errno = EDOM;
+return 0.0;
+}
+}
+
+x = exp (t);
+
+if ( sign ) 
+{ 
+px ^= 0x80000000;
+SET_HIGH_WORD (x, px);
+}
+}
+}
+
+return x;
+}
+
+#endif _DOUBLE_IS_32BITS
+.SH SOURCE
+src/newlib/libm/mathfp/s_pow.c

@@ -1,0 +1,125 @@
+.TH mkstemp 3 "" "" ""
+.SH SYNOPSIS
+mktemp, mkstemp \- generate unused file name
+.SH ANSI_SYNOPSIS
+#include <stdio.h>
+.br
+char *mktemp(char *
+.IR path );
+.br
+int mkstemp(char *
+.IR path );
+.br
+
+char *_mktemp_r(void *
+.IR reent ,
+char *
+.IR path );
+.br
+int *_mkstemp_r(void *
+.IR reent ,
+char *
+.IR path );
+.br
+.SH TRAD_SYNOPSIS
+#include <stdio.h>
+.br
+char *mktemp(
+.IR path )
+.br
+char *
+.IR path ;
+.br
+
+int mkstemp(
+.IR path )
+.br
+char *
+.IR path ;
+.br
+
+char *_mktemp_r(
+.IR reent ,
+.IR path )
+.br
+char *
+.IR reent ;
+.br
+char *
+.IR path ;
+.br
+
+int _mkstemp_r(
+.IR reent ,
+.IR path )
+.br
+char *
+.IR reent ;
+.br
+char *
+.IR path ;
+.br
+.SH DESCRIPTION
+.BR mktemp 
+and 
+.BR mkstemp 
+attempt to generate a file name that is not
+yet in use for any existing file. 
+.BR mkstemp 
+creates the file and 
+opens it for reading and writing; 
+.BR mktemp 
+simply generates the file name.
+
+You supply a simple pattern for the generated file name, as the string
+at 
+.IR path .
+The pattern should be a valid filename (including path
+information if you wish) ending with some number of `
+.BR X '
+characters. The generated filename will match the leading part of the
+name you supply, with the trailing `
+.BR X '
+characters replaced by some
+combination of digits and letters.
+
+The alternate functions 
+.BR _mktemp_r 
+and 
+.BR _mkstemp_r 
+are reentrant
+versions. The extra argument 
+.IR reent 
+is a pointer to a reentrancy
+structure.
+.SH RETURNS
+.BR mktemp 
+returns the pointer 
+.IR path 
+to the modified string
+representing an unused filename, unless it could not generate one, or
+the pattern you provided is not suitable for a filename; in that case,
+it returns 
+.BR NULL .
+
+.BR mkstemp 
+returns a file descriptor to the newly created file,
+unless it could not generate an unused filename, or the pattern you
+provided is not suitable for a filename; in that case, it returns
+.BR -1 .
+.SH PORTABILITY
+ANSI C does not require either 
+.BR mktemp 
+or 
+.BR mkstemp ;
+the System
+V Interface Definition requires 
+.BR mktemp 
+as of Issue 2.
+
+Supporting OS subroutines required: 
+.BR getpid ,
+.BR open ,
+.BR stat .
+.SH SOURCE
+src/newlib/libc/stdio/mktemp.c

@@ -1,0 +1,93 @@
+.TH log10f 3 "" "" ""
+.SH SYNOPSIS
+log, logf, log10, log10f, logarithm, logarithmf \- natural or base 10 logarithms
+.SH ANSI_SYNOPSIS
+#include <math.h>
+.br
+double log(double 
+.IR x );
+.br
+float logf(float 
+.IR x );
+.br
+double log10(double 
+.IR x );
+.br
+float log10f(float 
+.IR x );
+.br
+.SH TRAD_SYNOPSIS
+#include <math.h>
+.br
+double log(
+.IR x );
+.br
+double 
+.IR x ;
+.br
+
+float logf(
+.IR x );
+.br
+float 
+.IR x ;
+.br
+
+double log10(
+.IR x );
+.br
+double 
+.IR x ;
+.br
+
+float log10f(
+.IR x );
+.br
+float 
+.IR x ;
+.br
+.SH DESCRIPTION
+Return the natural or base 10 logarithm of 
+.IR x ,
+that is, its logarithm base e
+(where e is the base of the natural system of logarithms, 2.71828@dots{}) or
+base 10.
+.BR log 
+and 
+.BR logf 
+are identical save for the return and argument types.
+.BR log10 
+and 
+.BR log10f 
+are identical save for the return and argument types.
+.SH RETURNS
+Normally, returns the calculated value. When 
+.IR x 
+is zero, the
+returned value is 
+.BR -HUGE_VAL 
+and 
+.BR errno 
+is set to 
+.BR ERANGE .
+When 
+.IR x 
+is negative, the returned value is 
+.BR -HUGE_VAL 
+and
+.BR errno 
+is set to 
+.BR EDOM .
+You can control the error behavior via
+.BR matherr .
+.SH PORTABILITY
+.BR log 
+is ANSI, 
+.BR logf 
+is an extension.
+.BR log10 
+is ANSI, 
+.BR log10f 
+is an extension.
+.SH SOURCE
+src/newlib/libm/mathfp/s_logarithm.c

@@ -1,0 +1,61 @@
+.TH exit 3 "" "" ""
+.SH SYNOPSIS
+exit \- end program execution
+.SH ANSI_SYNOPSIS
+#include <stdlib.h>
+.br
+void exit(int 
+.IR code );
+.br
+.SH TRAD_SYNOPSIS
+#include <stdlib.h>
+.br
+void exit(
+.IR code )
+.br
+int 
+.IR code ;
+.br
+.SH DESCRIPTION
+Use 
+.BR exit 
+to return control from a program to the host operating
+environment. Use the argument 
+.IR code 
+to pass an exit status to the
+operating environment: two particular values, 
+.BR EXIT_SUCCESS 
+and
+.BR EXIT_FAILURE ,
+are defined in `
+.BR stdlib.h '
+to indicate success or
+failure in a portable fashion.
+
+.BR exit 
+does two kinds of cleanup before ending execution of your
+program. First, it calls all application-defined cleanup functions
+you have enrolled with 
+.BR atexit .
+Second, files and streams are
+cleaned up: any pending output is delivered to the host system, each
+open file or stream is closed, and files created by 
+.BR tmpfile 
+are
+deleted.
+.SH RETURNS
+.BR exit 
+does not return to its caller.
+.SH PORTABILITY
+ANSI C requires 
+.BR exit ,
+and specifies that 
+.BR EXIT_SUCCESS 
+and
+.BR EXIT_FAILURE 
+must be defined.
+
+Supporting OS subroutines required: 
+.BR _exit .
+.SH SOURCE
+src/newlib/libc/stdlib/exit.c

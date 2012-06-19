@@ -1,0 +1,32 @@
+.TH _wait_r 3 "" "" ""
+.SH SYNOPSIS
+_wait_r \- Reentrant version of wait
+.SH ANSI_SYNOPSIS
+#include <reent.h>
+.br
+int _wait_r(struct _reent *
+.IR ptr ,
+int *
+.IR status );
+.br
+.SH TRAD_SYNOPSIS
+#include <reent.h>
+.br
+int _wait_r(
+.IR ptr ,
+.IR status )
+.br
+struct _reent *
+.IR ptr ;
+.br
+int *
+.IR status ;
+.br
+.SH DESCRIPTION
+This is a reentrant version of 
+.BR wait .
+It
+takes a pointer to the global data block, which holds
+.BR errno .
+.SH SOURCE
+src/newlib/libreenexecr.c

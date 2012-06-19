@@ -1,0 +1,270 @@
+.TH vsprintf 3 "" "" ""
+.SH SYNOPSIS
+vprintf, vfprintf, vsprintf \- format argument list
+.SH ANSI_SYNOPSIS
+#include <stdio.h>
+.br
+#include <stdarg.h>
+.br
+int vprintf(const char *
+.IR fmt ,
+va_list 
+.IR list );
+.br
+int vfprintf(FILE *
+.IR fp ,
+const char *
+.IR fmt ,
+va_list 
+.IR list );
+.br
+int vsprintf(char *
+.IR str ,
+const char *
+.IR fmt ,
+va_list 
+.IR list );
+.br
+int vsnprintf(char *
+.IR str ,
+size_t 
+.IR size ,
+const char *
+.IR fmt ,
+va_list 
+.IR list );
+.br
+
+int _vprintf_r(void *
+.IR reent ,
+const char *
+.IR fmt ,
+.br
+va_list 
+.IR list );
+.br
+int _vfprintf_r(void *
+.IR reent ,
+FILE *
+.IR fp ,
+const char *
+.IR fmt ,
+.br
+va_list 
+.IR list );
+.br
+int _vsprintf_r(void *
+.IR reent ,
+char *
+.IR str ,
+const char *
+.IR fmt ,
+.br
+va_list 
+.IR list );
+.br
+int _vsnprintf_r(void *
+.IR reent ,
+char *
+.IR str ,
+size_t 
+.IR size ,
+const char *
+.IR fmt ,
+.br
+va_list 
+.IR list );
+.br
+.SH TRAD_SYNOPSIS
+#include <stdio.h>
+.br
+#include <varargs.h>
+.br
+int vprintf( 
+.IR fmt ,
+.IR list )
+.br
+char *
+.IR fmt ;
+.br
+va_list 
+.IR list ;
+.br
+
+int vfprintf(
+.IR fp ,
+.IR fmt ,
+.IR list )
+.br
+FILE *
+.IR fp ;
+.br
+char *
+.IR fmt ;
+.br
+va_list 
+.IR list ;
+.br
+
+int vsprintf(
+.IR str ,
+.IR fmt ,
+.IR list )
+.br
+char *
+.IR str ;
+.br
+char *
+.IR fmt ;
+.br
+va_list 
+.IR list ;
+.br
+
+int vsnprintf(
+.IR str ,
+.IR size ,
+.IR fmt ,
+.IR list )
+.br
+char *
+.IR str ;
+.br
+size_t 
+.IR size ;
+.br
+char *
+.IR fmt ;
+.br
+va_list 
+.IR list ;
+.br
+
+int _vprintf_r(
+.IR reent ,
+.IR fmt ,
+.IR list )
+.br
+char *
+.IR reent ;
+.br
+char *
+.IR fmt ;
+.br
+va_list 
+.IR list ;
+.br
+
+int _vfprintf_r(
+.IR reent ,
+.IR fp ,
+.IR fmt ,
+.IR list )
+.br
+char *
+.IR reent ;
+.br
+FILE *
+.IR fp ;
+.br
+char *
+.IR fmt ;
+.br
+va_list 
+.IR list ;
+.br
+
+int _vsprintf_r(
+.IR reent ,
+.IR str ,
+.IR fmt ,
+.IR list )
+.br
+char *
+.IR reent ;
+.br
+char *
+.IR str ;
+.br
+char *
+.IR fmt ;
+.br
+va_list 
+.IR list ;
+.br
+
+int _vsnprintf_r(
+.IR reent ,
+.IR str ,
+.IR size ,
+.IR fmt ,
+.IR list )
+.br
+char *
+.IR reent ;
+.br
+char *
+.IR str ;
+.br
+size_t 
+.IR size ;
+.br
+char *
+.IR fmt ;
+.br
+va_list 
+.IR list ;
+.br
+.SH DESCRIPTION
+.BR vprintf ,
+.BR vfprintf ,
+.BR vsprintf 
+and 
+.BR vsnprintf 
+are (respectively)
+variants of 
+.BR printf ,
+.BR fprintf ,
+.BR sprintf 
+and 
+.BR snprintf .
+They differ
+only in allowing their caller to pass the variable argument list as a
+.BR va_list 
+object (initialized by 
+.BR va_start )
+rather than directly
+accepting a variable number of arguments.
+.SH RETURNS
+The return values are consistent with the corresponding functions:
+.BR vsprintf 
+returns the number of bytes in the output string,
+save that the concluding 
+.BR NULL 
+is not counted.
+.BR vprintf 
+and 
+.BR vfprintf 
+return the number of characters transmitted.
+If an error occurs, 
+.BR vprintf 
+and 
+.BR vfprintf 
+return 
+.BR EOF .
+No
+error returns occur for 
+.BR vsprintf .
+.SH PORTABILITY
+ANSI C requires all three functions.
+
+Supporting OS subroutines required: 
+.BR close ,
+.BR fstat ,
+.BR isatty ,
+.BR lseek ,
+.BR read ,
+.BR sbrk ,
+.BR write .
+.SH SOURCE
+src/newlib/libc/stdio/vfprintf.c

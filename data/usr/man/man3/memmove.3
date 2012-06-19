@@ -1,0 +1,57 @@
+.TH memmove 3 "" "" ""
+.SH SYNOPSIS
+memmove \- move possibly overlapping memory
+.SH ANSI_SYNOPSIS
+#include <string.h>
+.br
+void *memmove(void *
+.IR dst ,
+const void *
+.IR src ,
+size_t 
+.IR length );
+.br
+.SH TRAD_SYNOPSIS
+#include <string.h>
+.br
+void *memmove(
+.IR dst ,
+.IR src ,
+.IR length )
+.br
+void *
+.IR dst ;
+.br
+void *
+.IR src ;
+.br
+size_t 
+.IR length ;
+.br
+.SH DESCRIPTION
+This function moves 
+.IR length 
+characters from the block of
+memory starting at 
+.BR *<[src >>
+to the memory starting at
+.BR *<[dst >>.
+.BR memmove 
+reproduces the characters correctly
+at 
+.BR *<[dst >>
+even if the two areas overlap.
+.SH RETURNS
+The function returns 
+.IR dst 
+as passed.
+.SH PORTABILITY
+.BR memmove 
+is ANSI C.
+
+.BR memmove 
+requires no supporting OS subroutines.
+.SH QUICKREF
+memmove ansi pure
+.SH SOURCE
+src/newlib/libc/string/memmove.c

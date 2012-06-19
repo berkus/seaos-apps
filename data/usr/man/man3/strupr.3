@@ -1,0 +1,57 @@
+.TH strupr 3 "" "" ""
+.SH SYNOPSIS
+strupr \- force string to uppercase
+.SH ANSI_SYNOPSIS
+#include <string.h>
+.br
+char *strupr(char *
+.IR a );
+.br
+.SH TRAD_SYNOPSIS
+#include <string.h>
+.br
+char *strupr(
+.IR a )
+.br
+char *
+.IR a ;
+.br
+.SH DESCRIPTION
+.BR strupr 
+converts each characters in the string at 
+.IR a 
+to
+upper case.
+.SH RETURNS
+.BR strupr 
+returns its argument, 
+.IR a .
+.SH PORTABILITY
+.BR strupr 
+is not widely portable.
+
+.BR strupr 
+requires no supporting OS subroutines.
+.SH QUICKREF
+strupr */
+
+#include <string.h>
+#include <ctype.h>
+
+char *
+strupr (a)
+char *a;
+{
+char *ret = a;
+
+while (*a != '\0')
+{
+if (islower (*a))
+*a = toupper (*a);
+++a;
+}
+
+return ret;
+}
+.SH SOURCE
+src/newlib/libc/string/strupr.c

@@ -1,0 +1,46 @@
+.TH ferror 3 "" "" ""
+.SH SYNOPSIS
+ferror \- test whether read/write error has occurred
+.SH ANSI_SYNOPSIS
+#include <stdio.h>
+.br
+int ferror(FILE *
+.IR fp );
+.br
+.SH TRAD_SYNOPSIS
+#include <stdio.h>
+.br
+int ferror(
+.IR fp )
+.br
+FILE *
+.IR fp ;
+.br
+.SH DESCRIPTION
+The 
+.BR stdio 
+functions maintain an error indicator with each file
+pointer 
+.IR fp ,
+to record whether any read or write errors have
+occurred on the associated file or stream.
+Use 
+.BR ferror 
+to query this indicator.
+
+See 
+.BR clearerr 
+to reset the error indicator.
+.SH RETURNS
+.BR ferror 
+returns 
+.BR 0 
+if no errors have occurred; it returns a
+nonzero value otherwise.
+.SH PORTABILITY
+ANSI C requires 
+.BR ferror .
+
+No supporting OS subroutines are required.
+.SH SOURCE
+src/newlib/libc/stdio/ferror.c

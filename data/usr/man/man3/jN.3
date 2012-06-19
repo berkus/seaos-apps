@@ -1,0 +1,197 @@
+.TH jN 3 "" "" ""
+.SH SYNOPSIS
+jN, jNf, yN, yNf \- Bessel functions
+.SH ANSI_SYNOPSIS
+#include <math.h>
+.br
+double j0(double 
+.IR x );
+.br
+float j0f(float 
+.IR x );
+.br
+double j1(double 
+.IR x );
+.br
+float j1f(float 
+.IR x );
+.br
+double jn(int 
+.IR n ,
+double 
+.IR x );
+.br
+float jnf(int 
+.IR n ,
+float 
+.IR x );
+.br
+double y0(double 
+.IR x );
+.br
+float y0f(float 
+.IR x );
+.br
+double y1(double 
+.IR x );
+.br
+float y1f(float 
+.IR x );
+.br
+double yn(int 
+.IR n ,
+double 
+.IR x );
+.br
+float ynf(int 
+.IR n ,
+float 
+.IR x );
+.br
+.SH TRAD_SYNOPSIS
+#include <math.h>
+.br
+
+double j0(
+.IR x )
+.br
+double 
+.IR x ;
+.br
+float j0f(
+.IR x )
+.br
+float 
+.IR x ;
+.br
+double j1(
+.IR x )
+.br
+double 
+.IR x ;
+.br
+float j1f(
+.IR x )
+.br
+float 
+.IR x ;
+.br
+double jn(
+.IR n ,
+.IR x )
+.br
+int 
+.IR n ;
+.br
+double 
+.IR x ;
+.br
+float jnf(
+.IR n ,
+.IR x )
+.br
+int 
+.IR n ;
+.br
+float 
+.IR x ;
+.br
+
+double y0(
+.IR x )
+.br
+double 
+.IR x ;
+.br
+float y0f(
+.IR x )
+.br
+float 
+.IR x ;
+.br
+double y1(
+.IR x )
+.br
+double 
+.IR x ;
+.br
+float y1f(
+.IR x )
+.br
+float 
+.IR x ;
+.br
+double yn(
+.IR n ,
+.IR x )
+.br
+int 
+.IR n ;
+.br
+double 
+.IR x ;
+.br
+float ynf(
+.IR n ,
+.IR x )
+.br
+int 
+.IR n ;
+.br
+float 
+.IR x ;
+.br
+.SH DESCRIPTION
+The Bessel functions are a family of functions that solve the
+differential equation
+@ifinfo
+. 2 2 2
+. x y'' + xy' + (x - p )y = 0
+@end ifinfo
+@tex
+$$x^2{d^2y\over dx^2} + x{dy\over dx} + (x^2-p^2)y = 0$$
+@end tex
+These functions have many applications in engineering and physics.
+
+.BR jn 
+calculates the Bessel function of the first kind of order
+.IR n .
+.BR j0 
+and 
+.BR j1 
+are special cases for order 0 and order
+1 respectively.
+
+Similarly, 
+.BR yn 
+calculates the Bessel function of the second kind of
+order 
+.IR n ,
+and 
+.BR y0 
+and 
+.BR y1 
+are special cases for order 0 and
+1.
+
+.BR jnf ,
+.BR j0f ,
+.BR j1f ,
+.BR ynf ,
+.BR y0f ,
+and 
+.BR y1f 
+perform the
+same calculations, but on 
+.BR float 
+rather than 
+.BR double 
+values.
+.SH RETURNS
+The value of each Bessel function at 
+.IR x 
+is returned.
+.SH PORTABILITY
+None of the Bessel functions are in ANSI C.
+.SH SOURCE
+src/newlib/libm/mathfp/w_jn.c

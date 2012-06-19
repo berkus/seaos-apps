@@ -1,0 +1,36 @@
+.TH _times_r 3 "" "" ""
+.SH SYNOPSIS
+_times_r \- Reentrant version of times
+.SH ANSI_SYNOPSIS
+#include <reent.h>
+.br
+#include <sys/times.h>
+.br
+clock_t _times_r(struct _reent *
+.IR ptr ,
+struct tms *
+.IR ptms );
+.br
+.SH TRAD_SYNOPSIS
+#include <reent.h>
+.br
+#include <sys/times.h>
+.br
+clock_t _times_r(
+.IR ptr ,
+.IR ptms )
+.br
+struct _reent *
+.IR ptr ;
+.br
+struct tms *
+.IR ptms ;
+.br
+.SH DESCRIPTION
+This is a reentrant version of 
+.BR times .
+It
+takes a pointer to the global data block, which holds
+.BR errno .
+.SH SOURCE
+src/newlib/libc/reent/timer.c

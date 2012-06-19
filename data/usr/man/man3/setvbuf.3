@@ -1,0 +1,127 @@
+.TH setvbuf 3 "" "" ""
+.SH SYNOPSIS
+setvbuf \- specify file or stream buffering
+.SH ANSI_SYNOPSIS
+#include <stdio.h>
+.br
+int setvbuf(FILE *
+.IR fp ,
+char *
+.IR buf ,
+.br
+int 
+.IR mode ,
+size_t 
+.IR size );
+.br
+.SH TRAD_SYNOPSIS
+#include <stdio.h>
+.br
+int setvbuf(
+.IR fp ,
+.IR buf ,
+.IR mode ,
+.IR size )
+.br
+FILE *
+.IR fp ;
+.br
+char *
+.IR buf ;
+.br
+int 
+.IR mode ;
+.br
+size_t 
+.IR size ;
+.br
+.SH DESCRIPTION
+Use 
+.BR setvbuf 
+to specify what kind of buffering you want for the
+file or stream identified by 
+.IR fp ,
+by using one of the following
+values (from 
+.BR stdio.h )
+as the 
+.IR mode 
+argument:
+
+o+
+o _IONBF
+Do not use a buffer: send output directly to the host system for the
+file or stream identified by 
+.IR fp .
+
+o _IOFBF
+Use full output buffering: output will be passed on to the host system
+only when the buffer is full, or when an input operation intervenes.
+
+o _IOLBF
+Use line buffering: pass on output to the host system at every
+newline, as well as when the buffer is full, or when an input
+operation intervenes.
+o-
+
+Use the 
+.IR size 
+argument to specify how large a buffer you wish. You
+can supply the buffer itself, if you wish, by passing a pointer to a
+suitable area of memory as 
+.IR buf .
+Otherwise, you may pass 
+.BR NULL 
+as the 
+.IR buf 
+argument, and 
+.BR setvbuf 
+will allocate the buffer.
+.SH WARNINGS
+You may only use 
+.BR setvbuf 
+before performing any file operation other
+than opening the file.
+
+If you supply a non-null 
+.IR buf ,
+you must ensure that the associated
+storage continues to be available until you close the stream
+identified by 
+.IR fp .
+.SH RETURNS
+A 
+.BR 0 
+result indicates success, 
+.BR EOF 
+failure (invalid 
+.IR mode 
+or
+.IR size 
+can cause failure).
+.SH PORTABILITY
+Both ANSI C and the System V Interface Definition (Issue 2) require
+.BR setvbuf .
+However, they differ on the meaning of a 
+.BR NULL 
+buffer
+pointer: the SVID issue 2 specification says that a 
+.BR NULL 
+buffer
+pointer requests unbuffered output. For maximum portability, avoid
+.BR NULL 
+buffer pointers.
+
+Both specifications describe the result on failure only as a
+nonzero value.
+
+Supporting OS subroutines required: 
+.BR close ,
+.BR fstat ,
+.BR isatty ,
+.BR lseek ,
+.BR read ,
+.BR sbrk ,
+.BR write .
+.SH SOURCE
+src/newlib/libc/stdio/setvbuf.c

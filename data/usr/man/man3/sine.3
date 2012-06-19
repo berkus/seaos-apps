@@ -1,0 +1,70 @@
+.TH sine 3 "" "" ""
+.SH SYNOPSIS
+sin, cos, sine, sinf, cosf, sinef \- sine or cosine
+.SH ANSI_SYNOPSIS#include <math.h>
+.br
+double sin(double 
+.IR x );
+.br
+float  sinf(float 
+.IR x );
+.br
+double cos(double 
+.IR x );
+.br
+float cosf(float 
+.IR x );
+.br
+.SH TRAD_SYNOPSIS
+#include <math.h>
+.br
+double sin(
+.IR x )
+.br
+double 
+.IR x ;
+.br
+float  sinf(
+.IR x )
+.br
+float 
+.IR x ;
+.br
+
+double cos(
+.IR x )
+.br
+double 
+.IR x ;
+.br
+float cosf(
+.IR x )
+.br
+float 
+.IR x ;
+.br
+.SH DESCRIPTION
+.BR sin 
+and 
+.BR cos 
+compute (respectively) the sine and cosine
+of the argument 
+.IR x .
+Angles are specified in radians.
+.SH RETURNSThe sine or cosine of 
+.IR x 
+is returned.
+.SH PORTABILITY
+.BR sin 
+and 
+.BR cos 
+are ANSI C.
+.BR sinf 
+and 
+.BR cosf 
+are extensions.
+.SH QUICKREF
+sin ansi pure
+sinf - pure
+.SH SOURCE
+src/newlib/libm/mathfp/s_sine.c

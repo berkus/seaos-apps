@@ -1,0 +1,53 @@
+.TH remainderf 3 "" "" ""
+.SH SYNOPSIS
+remainder, remainderf \- round and  remainder
+.SH ANSI_SYNOPSIS
+#include <math.h>
+.br
+double remainder(double 
+.IR x ,
+double 
+.IR y );
+.br
+float remainderf(float 
+.IR x ,
+float 
+.IR y );
+.br
+.SH TRAD_SYNOPSIS
+#include <math.h>
+.br
+double remainder(
+.IR x ,<[y]>)
+.br
+double 
+.IR x ,
+.IR y ;
+.br
+float remainderf(
+.IR x ,<[y]>)
+.br
+float 
+.IR x ,
+.IR y ;
+.br
+.SH DESCRIPTION
+.BR remainder 
+and 
+.BR remainderf 
+find the remainder of
+.IR x /<[y]>;
+this value is in the range -
+.IR y /2
+.. +
+.IR y /2.
+.SH RETURNS
+.BR remainder 
+returns the integer result as a double.
+.SH PORTABILITY
+.BR remainder 
+is a System V release 4.
+.BR remainderf 
+is an extension.
+.SH SOURCE
+src/newlib/libm/mathfp/e_remainder.c

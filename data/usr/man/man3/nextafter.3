@@ -1,0 +1,67 @@
+.TH nextafter 3 "" "" ""
+.SH SYNOPSIS
+nextafter, nextafterf \- get next number
+.SH ANSI_SYNOPSIS
+#include <math.h>
+.br
+double nextafter(double 
+.IR val ,
+double 
+.IR dir );
+.br
+float nextafterf(float 
+.IR val ,
+float 
+.IR dir );
+.br
+.SH TRAD_SYNOPSIS
+#include <math.h>
+.br
+
+double nextafter(
+.IR val ,
+.IR dir )
+.br
+double 
+.IR val ;
+.br
+double 
+.IR exp ;
+.br
+
+float nextafter(
+.IR val ,
+.IR dir )
+.br
+float 
+.IR val ;
+.br
+float 
+.IR dir ;
+.br
+.SH DESCRIPTION
+.BR nextafter 
+returns the double) precision floating point number
+closest to 
+.IR val 
+in the direction toward 
+.IR dir .
+.BR nextafterf 
+performs the same operation in single precision. For example,
+.BR nextafter(0.0,1.0) 
+returns the smallest positive number which is
+representable in double precision.
+.SH RETURNS
+Returns the next closest number to 
+.IR val 
+in the direction toward
+.IR dir .
+.SH PORTABILITY
+Neither 
+.BR nextafter 
+nor 
+.BR nextafterf 
+is required by ANSI C
+or by the System V Interface Definition (Issue 2).
+.SH SOURCE
+src/newlib/libm/common/s_nextafter.c

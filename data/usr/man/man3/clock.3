@@ -1,0 +1,35 @@
+.TH clock 3 "" "" ""
+.SH SYNOPSIS
+clock \- cumulative processor time
+.SH ANSI_SYNOPSIS
+#include <time.h>
+.br
+clock_t clock(void);
+.br
+.SH TRAD_SYNOPSIS
+#include <time.h>
+.br
+clock_t clock();
+.br
+.SH DESCRIPTION
+Calculates the best available approximation of the cumulative amount
+of time used by your program since it started. To convert the result
+into seconds, divide by the macro 
+.BR CLOCKS_PER_SEC .
+.SH RETURNS
+The amount of processor time used so far by your program, in units
+defined by the machine-dependent macro 
+.BR CLOCKS_PER_SEC .
+If no
+measurement is available, the result is 
+.BR -1 .
+.SH PORTABILITY
+ANSI C requires 
+.BR clock 
+and 
+.BR CLOCKS_PER_SEC .
+
+Supporting OS subroutine required: 
+.BR times .
+.SH SOURCE
+src/newlib/libc/time/clock.c

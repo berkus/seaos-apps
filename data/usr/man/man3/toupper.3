@@ -1,0 +1,79 @@
+.TH toupper 3 "" "" ""
+.SH SYNOPSIS
+toupper \- translate characters to upper case
+.SH ANSI_SYNOPSIS
+#include <ctype.h>
+.br
+int toupper(int 
+.IR c );
+.br
+int _toupper(int 
+.IR c );
+.br
+.SH TRAD_SYNOPSIS
+#include <ctype.h>
+.br
+int toupper(
+.IR c );
+.br
+int _toupper(
+.IR c );
+.br
+.SH DESCRIPTION
+.BR toupper 
+is a macro which converts lower-case characters to upper
+case, leaving all other characters unchanged. It is only defined when
+.IR c 
+is an integer in the range 
+.BR EOF 
+to 
+.BR 255 .
+
+You can use a compiled subroutine instead of the macro definition by
+undefining this macro using `
+.BR #undef toupper '.
+
+.BR _toupper 
+performs the same conversion as 
+.BR toupper ,
+but should
+only be used when 
+.IR c 
+is known to be a lowercase character (
+.BR a --<<z>>).
+.SH RETURNS
+.BR toupper 
+returns the upper-case equivalent of 
+.IR c 
+when it is a
+character between 
+.BR a 
+and 
+.BR z ,
+and 
+.IR c 
+otherwise.
+
+.BR _toupper 
+returns the upper-case equivalent of 
+.IR c 
+when it is a
+character between 
+.BR a 
+and 
+.BR z .
+If 
+.IR c 
+is not one of these
+characters, the behaviour of 
+.BR _toupper 
+is undefined.
+.SH PORTABILITY
+.BR toupper 
+is ANSI C. 
+.BR _toupper 
+is not recommended for portable programs.
+
+No supporting OS subroutines are required.
+.SH SOURCE
+src/newlib/libc/ctype/toupper.c

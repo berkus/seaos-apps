@@ -1,0 +1,64 @@
+.TH fgetc 3 "" "" ""
+.SH SYNOPSIS
+fgetc \- get a character from a file or stream
+.SH ANSI_SYNOPSIS
+#include <stdio.h>
+.br
+int fgetc(FILE *
+.IR fp );
+.br
+.SH TRAD_SYNOPSIS
+#include <stdio.h>
+.br
+int fgetc(
+.IR fp )
+.br
+FILE *
+.IR fp ;
+.br
+.SH DESCRIPTION
+Use 
+.BR fgetc 
+to get the next single character from the file or stream
+identified by 
+.IR fp .
+As a side effect, 
+.BR fgetc 
+advances the file's
+current position indicator.
+
+For a macro version of this function, see 
+.BR getc .
+.SH RETURNS
+The next character (read as an 
+.BR unsigned char ,
+and cast to
+.BR int ),
+unless there is no more data, or the host system reports a
+read error; in either of these situations, 
+.BR fgetc 
+returns 
+.BR EOF .
+
+You can distinguish the two situations that cause an 
+.BR EOF 
+result by
+using the 
+.BR ferror 
+and 
+.BR feof 
+functions.
+.SH PORTABILITY
+ANSI C requires 
+.BR fgetc .
+
+Supporting OS subroutines required: 
+.BR close ,
+.BR fstat ,
+.BR isatty ,
+.BR lseek ,
+.BR read ,
+.BR sbrk ,
+.BR write .
+.SH SOURCE
+src/newlib/libc/stdio/fgetc.c

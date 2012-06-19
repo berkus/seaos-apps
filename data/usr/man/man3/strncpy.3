@@ -1,0 +1,63 @@
+.TH strncpy 3 "" "" ""
+.SH SYNOPSIS
+strncpy \- counted copy string
+.SH ANSI_SYNOPSIS
+#include <string.h>
+.br
+char *strncpy(char *
+.IR dst ,
+const char *
+.IR src ,
+size_t 
+.IR length );
+.br
+.SH TRAD_SYNOPSIS
+#include <string.h>
+.br
+char *strncpy(
+.IR dst ,
+.IR src ,
+.IR length )
+.br
+char *
+.IR dst ;
+.br
+char *
+.IR src ;
+.br
+size_t 
+.IR length ;
+.br
+.SH DESCRIPTION
+.BR strncpy 
+copies not more than 
+.IR length 
+characters from the
+the string pointed to by 
+.IR src 
+(including the terminating
+null character) to the array pointed to by 
+.IR dst .
+If the
+string pointed to by 
+.IR src 
+is shorter than 
+.IR length 
+characters, null characters are appended to the destination
+array until a total of 
+.IR length 
+characters have been
+written.
+.SH RETURNS
+This function returns the initial value of 
+.IR dst .
+.SH PORTABILITY
+.BR strncpy 
+is ANSI C.
+
+.BR strncpy 
+requires no supporting OS subroutines.
+.SH QUICKREF
+strncpy ansi pure
+.SH SOURCE
+src/newlib/libc/string/strncpy.c

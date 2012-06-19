@@ -1,0 +1,46 @@
+.TH difftime 3 "" "" ""
+.SH SYNOPSIS
+difftime \- subtract two times
+.SH ANSI_SYNOPSIS
+#include <time.h>
+.br
+double difftime(time_t 
+.IR tim1 ,
+time_t 
+.IR tim2 );
+.br
+.SH TRAD_SYNOPSIS
+#include <time.h>
+.br
+double difftime(
+.IR tim1 ,
+.IR tim2 )
+.br
+time_t 
+.IR tim1 ;
+.br
+time_t 
+.IR tim2 ;
+.br
+.SH DESCRIPTION
+Subtracts the two times in the arguments: `
+.BR <[tim1 
+- 
+.IR tim2 >>'.
+.SH RETURNS
+The difference (in seconds) between 
+.IR tim2 
+and 
+.IR tim1 ,
+as a 
+.BR double .
+.SH PORTABILITY
+ANSI C requires 
+.BR difftime ,
+and defines its result to be in seconds
+in all implementations.
+
+.BR difftime 
+requires no supporting OS subroutines.
+.SH SOURCE
+src/newlib/libc/time/difftime.c

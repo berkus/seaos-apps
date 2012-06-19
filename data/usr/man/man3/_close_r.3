@@ -1,0 +1,32 @@
+.TH _close_r 3 "" "" ""
+.SH SYNOPSIS
+_close_r \- Reentrant version of close
+.SH ANSI_SYNOPSIS
+#include <reent.h>
+.br
+int _close_r(struct _reent *
+.IR ptr ,
+int 
+.IR fd );
+.br
+.SH TRAD_SYNOPSIS
+#include <reent.h>
+.br
+int _close_r(
+.IR ptr ,
+.IR fd )
+.br
+struct _reent *
+.IR ptr ;
+.br
+int 
+.IR fd ;
+.br
+.SH DESCRIPTION
+This is a reentrant version of 
+.BR close .
+It
+takes a pointer to the global data block, which holds
+.BR errno .
+.SH SOURCE
+src/newlib/libc/reent/closer.c

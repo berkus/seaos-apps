@@ -1,0 +1,45 @@
+.TH _open_r 3 "" "" ""
+.SH SYNOPSIS
+_open_r \- Reentrant version of open
+.SH ANSI_SYNOPSIS
+#include <reent.h>
+.br
+int _open_r(struct _reent *
+.IR ptr ,
+.br
+const char *
+.IR file ,
+int 
+.IR flags ,
+int 
+.IR mode );
+.br
+.SH TRAD_SYNOPSIS
+#include <reent.h>
+.br
+int _open_r(
+.IR ptr ,
+.IR file ,
+.IR flags ,
+.IR mode )
+.br
+struct _reent *
+.IR ptr ;
+.br
+char *
+.IR file ;
+.br
+int 
+.IR flags ;
+.br
+int 
+.IR mode ;
+.br
+.SH DESCRIPTION
+This is a reentrant version of 
+.BR open .
+It
+takes a pointer to the global data block, which holds
+.BR errno .
+.SH SOURCE
+src/newlib/libc/reent/openr.c

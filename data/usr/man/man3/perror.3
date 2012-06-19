@@ -1,0 +1,80 @@
+.TH perror 3 "" "" ""
+.SH SYNOPSIS
+perror \- print an error message on standard error
+.SH ANSI_SYNOPSIS
+#include <stdio.h>
+.br
+void perror(char *
+.IR prefix );
+.br
+
+void _perror_r(void *
+.IR reent ,
+char *
+.IR prefix );
+.br
+.SH TRAD_SYNOPSIS
+#include <stdio.h>
+.br
+void perror(
+.IR prefix )
+.br
+char *
+.IR prefix ;
+.br
+
+void _perror_r(
+.IR reent ,
+.IR prefix )
+.br
+char *
+.IR reent ;
+.br
+char *
+.IR prefix ;
+.br
+.SH DESCRIPTION
+Use 
+.BR perror 
+to print (on standard error) an error message
+corresponding to the current value of the global variable 
+.BR errno .
+Unless you use 
+.BR NULL 
+as the value of the argument 
+.IR prefix ,
+the
+error message will begin with the string at 
+.IR prefix ,
+followed by a
+colon and a space (
+.BR :  ).
+The remainder of the error message is one
+of the strings described for 
+.BR strerror .
+
+The alternate function 
+.BR _perror_r 
+is a reentrant version. The
+extra argument 
+.IR reent 
+is a pointer to a reentrancy structure.
+.SH RETURNS
+.BR perror 
+returns no result.
+.SH PORTABILITY
+ANSI C requires 
+.BR perror ,
+but the strings issued vary from one
+implementation to another.
+
+Supporting OS subroutines required: 
+.BR close ,
+.BR fstat ,
+.BR isatty ,
+.BR lseek ,
+.BR read ,
+.BR sbrk ,
+.BR write .
+.SH SOURCE
+src/newlib/libc/stdio/perror.c

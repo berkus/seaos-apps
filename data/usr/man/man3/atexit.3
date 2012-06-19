@@ -1,0 +1,64 @@
+.TH atexit 3 "" "" ""
+.SH SYNOPSIS
+atexit \- request execution of functions at program exit
+.SH ANSI_SYNOPSIS
+#include <stdlib.h>
+.br
+int atexit (void (*
+.IR function )(void));
+.br
+.SH TRAD_SYNOPSIS
+#include <stdlib.h>
+.br
+int atexit ((
+.IR function )
+.br
+void (*
+.IR function )();
+.br
+.SH DESCRIPTION
+You can use 
+.BR atexit 
+to enroll functions in a list of functions that
+will be called when your program terminates normally. The argument is
+a pointer to a user-defined function (which must not require arguments and
+must not return a result).
+
+The functions are kept in a LIFO stack; that is, the last function
+enrolled by 
+.BR atexit 
+will be the first to execute when your program
+exits.
+
+There is no built-in limit to the number of functions you can enroll
+in this list; however, after every group of 32 functions is enrolled,
+.BR atexit 
+will call 
+.BR malloc 
+to get space for the next part of the
+list. The initial list of 32 functions is statically allocated, so
+you can always count on at least that many slots available.
+.SH RETURNS
+.BR atexit 
+returns 
+.BR 0 
+if it succeeds in enrolling your function,
+.BR -1 
+if it fails (possible only if no space was available for
+.BR malloc 
+to extend the list of functions).
+.SH PORTABILITY
+.BR atexit 
+is required by the ANSI standard, which also specifies that
+implementations must support enrolling at least 32 functions.
+
+Supporting OS subroutines required: 
+.BR close ,
+.BR fstat ,
+.BR isatty ,
+.BR lseek ,
+.BR read ,
+.BR sbrk ,
+.BR write .
+.SH SOURCE
+src/newlib/libc/stdlib/atexit.c

@@ -1,0 +1,45 @@
+.TH isalpha 3 "" "" ""
+.SH SYNOPSIS
+isalpha \- alphabetic character predicate
+.SH ANSI_SYNOPSIS
+#include <ctype.h>
+.br
+int isalpha(int 
+.IR c );
+.br
+.SH TRAD_SYNOPSIS
+#include <ctype.h>
+.br
+int isalpha(
+.IR c );
+.br
+.SH DESCRIPTION
+.BR isalpha 
+is a macro which classifies ASCII integer values by table
+lookup. It is a predicate returning non-zero when 
+.IR c 
+represents an
+alphabetic ASCII character, and 0 otherwise. It is defined only when
+.BR isascii (<[c]>)
+is true or 
+.IR c 
+is EOF.
+
+You can use a compiled subroutine instead of the macro definition by
+undefining the macro using `
+.BR #undef isalpha '.
+.SH RETURNS
+.BR isalpha 
+returns non-zero if 
+.IR c 
+is a letter (
+.BR A --<<Z>>
+or
+.BR a --<<z>>).
+.SH PORTABILITY
+.BR isalpha 
+is ANSI C.
+
+No supporting OS subroutines are required.
+.SH SOURCE
+src/newlib/libc/ctype/isalpha.c
