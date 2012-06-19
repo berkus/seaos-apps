@@ -1,0 +1,48 @@
+.TH strcat 3 "" "" ""
+.SH SYNOPSIS
+strcat \- concatenate strings
+.SH ANSI_SYNOPSIS
+#include <string.h>
+.br
+char *strcat(char *
+.IR dst ,
+const char *
+.IR src );
+.br
+.SH TRAD_SYNOPSIS
+#include <string.h>
+.br
+char *strcat(
+.IR dst ,
+.IR src )
+.br
+char *
+.IR dst ;
+.br
+char *
+.IR src ;
+.br
+.SH DESCRIPTION
+.BR strcat 
+appends a copy of the string pointed to by 
+.IR src 
+(including the terminating null character) to the end of the
+string pointed to by 
+.IR dst .
+The initial character of
+.IR src 
+overwrites the null character at the end of 
+.IR dst .
+.SH RETURNS
+This function returns the initial value of 
+.IR dst 
+.SH PORTABILITY
+.BR strcat 
+is ANSI C.
+
+.BR strcat 
+requires no supporting OS subroutines.
+.SH QUICKREF
+strcat ansi pure
+.SH SOURCE
+src/newlib/libc/string/strcat.c

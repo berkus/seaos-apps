@@ -1,0 +1,91 @@
+.TH tolower 3 "" "" ""
+.SH SYNOPSIS
+tolower \- translate characters to lower case
+.SH ANSI_SYNOPSIS
+#include <ctype.h>
+.br
+int tolower(int 
+.IR c );
+.br
+int _tolower(int 
+.IR c );
+.br
+.SH TRAD_SYNOPSIS
+#include <ctype.h>
+.br
+int tolower(
+.IR c );
+.br
+int _tolower(
+.IR c );
+.br
+.SH DESCRIPTION
+.BR tolower 
+is a macro which converts upper-case characters to lower
+case, leaving all other characters unchanged. It is only defined when
+.IR c 
+is an integer in the range 
+.BR EOF 
+to 
+.BR 255 .
+
+You can use a compiled subroutine instead of the macro definition by
+undefining this macro using `
+.BR #undef tolower '.
+
+.BR _tolower 
+performs the same conversion as 
+.BR tolower ,
+but should
+only be used when 
+.IR c 
+is known to be an uppercase character (
+.BR A --<<Z>>).
+.SH RETURNS
+.BR tolower 
+returns the lower-case equivalent of 
+.IR c 
+when it is a
+character between 
+.BR A 
+and 
+.BR Z ,
+and 
+.IR c 
+otherwise.
+
+.BR _tolower 
+returns the lower-case equivalent of 
+.IR c 
+when it is a
+character between 
+.BR A 
+and 
+.BR Z .
+If 
+.IR c 
+is not one of these
+characters, the behaviour of 
+.BR _tolower 
+is undefined.
+.SH PORTABILITY
+.BR tolower 
+is ANSI C. 
+.BR _tolower 
+is not recommended for portable
+programs.
+
+No supporting OS subroutines are required.
+*/ 
+
+#include <_ansi.h>
+#include <ctype.h>
+
+#undef tolower
+int
+_DEFUN(tolower,(c),int c)
+{
+return isupper(c) ? (c) - 'A' + 'a' : c;
+}
+.SH SOURCE
+src/newlib/libc/ctype/tolower.c

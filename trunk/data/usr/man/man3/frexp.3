@@ -1,0 +1,112 @@
+.TH frexp 3 "" "" ""
+.SH SYNOPSIS
+frexp, frexpf \- split floating-point number
+.SH ANSI_SYNOPSIS
+#include <math.h>
+.br
+double frexp(double 
+.IR val ,
+int *
+.IR exp );
+.br
+float frexpf(float 
+.IR val ,
+int *
+.IR exp );
+.br
+.SH TRAD_SYNOPSIS
+#include <math.h>
+.br
+double frexp(
+.IR val ,
+.IR exp )
+.br
+double 
+.IR val ;
+.br
+int *
+.IR exp ;
+.br
+
+float frexpf(
+.IR val ,
+.IR exp )
+.br
+float 
+.IR val ;
+.br
+int *
+.IR exp ;
+.br
+.SH DESCRIPTION
+All non zero, normal numbers can be described as 
+.IR m 
+* 2**
+.IR p .
+.BR frexp 
+represents the double 
+.IR val 
+as a mantissa 
+.IR m 
+and a power of two 
+.IR p .
+The resulting mantissa will always
+be greater than or equal to 
+.BR 0.5 ,
+and less than 
+.BR 1.0 
+(as
+long as 
+.IR val 
+is nonzero). The power of two will be stored
+in 
+.BR * <[exp]>.
+
+@ifinfo
+.IR m 
+and 
+.IR p 
+are calculated so that
+.IR val 
+is 
+.IR m 
+times 
+.BR 2 
+to the power 
+.IR p .
+@end ifinfo
+@tex
+.IR m 
+and 
+.IR p 
+are calculated so that
+$ val = m \times 2^p $.
+@end tex
+
+.BR frexpf 
+is identical, other than taking and returning
+floats rather than doubles.
+.SH RETURNS
+.BR frexp 
+returns the mantissa 
+.IR m .
+If 
+.IR val 
+is 
+.BR 0 ,
+infinity,
+or Nan, 
+.BR frexp 
+will set 
+.BR * <[exp]>
+to 
+.BR 0 
+and return 
+.IR val .
+.SH PORTABILITY
+.BR frexp 
+is ANSI.
+.BR frexpf 
+is an extension.
+.SH SOURCE
+src/newlib/libm/mathfp/s_frexp.c

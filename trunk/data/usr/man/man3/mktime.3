@@ -1,0 +1,48 @@
+.TH mktime 3 "" "" ""
+.SH SYNOPSIS
+mktime \- convert time to arithmetic representation
+.SH ANSI_SYNOPSIS
+#include <time.h>
+.br
+time_t mktime(struct tm *
+.IR timp );
+.br
+.SH TRAD_SYNOPSIS
+#include <time.h>
+.br
+time_t mktime(
+.IR timp )
+.br
+struct tm *
+.IR timp ;
+.br
+.SH DESCRIPTION
+.BR mktime 
+assumes the time at 
+.IR timp 
+is a local time, and converts
+its representation from the traditional representation defined by
+.BR struct tm 
+into a representation suitable for arithmetic.
+
+.BR localtime 
+is the inverse of 
+.BR mktime .
+.SH RETURNS
+If the contents of the structure at 
+.IR timp 
+do not form a valid
+calendar time representation, the result is 
+.BR -1 .
+Otherwise, the
+result is the time, converted to a 
+.BR time_t 
+value.
+.SH PORTABILITY
+ANSI C requires 
+.BR mktime .
+
+.BR mktime 
+requires no supporting OS subroutines.
+.SH SOURCE
+src/newlib/libc/time/mktime.c

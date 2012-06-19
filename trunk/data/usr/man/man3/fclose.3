@@ -1,0 +1,50 @@
+.TH fclose 3 "" "" ""
+.SH SYNOPSIS
+fclose \- close a file
+.SH ANSI_SYNOPSIS
+#include <stdio.h>
+.br
+int fclose(FILE *
+.IR fp );
+.br
+.SH TRAD_SYNOPSIS
+#include <stdio.h>
+.br
+int fclose(
+.IR fp )
+.br
+FILE *
+.IR fp ;
+.br
+.SH DESCRIPTION
+If the file or stream identified by 
+.IR fp 
+is open, 
+.BR fclose 
+closes
+it, after first ensuring that any pending data is written (by calling
+.BR fflush(<[fp )>>).
+.SH RETURNS
+.BR fclose 
+returns 
+.BR 0 
+if successful (including when 
+.IR fp 
+is
+.BR NULL 
+or not an open file); otherwise, it returns 
+.BR EOF .
+.SH PORTABILITY
+.BR fclose 
+is required by ANSI C.
+
+Required OS subroutines: 
+.BR close ,
+.BR fstat ,
+.BR isatty ,
+.BR lseek ,
+.BR read ,
+.BR sbrk ,
+.BR write .
+.SH SOURCE
+src/newlib/libc/stdio/fclose.c

@@ -1,0 +1,52 @@
+.TH fflush 3 "" "" ""
+.SH SYNOPSIS
+fflush \- flush buffered file output
+.SH ANSI_SYNOPSIS
+#include <stdio.h>
+.br
+int fflush(FILE *
+.IR fp );
+.br
+.SH TRAD_SYNOPSIS
+#include <stdio.h>
+.br
+int fflush(
+.IR fp )
+.br
+FILE *
+.IR fp ;
+.br
+.SH DESCRIPTION
+The 
+.BR stdio 
+output functions can buffer output before delivering it
+to the host system, in order to minimize the overhead of system calls.
+
+Use 
+.BR fflush 
+to deliver any such pending output (for the file
+or stream identified by 
+.IR fp )
+to the host system.
+
+If 
+.IR fp 
+is 
+.BR NULL ,
+.BR fflush 
+delivers pending output from all
+open files.
+.SH RETURNS
+.BR fflush 
+returns 
+.BR 0 
+unless it encounters a write error; in that
+situation, it returns 
+.BR EOF .
+.SH PORTABILITY
+ANSI C requires 
+.BR fflush .
+
+No supporting OS subroutines are required.
+.SH SOURCE
+src/newlib/libc/stdio/fflush.c

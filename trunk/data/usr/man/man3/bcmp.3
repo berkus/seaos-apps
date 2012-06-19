@@ -1,0 +1,55 @@
+.TH bcmp 3 "" "" ""
+.SH SYNOPSIS
+bcmp \- compare two memory areas
+.SH ANSI_SYNOPSIS
+#include <string.h>
+.br
+int bcmp(const char *
+.IR s1 ,
+const char *
+.IR s2 ,
+size_t 
+.IR n );
+.br
+.SH TRAD_SYNOPSIS
+#include <string.h>
+.br
+int bcmp(
+.IR s1 ,
+.IR s2 ,
+.IR n )
+.br
+char *
+.IR s1 ;
+.br
+char *
+.IR s2 ;
+.br
+size_t 
+.IR n ;
+.br
+.SH DESCRIPTION
+This function compares not more than 
+.IR n 
+characters of the
+object pointed to by 
+.IR s1 
+with the object pointed to by 
+.IR s2 .
+
+This function is identical to 
+.BR memcmp .
+.SH RETURNS
+The function returns an integer greater than, equal to or
+less than zero according to whether the object pointed to by
+.IR s1 
+is greater than, equal to or less than the object
+pointed to by 
+.IR s2 .
+.SH PORTABILITY
+.BR bcmp 
+requires no supporting OS subroutines.
+.SH QUICKREF
+bcmp ansi pure
+.SH SOURCE
+src/newlib/libc/string/bcmp.c

@@ -1,0 +1,75 @@
+.TH wctomb 3 "" "" ""
+.SH SYNOPSIS
+wctomb \- minimal wide char to multibyte converter
+.SH ANSI_SYNOPSIS
+#include <stdlib.h>
+.br
+int wctomb(char *
+.IR s ,
+wchar_t 
+.IR wchar );
+.br
+.SH TRAD_SYNOPSIS
+#include <stdlib.h>
+.br
+int wctomb(
+.IR s ,
+.IR wchar )
+.br
+char *
+.IR s ;
+.br
+wchar_t 
+.IR wchar ;
+.br
+.SH DESCRIPTION
+When MB_CAPABLE is not defined, this is a minimal ANSI-conforming 
+implementation of 
+.BR wctomb .
+The
+only ``wide characters'' recognized are single bytes,
+and they are ``converted'' to themselves. 
+
+When MB_CAPABLE is defined, this routine calls 
+.BR _wctomb_r 
+to perform
+the conversion, passing a state variable to allow state dependent
+decoding. The result is based on the locale setting which may
+be restricted to a defined set of locales.
+
+Each call to 
+.BR wctomb 
+modifies 
+.BR *<[s >>
+unless 
+.IR s 
+is a null
+pointer or MB_CAPABLE is defined and 
+.IR wchar 
+is invalid.
+.SH RETURNS
+This implementation of 
+.BR wctomb 
+returns 
+.BR 0 
+if
+.IR s 
+is 
+.BR NULL ;
+it returns 
+.BR -1 
+if MB_CAPABLE is enabled
+and the wchar is not a valid multi-byte character, it returns 
+.BR 1 
+if MB_CAPABLE is not defined or the wchar is in reality a single
+byte character, otherwise it returns the number of bytes in the
+multi-byte character.
+.SH PORTABILITY
+.BR wctomb 
+is required in the ANSI C standard. However, the precise
+effects vary with the locale.
+
+.BR wctomb 
+requires no supporting OS subroutines.
+.SH SOURCE
+src/newlib/libc/stdlib/wctomb.c

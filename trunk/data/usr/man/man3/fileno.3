@@ -1,0 +1,40 @@
+.TH fileno 3 "" "" ""
+.SH SYNOPSIS
+fileno \- return file descriptor associated with stream
+.SH ANSI_SYNOPSIS
+#include <stdio.h>
+.br
+int fileno(FILE *
+.IR fp );
+.br
+.SH TRAD_SYNOPSIS
+#include <stdio.h>
+.br
+int fileno(
+.IR fp )
+.br
+FILE *
+.IR fp ;
+.br
+.SH DESCRIPTION
+You can use 
+.BR fileno 
+to return the file descriptor identified by 
+.IR fp .
+.SH RETURNS
+.BR fileno 
+returns a non-negative integer when successful.
+If 
+.IR fp 
+is not an open stream, 
+.BR fileno 
+returns -1.
+.SH PORTABILITY
+.BR fileno 
+is not part of ANSI C.
+POSIX requires 
+.BR fileno .
+
+Supporting OS subroutines required: none.
+.SH SOURCE
+src/newlib/libc/stdio/fileno.c

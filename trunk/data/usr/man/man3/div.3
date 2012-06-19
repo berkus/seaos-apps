@@ -1,0 +1,73 @@
+.TH div 3 "" "" ""
+.SH SYNOPSIS
+div \- divide two integers
+.SH ANSI_SYNOPSIS
+#include <stdlib.h>
+.br
+div_t div(int 
+.IR n ,
+int 
+.IR d );
+.br
+.SH TRAD_SYNOPSIS
+#include <stdlib.h>
+.br
+div_t div(
+.IR n ,
+.IR d )
+.br
+int 
+.IR n ,
+.IR d ;
+.br
+.SH DESCRIPTION
+Divide
+@tex
+$n/d$,
+@end tex
+@ifinfo
+.IR n /<[d]>,
+@end ifinfo
+returning quotient and remainder as two integers in a structure 
+.BR div_t .
+.SH RETURNS
+The result is represented with the structure
+
+. typedef struct
+. {
+. int quot;
+. int rem;
+. } div_t;
+
+where the 
+.BR quot 
+field represents the quotient, and 
+.BR rem 
+the
+remainder. For nonzero 
+.IR d ,
+if `
+.BR <[r 
+= div(
+.IR n ,<[d]>);>>'
+then
+.IR n 
+equals `
+.BR <[r .rem
++ 
+.IR d *<[r]>.quot>>'.
+
+To divide 
+.BR long 
+rather than 
+.BR int 
+values, use the similar
+function 
+.BR ldiv .
+.SH PORTABILITY
+.BR div 
+is ANSI.
+
+No supporting OS subroutines are required.
+.SH SOURCE
+src/newlib/libc/stdlib/div.c

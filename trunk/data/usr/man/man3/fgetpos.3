@@ -1,0 +1,86 @@
+.TH fgetpos 3 "" "" ""
+.SH SYNOPSIS
+fgetpos \- record position in a stream or file
+.SH ANSI_SYNOPSIS
+#include <stdio.h>
+.br
+int fgetpos(FILE *
+.IR fp ,
+fpos_t *
+.IR pos );
+.br
+.SH TRAD_SYNOPSIS
+#include <stdio.h>
+.br
+int fgetpos(
+.IR fp ,
+.IR pos )
+.br
+FILE *
+.IR fp ;
+.br
+fpos_t *
+.IR pos ;
+.br
+.SH DESCRIPTION
+Objects of type 
+.BR FILE 
+can have a ``position'' that records how much
+of the file your program has already read. Many of the 
+.BR stdio 
+functions
+depend on this position, and many change it as a side effect.
+
+You can use 
+.BR fgetpos 
+to report on the current position for a file
+identified by 
+.IR fp ;
+.BR fgetpos 
+will write a value
+representing that position at 
+.BR *<[pos >>.
+Later, you can
+use this value with 
+.BR fsetpos 
+to return the file to this
+position.
+
+In the current implementation, 
+.BR fgetpos 
+simply uses a character
+count to represent the file position; this is the same number that
+would be returned by 
+.BR ftell .
+.SH RETURNS
+.BR fgetpos 
+returns 
+.BR 0 
+when successful. If 
+.BR fgetpos 
+fails, the
+result is 
+.BR 1 .
+Failure occurs on streams that do not support
+positioning; the global 
+.BR errno 
+indicates this condition with the
+value 
+.BR ESPIPE .
+.SH PORTABILITY
+.BR fgetpos 
+is required by the ANSI C standard, but the meaning of the
+value it records is not specified beyond requiring that it be
+acceptable as an argument to 
+.BR fsetpos .
+In particular, other
+conforming C implementations may return a different result from
+.BR ftell 
+than what 
+.BR fgetpos 
+writes at 
+.BR *<[pos >>.
+
+No supporting OS subroutines are required.
+.SH SOURCE
+src/newlib/libc/stdio/fgetpos.c

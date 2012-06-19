@@ -1,0 +1,71 @@
+.TH strncasecmp 3 "" "" ""
+.SH SYNOPSIS
+strncasecmp \- case insensitive character string compare
+.SH ANSI_SYNOPSIS
+#include <string.h>
+.br
+int strncasecmp(const char *
+.IR a ,
+const char * 
+.IR b ,
+size_t 
+.IR length );
+.br
+.SH TRAD_SYNOPSIS
+#include <string.h>
+.br
+int strncasecmp(
+.IR a ,
+.IR b ,
+.IR length )
+.br
+char *
+.IR a ;
+.br
+char *
+.IR b ;
+.br
+size_t 
+.IR length 
+.br
+.SH DESCRIPTION
+.BR strncasecmp 
+compares up to 
+.IR length 
+characters
+from the string at 
+.IR a 
+to the string at 
+.IR b 
+in a 
+case-insensitive manner.
+.SH RETURNS
+If 
+.BR *<[a >>
+sorts lexicographically after 
+.BR *<[b >>
+(after
+both are converted to upper case), 
+.BR strncasecmp 
+returns a
+number greater than zero. If the two strings are equivalent,
+.BR strncasecmp 
+returns zero. If 
+.BR *<[a >>
+sorts
+lexicographically before 
+.BR *<[b >>,
+.BR strncasecmp 
+returns a
+number less than zero.
+.SH PORTABILITY
+.BR strncasecmp 
+is in the Berkeley Software Distribution.
+
+.BR strncasecmp 
+requires no supporting OS subroutines. It uses
+tolower() from elsewhere in this library.
+.SH QUICKREF
+strncasecmp
+.SH SOURCE
+src/newlib/libc/string/strncasecmp.c

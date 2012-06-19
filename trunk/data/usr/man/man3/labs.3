@@ -1,0 +1,55 @@
+.TH labs 3 "" "" ""
+.SH SYNOPSIS
+labs \- long integer absolute value
+.SH ANSI_SYNOPSIS
+#include <stdlib.h>
+.br
+long labs(long 
+.IR i );
+.br
+.SH TRAD_SYNOPSIS
+#include <stdlib.h>
+.br
+long labs(
+.IR i )
+.br
+long 
+.IR i ;
+.br
+.SH DESCRIPTION
+.BR labs 
+returns
+@tex
+$|x|$,
+@end tex
+the absolute value of 
+.IR i 
+(also called the magnitude
+of 
+.IR i ).
+That is, if 
+.IR i 
+is negative, the result is the opposite
+of 
+.IR i ,
+but if 
+.IR i 
+is nonnegative the result is 
+.IR i .
+
+The similar function 
+.BR abs 
+uses and returns 
+.BR int 
+rather than
+.BR long 
+values.
+.SH RETURNS
+The result is a nonnegative long integer.
+.SH PORTABILITY
+.BR labs 
+is ANSI.
+
+No supporting OS subroutine calls are required.
+.SH SOURCE
+src/newlib/libc/stdlib/labs.c

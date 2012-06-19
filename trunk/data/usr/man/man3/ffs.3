@@ -1,0 +1,48 @@
+.TH ffs 3 "" "" ""
+.SH SYNOPSIS
+ffs \- find first bit set in a word
+.SH ANSI_SYNOPSIS
+int ffs(int 
+.IR word );
+.br
+.SH TRAD_SYNOPSIS
+int ffs(
+.IR word );
+.br
+.SH DESCRIPTION
+.BR ffs 
+returns the first bit set in a word.
+.SH RETURNS
+.BR ffs 
+returns 0 if 
+.IR c 
+is 0, 1 if 
+.IR c 
+is odd, 2 if 
+.IR c 
+is a multiple of
+2, etc.
+.SH PORTABILITY
+.BR ffs 
+is not ANSI C.
+
+No supporting OS subroutines are required. */
+
+int
+ffs (word)
+int word;
+{
+int i;
+
+if (!word)
+return 0;
+
+i = 0;
+for (;;)
+{
+if (((1 << i++) & word) != 0)
+return i;
+}
+}
+.SH SOURCE
+src/newlib/libc/misc/ffs.c

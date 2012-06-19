@@ -1,0 +1,83 @@
+.TH fsetpos 3 "" "" ""
+.SH SYNOPSIS
+fsetpos \- restore position of a stream or file
+.SH ANSI_SYNOPSIS
+#include <stdio.h>
+.br
+int fsetpos(FILE *
+.IR fp ,
+const fpos_t *
+.IR pos );
+.br
+.SH TRAD_SYNOPSIS
+#include <stdio.h>
+.br
+int fsetpos(
+.IR fp ,
+.IR pos )
+.br
+FILE *
+.IR fp ;
+.br
+fpos_t *
+.IR pos ;
+.br
+.SH DESCRIPTION
+Objects of type 
+.BR FILE 
+can have a ``position'' that records how much
+of the file your program has already read. Many of the 
+.BR stdio 
+functions
+depend on this position, and many change it as a side effect.
+
+You can use 
+.BR fsetpos 
+to return the file identified by 
+.IR fp 
+to a previous
+position 
+.BR *<[pos >>
+(after first recording it with 
+.BR fgetpos ).
+
+See 
+.BR fseek 
+for a similar facility.
+.SH RETURNS
+.BR fgetpos 
+returns 
+.BR 0 
+when successful. If 
+.BR fgetpos 
+fails, the
+result is 
+.BR 1 .
+The reason for failure is indicated in 
+.BR errno :
+either 
+.BR ESPIPE 
+(the stream identified by 
+.IR fp 
+doesn't support
+repositioning) or 
+.BR EINVAL 
+(invalid file position).
+.SH PORTABILITY
+ANSI C requires 
+.BR fsetpos ,
+but does not specify the nature of
+.BR *<[pos >>
+beyond identifying it as written by 
+.BR fgetpos .
+
+Supporting OS subroutines required: 
+.BR close ,
+.BR fstat ,
+.BR isatty ,
+.BR lseek ,
+.BR read ,
+.BR sbrk ,
+.BR write .
+.SH SOURCE
+src/newlib/libc/stdio/fsetpos.c

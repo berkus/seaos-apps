@@ -1,0 +1,118 @@
+.TH atof 3 "" "" ""
+.SH SYNOPSIS
+atof, atoff \- string to double or float
+.SH ANSI_SYNOPSIS
+#include <stdlib.h>
+.br
+double atof(const char *
+.IR s );
+.br
+float atoff(const char *
+.IR s );
+.br
+.SH TRAD_SYNOPSIS
+#include <stdlib.h>
+.br
+double atof(
+.IR s )
+.br
+char *
+.IR s ;
+.br
+
+float atoff(
+.IR s )
+.br
+char *
+.IR s ;
+.br
+.SH DESCRIPTION
+.BR atof 
+converts the initial portion of a string to a 
+.BR double .
+.BR atoff 
+converts the initial portion of a string to a 
+.BR float .
+
+The functions parse the character string 
+.IR s ,
+locating a substring which can be converted to a floating point
+value. The substring must match the format:
+. [+|-]
+.IR digits [.][<[digits]>][(e|E)[+|-]<[digits]>]
+The substring converted is the longest initial
+fragment of 
+.IR s 
+that has the expected format, beginning with
+the first non-whitespace character. The substring
+is empty if 
+.BR str 
+is empty, consists entirely
+of whitespace, or if the first non-whitespace character is
+something other than 
+.BR + ,
+.BR - ,
+.BR . ,
+or a digit.
+
+.BR atof(<[s )>>
+is implemented as 
+.BR strtod(<[s ,
+NULL)>>.
+.BR atoff(<[s )>>
+is implemented as 
+.BR strtodf(<[s ,
+NULL)>>.
+.SH RETURNS
+.BR atof 
+returns the converted substring value, if any, as a
+.BR double ;
+or 
+.BR 0.0 ,
+if no conversion could be performed.
+If the correct value is out of the range of representable values, plus
+or minus 
+.BR HUGE_VAL 
+is returned, and 
+.BR ERANGE 
+is stored in
+.BR errno .
+If the correct value would cause underflow, 
+.BR 0.0 
+is returned
+and 
+.BR ERANGE 
+is stored in 
+.BR errno .
+
+.BR atoff 
+obeys the same rules as 
+.BR atof ,
+except that it
+returns a 
+.BR float .
+.SH PORTABILITY
+.BR atof 
+is ANSI C. 
+.BR atof ,
+.BR atoi ,
+and 
+.BR atol 
+are subsumed by 
+.BR strod 
+and 
+.BR strol ,
+but are used extensively in existing code. These functions are
+less reliable, but may be faster if the argument is verified to be in a valid
+range.
+
+Supporting OS subroutines required: 
+.BR close ,
+.BR fstat ,
+.BR isatty ,
+.BR lseek ,
+.BR read ,
+.BR sbrk ,
+.BR write .
+.SH SOURCE
+src/newlib/libc/stdlib/atof.c

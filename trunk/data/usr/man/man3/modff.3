@@ -1,0 +1,84 @@
+.TH modff 3 "" "" ""
+.SH SYNOPSIS
+modf, modff \- split fractional and integer parts
+.SH ANSI_SYNOPSIS
+#include <math.h>
+.br
+double modf(double 
+.IR val ,
+double *
+.IR ipart );
+.br
+float modff(float 
+.IR val ,
+float *
+.IR ipart );
+.br
+.SH TRAD_SYNOPSIS
+#include <math.h>
+.br
+double modf(
+.IR val ,
+.IR ipart )
+.br
+double 
+.IR val ;
+.br
+double *
+.IR ipart ;
+.br
+
+float modff(
+.IR val ,
+.IR ipart )
+.br
+float 
+.IR val ;
+.br
+float *
+.IR ipart ;
+.br
+.SH DESCRIPTION
+.BR modf 
+splits the double 
+.IR val 
+apart into an integer part
+and a fractional part, returning the fractional part and
+storing the integer part in 
+.BR *<[ipart >>.
+No rounding
+whatsoever is done; the sum of the integer and fractional
+parts is guaranteed to be exactly equal to 
+.IR val .
+That
+is, if . 
+.IR realpart 
+= modf(
+.IR val ,
+&
+.IR intpart );
+then
+`
+.BR <[realpart +<[intpart]>>>'
+is the same as 
+.IR val .
+.BR modff 
+is identical, save that it takes and returns
+.BR float 
+rather than 
+.BR double 
+values. 
+.SH RETURNS
+The fractional part is returned. Each result has the same
+sign as the supplied argument 
+.IR val .
+.SH PORTABILITY
+.BR modf 
+is ANSI C. 
+.BR modff 
+is an extension.
+.SH QUICKREF
+modf ansi pure 
+modff - pure
+.SH SOURCE
+src/newlib/libm/common/s_modf.c

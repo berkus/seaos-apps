@@ -1,0 +1,71 @@
+.TH fdopen 3 "" "" ""
+.SH SYNOPSIS
+fdopen \- turn open file into a stream
+.SH ANSI_SYNOPSIS
+#include <stdio.h>
+.br
+FILE *fdopen(int 
+.IR fd ,
+const char *
+.IR mode );
+.br
+FILE *_fdopen_r(void *
+.IR reent ,
+.br
+int 
+.IR fd ,
+const char *
+.IR mode );
+.br
+.SH TRAD_SYNOPSIS
+#include <stdio.h>
+.br
+FILE *fdopen(
+.IR fd ,
+.IR mode )
+.br
+int 
+.IR fd ;
+.br
+char *
+.IR mode ;
+.br
+
+FILE *_fdopen_r(
+.IR reent ,
+.IR fd ,
+.IR mode )
+.br
+char *
+.IR reent ;
+.br
+int 
+.IR fd ;
+.br
+char *
+.IR mode );
+.br
+.SH DESCRIPTION
+.BR fdopen 
+produces a file descriptor of type 
+.BR FILE * ,
+from a
+descriptor for an already-open file (returned, for example, by the
+system subroutine 
+.BR open 
+rather than by 
+.BR fopen ).
+The 
+.IR mode 
+argument has the same meanings as in 
+.BR fopen .
+.SH RETURNS
+File pointer or 
+.BR NULL ,
+as for 
+.BR fopen .
+.SH PORTABILITY
+.BR fdopen 
+is ANSI.
+.SH SOURCE
+src/newlib/libc/stdio/fdopen.c

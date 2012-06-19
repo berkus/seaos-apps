@@ -1,0 +1,46 @@
+.TH strspn 3 "" "" ""
+.SH SYNOPSIS
+strspn \- find initial match
+.SH ANSI_SYNOPSIS
+#include <string.h>
+.br
+size_t strspn(const char *
+.IR s1 ,
+const char *
+.IR s2 );
+.br
+.SH TRAD_SYNOPSIS
+#include <string.h>
+.br
+size_t strspn(
+.IR s1 ,
+.IR s2 )
+.br
+char *
+.IR s1 ;
+.br
+char *
+.IR s2 ;
+.br
+.SH DESCRIPTION
+This function computes the length of the initial segment of
+the string pointed to by 
+.IR s1 
+which consists entirely of
+characters from the string pointed to by 
+.IR s2 
+(excluding the
+terminating null character).
+.SH RETURNS
+.BR strspn 
+returns the length of the segment found.
+.SH PORTABILITY
+.BR strspn 
+is ANSI C.
+
+.BR strspn 
+requires no supporting OS subroutines.
+.SH QUICKREF
+strspn ansi pure
+.SH SOURCE
+src/newlib/libc/string/strspn.c

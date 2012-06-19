@@ -1,0 +1,584 @@
+.TH sprintf 3 "" "" ""
+.SH SYNOPSIS
+printf, fprintf, sprintf, snprintf \- format output
+.SH ANSI_SYNOPSIS
+#include <stdio.h>
+.br
+
+int printf(const char *
+.IR format 
+[, 
+.IR arg ,
+...]);
+.br
+int fprintf(FILE *
+.IR fd ,
+const char *
+.IR format 
+[, 
+.IR arg ,
+...]);
+.br
+int sprintf(char *
+.IR str ,
+const char *
+.IR format 
+[, 
+.IR arg ,
+...]);
+.br
+int snprintf(char *
+.IR str ,
+size_t 
+.IR size ,
+const char *
+.IR format 
+[, 
+.IR arg ,
+...]);
+.br
+.SH TRAD_SYNOPSIS
+#include <stdio.h>
+.br
+
+int printf(
+.IR format 
+[, 
+.IR arg ,
+...])
+.br
+char *
+.IR format ;
+.br
+
+int fprintf(
+.IR fd ,
+.IR format 
+[, 
+.IR arg ,
+...]);
+.br
+FILE *
+.IR fd ;
+.br
+char *
+.IR format ;
+.br
+
+int sprintf(
+.IR str ,
+.IR format 
+[, 
+.IR arg ,
+...]);
+.br
+char *
+.IR str ;
+.br
+char *
+.IR format ;
+.br
+
+int snprintf(
+.IR str ,
+size_t 
+.IR size ,
+.IR format 
+[, 
+.IR arg ,
+...]);
+.br
+char *
+.IR str ;
+.br
+size_t 
+.IR size ;
+.br
+char *
+.IR format ;
+.br
+.SH DESCRIPTION
+.BR printf 
+accepts a series of arguments, applies to each a
+format specifier from 
+.BR *<[format >>,
+and writes the
+formatted data to 
+.BR stdout ,
+terminated with a null character.
+The behavior of 
+.BR printf 
+is undefined if there are not enough
+arguments for the format.
+.BR printf 
+returns when it reaches the end of the format string.
+If there are more arguments than the format requires, excess
+arguments are ignored.
+
+.BR fprintf ,
+.BR sprintf 
+and 
+.BR snprintf 
+are identical to 
+.BR printf ,
+other than the destination of the formatted output: 
+.BR fprintf 
+sends
+the output to a specified file 
+.IR fd ,
+while 
+.BR sprintf 
+stores the
+output in the specified char array 
+.IR str 
+and 
+.BR snprintf 
+limits
+number of characters written to 
+.IR str 
+to at most 
+.IR size 
+(including
+terminating 
+.BR 0 ).
+For 
+.BR sprintf 
+and 
+.BR snprintf ,
+the behavior is
+also undefined if the output 
+.BR *<[str >>
+overlaps with one of the
+arguments. 
+.IR format 
+is a pointer to a charater string containing
+two types of objects: ordinary characters (other than 
+.BR % ),
+which
+are copied unchanged to the output, and conversion
+specifications, each of which is introduced by 
+.BR % .
+(To include 
+.BR % 
+in the output, use 
+.BR %% 
+in the format string.)
+A conversion specification has the following form:
+
+. %[
+.IR flags ][<[width]>][.<[prec]>][<[size]>][<[type]>]
+
+The fields of the conversion specification have the following meanings:
+
+O+
+o 
+.IR flags 
+
+an optional sequence of characters which control
+output justification, numeric signs, decimal points,
+trailing zeroes, and octal and hex prefixes.
+The flag characters are minus (
+.BR - ),
+plus (
+.BR + ),
+space ( ), zero (
+.BR 0 ),
+and sharp (
+.BR # ).
+They can
+appear in any combination.
+
+o+
+o -
+The result of the conversion is left justified, and the right is
+padded with blanks. If you do not use this flag, the result is right
+justified, and padded on the left.
+
+o +
+The result of a signed conversion (as determined by 
+.IR type )
+will always begin with a plus or minus sign. (If you do not use
+this flag, positive values do not begin with a plus sign.)
+
+o " " (space)
+If the first character of a signed conversion specification
+is not a sign, or if a signed conversion results in no
+characters, the result will begin with a space. If the
+space ( ) flag and the plus (
+.BR + )
+flag both appear,
+the space flag is ignored.
+
+o 0
+If the 
+.IR type 
+character is 
+.BR d ,
+.BR i ,
+.BR o ,
+.BR u ,
+.BR x ,
+.BR X ,
+.BR e ,
+.BR E ,
+.BR f ,
+.BR g ,
+or 
+.BR G :
+leading zeroes,
+are used to pad the field width (following any indication of sign or
+base); no spaces are used for padding. If the zero (
+.BR 0 )
+and
+minus (
+.BR - )
+flags both appear, the zero (
+.BR 0 )
+flag will
+be ignored. For 
+.BR d ,
+.BR i ,
+.BR o ,
+.BR u ,
+.BR x ,
+and 
+.BR X 
+conversions, if a precision 
+.IR prec 
+is specified, the zero (
+.BR 0 )
+flag is ignored.
+
+Note that 
+.BR 0 
+is interpreted as a flag, not as the beginning
+of a field width.
+
+o #
+The result is to be converted to an alternative form, according
+to the next character:
+
+o+
+o 0
+increases precision to force the first digit
+of the result to be a zero.
+
+o x
+a non-zero result will have a 
+.BR 0x 
+prefix.
+
+o X
+a non-zero result will have a 
+.BR 0X 
+prefix.
+
+o e, E or f
+The result will always contain a decimal point
+even if no digits follow the point.
+(Normally, a decimal point appears only if a
+digit follows it.) Trailing zeroes are removed.
+
+o g or G
+same as 
+.BR e 
+or 
+.BR E ,
+but trailing zeroes
+are not removed.
+
+o all others
+undefined.
+
+o-
+o-
+
+o 
+.IR width 
+
+.IR width 
+is an optional minimum field width. You can either
+specify it directly as a decimal integer, or indirectly by
+using instead an asterisk (
+.BR * ),
+in which case an 
+.BR int 
+argument is used as the field width. Negative field widths
+are not supported; if you attempt to specify a negative field
+width, it is interpreted as a minus (
+.BR - )
+flag followed by a
+positive field width.
+
+o 
+.IR prec 
+
+an optional field; if present, it is introduced with `
+.BR . '
+(a period). This field gives the maximum number of
+characters to print in a conversion; the minimum number of
+digits of an integer to print, for conversions with 
+.IR type 
+.BR d ,
+.BR i ,
+.BR o ,
+.BR u ,
+.BR x ,
+and 
+.BR X ;
+the maximum number of
+significant digits, for the 
+.BR g 
+and 
+.BR G 
+conversions;
+or the number of digits to print after the decimal
+point, for 
+.BR e ,
+.BR E ,
+and 
+.BR f 
+conversions. You can specify
+the precision either directly as a decimal integer or
+indirectly by using an asterisk (
+.BR * ),
+in which case
+an 
+.BR int 
+argument is used as the precision. Supplying a negative
+precision is equivalent to omitting the precision.
+If only a period is specified the precision is zero.
+If a precision appears with any other conversion 
+.IR type 
+than those listed here, the behavior is undefined.
+
+o 
+.IR size 
+
+.BR h ,
+.BR l ,
+and 
+.BR L 
+are optional size characters which
+override the default way that 
+.BR printf 
+interprets the
+data type of the corresponding argument. 
+.BR h 
+forces
+the following 
+.BR d ,
+.BR i ,
+.BR o ,
+.BR u ,
+.BR x 
+or 
+.BR X 
+conversion
+.IR type 
+to apply to a 
+.BR short 
+or 
+.BR unsigned short .
+.BR h 
+also
+forces a following 
+.BR n 
+.IR type 
+to apply to
+a pointer to a 
+.BR short .
+Similarily, an
+.BR l 
+forces the following 
+.BR d ,
+.BR i ,
+.BR o ,
+.BR u ,
+.BR x 
+or 
+.BR X 
+conversion 
+.IR type 
+to apply to a 
+.BR long 
+or
+.BR unsigned long .
+.BR l 
+also forces a following 
+.BR n 
+.IR type 
+to
+apply to a pointer to a 
+.BR long .
+If an 
+.BR h 
+or an 
+.BR l 
+appears with another conversion
+specifier, the behavior is undefined. 
+.BR L 
+forces a
+following 
+.BR e ,
+.BR E ,
+.BR f ,
+.BR g 
+or 
+.BR G 
+conversion 
+.IR type 
+to
+apply to a 
+.BR long double 
+argument. If 
+.BR L 
+appears with
+any other conversion 
+.IR type ,
+the behavior is undefined.
+
+o 
+.IR type 
+
+.IR type 
+specifies what kind of conversion 
+.BR printf 
+performs.
+Here is a table of these:
+
+o+
+o %
+prints the percent character (
+.BR % )
+
+o c
+prints 
+.IR arg 
+as single character
+
+o s
+prints characters until precision is reached or a null terminator
+is encountered; takes a string pointer
+
+o d
+prints a signed decimal integer; takes an 
+.BR int 
+(same as 
+.BR i )
+
+o i
+prints a signed decimal integer; takes an 
+.BR int 
+(same as 
+.BR d )
+
+o o
+prints a signed octal integer; takes an 
+.BR int 
+
+o u
+prints an unsigned decimal integer; takes an 
+.BR int 
+
+o x
+prints an unsigned hexadecimal integer (using 
+.BR abcdef 
+as
+digits beyond 
+.BR 9 );
+takes an 
+.BR int 
+
+o X
+prints an unsigned hexadecimal integer (using 
+.BR ABCDEF 
+as
+digits beyond 
+.BR 9 );
+takes an 
+.BR int 
+
+o f
+prints a signed value of the form 
+.BR [-]9999.9999 ;
+takes
+a floating point number
+
+o e
+prints a signed value of the form 
+.BR [-]9.9999e[+|-]999 ;
+takes a
+floating point number
+
+o E
+prints the same way as 
+.BR e ,
+but using 
+.BR E 
+to introduce the
+exponent; takes a floating point number
+
+o g
+prints a signed value in either 
+.BR f 
+or 
+.BR e 
+form, based on given
+value and precision---trailing zeros and the decimal point are
+printed only if necessary; takes a floating point number
+
+o G
+prints the same way as 
+.BR g ,
+but using 
+.BR E 
+for the exponent if an
+exponent is needed; takes a floating point number
+
+o n
+stores (in the same object) a count of the characters written;
+takes a pointer to 
+.BR int 
+
+o p
+prints a pointer in an implementation-defined format.
+This implementation treats the pointer as an
+.BR unsigned long 
+(same as 
+.BR Lu ).
+o-
+O-
+.SH RETURNS
+.BR sprintf 
+returns the number of bytes in the output string,
+save that the concluding 
+.BR NULL 
+is not counted.
+.BR printf 
+and 
+.BR fprintf 
+return the number of characters transmitted.
+If an error occurs, 
+.BR printf 
+and 
+.BR fprintf 
+return 
+.BR EOF .
+No
+error returns occur for 
+.BR sprintf .
+.SH PORTABILITY
+The ANSI C standard specifies that implementations must
+support at least formatted output of up to 509 characters.
+
+Supporting OS subroutines required: 
+.BR close ,
+.BR fstat ,
+.BR isatty ,
+.BR lseek ,
+.BR read ,
+.BR sbrk ,
+.BR write .
+.SH SOURCE
+src/newlib/libc/stdio/sprintf.c

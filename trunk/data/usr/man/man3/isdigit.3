@@ -1,0 +1,42 @@
+.TH isdigit 3 "" "" ""
+.SH SYNOPSIS
+isdigit \- decimal digit predicate
+.SH ANSI_SYNOPSIS
+#include <ctype.h>
+.br
+int isdigit(int 
+.IR c );
+.br
+.SH TRAD_SYNOPSIS
+#include <ctype.h>
+.br
+int isdigit(
+.IR c );
+.br
+.SH DESCRIPTION
+.BR isdigit 
+is a macro which classifies ASCII integer values by table
+lookup. It is a predicate returning non-zero for decimal digits, and 0 for
+other characters. It is defined only when 
+.BR isascii (<[c]>)
+is true
+or 
+.IR c 
+is EOF.
+
+You can use a compiled subroutine instead of the macro definition by
+undefining the macro using `
+.BR #undef isdigit '.
+.SH RETURNS
+.BR isdigit 
+returns non-zero if 
+.IR c 
+is a decimal digit (
+.BR 0 --<<9>>).
+.SH PORTABILITY
+.BR isdigit 
+is ANSI C.
+
+No supporting OS subroutines are required.
+.SH SOURCE
+src/newlib/libc/ctype/isdigit.c

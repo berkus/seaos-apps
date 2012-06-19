@@ -1,0 +1,73 @@
+.TH ldiv 3 "" "" ""
+.SH SYNOPSIS
+ldiv \- divide two long integers
+.SH ANSI_SYNOPSIS
+#include <stdlib.h>
+.br
+ldiv_t ldiv(long 
+.IR n ,
+long 
+.IR d );
+.br
+.SH TRAD_SYNOPSIS
+#include <stdlib.h>
+.br
+ldiv_t ldiv(
+.IR n ,
+.IR d )
+.br
+long 
+.IR n ,
+.IR d ;
+.br
+.SH DESCRIPTION
+Divide
+@tex
+$n/d$,
+@end tex
+@ifinfo
+.IR n /<[d]>,
+@end ifinfo
+returning quotient and remainder as two long integers in a structure 
+.BR ldiv_t .
+.SH RETURNS
+The result is represented with the structure
+
+. typedef struct
+. {
+. long quot;
+. long rem;
+. } ldiv_t;
+
+where the 
+.BR quot 
+field represents the quotient, and 
+.BR rem 
+the
+remainder. For nonzero 
+.IR d ,
+if `
+.BR <[r 
+= ldiv(
+.IR n ,<[d]>);>>'
+then
+.IR n 
+equals `
+.BR <[r .rem
++ 
+.IR d *<[r]>.quot>>'.
+
+To divide 
+.BR int 
+rather than 
+.BR long 
+values, use the similar
+function 
+.BR div .
+.SH PORTABILITY
+.BR ldiv 
+is ANSI.
+
+No supporting OS subroutines are required.
+.SH SOURCE
+src/newlib/libc/stdlib/ldiv.c

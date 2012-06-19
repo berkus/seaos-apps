@@ -1,0 +1,38 @@
+.TH strlwr 3 "" "" ""
+.SH SYNOPSIS
+strlwr \- force string to lower case
+.SH ANSI_SYNOPSIS
+#include <string.h>
+.br
+char *strlwr(char *
+.IR a );
+.br
+.SH TRAD_SYNOPSIS
+#include <string.h>
+.br
+char *strlwr(
+.IR a )
+.br
+char *
+.IR a ;
+.br
+.SH DESCRIPTION
+.BR strlwr 
+converts each characters in the string at 
+.IR a 
+to
+lower case.
+.SH RETURNS
+.BR strlwr 
+returns its argument, 
+.IR a .
+.SH PORTABILITY
+.BR strlwr 
+is not widely portable.
+
+.BR strlwr 
+requires no supporting OS subroutines.
+.SH QUICKREF
+strlwr
+.SH SOURCE
+src/newlib/libc/string/strlwr.c

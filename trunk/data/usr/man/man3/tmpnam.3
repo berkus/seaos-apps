@@ -1,0 +1,187 @@
+.TH tmpnam 3 "" "" ""
+.SH SYNOPSIS
+tmpnam, tempnam \- name for a temporary file
+.SH ANSI_SYNOPSIS
+#include <stdio.h>
+.br
+char *tmpnam(char *
+.IR s );
+.br
+char *tempnam(char *
+.IR dir ,
+char *
+.IR pfx );
+.br
+char *_tmpnam_r(void *
+.IR reent ,
+char *
+.IR s );
+.br
+char *_tempnam_r(void *
+.IR reent ,
+char *
+.IR dir ,
+char *
+.IR pfx );
+.br
+.SH TRAD_SYNOPSIS
+#include <stdio.h>
+.br
+char *tmpnam(
+.IR s )
+.br
+char *
+.IR s ;
+.br
+
+char *tempnam(
+.IR dir ,
+.IR pfx )
+.br
+char *
+.IR dir ;
+.br
+char *
+.IR pfx ;
+.br
+
+char *_tmpnam_r(
+.IR reent ,
+.IR s )
+.br
+char *
+.IR reent ;
+.br
+char *
+.IR s ;
+.br
+
+char *_tempnam_r(
+.IR reent ,
+.IR dir ,
+.IR pfx )
+.br
+char *
+.IR reent ;
+.br
+char *
+.IR dir ;
+.br
+char *
+.IR pfx ;
+.br
+.SH DESCRIPTION
+Use either of these functions to generate a name for a temporary file.
+The generated name is guaranteed to avoid collision with other files
+(for up to 
+.BR TMP_MAX 
+calls of either function).
+
+.BR tmpnam 
+generates file names with the value of 
+.BR P_tmpdir 
+(defined in `
+.BR stdio.h ')
+as the leading directory component of the path.
+
+You can use the 
+.BR tmpnam 
+argument 
+.IR s 
+to specify a suitable area
+of memory for the generated filename; otherwise, you can call
+.BR tmpnam(NULL) 
+to use an internal static buffer.
+
+.BR tempnam 
+allows you more control over the generated filename: you
+can use the argument 
+.IR dir 
+to specify the path to a directory for
+temporary files, and you can use the argument 
+.IR pfx 
+to specify a
+prefix for the base filename.
+
+If 
+.IR dir 
+is 
+.BR NULL ,
+.BR tempnam 
+will attempt to use the value of
+environment variable 
+.BR TMPDIR 
+instead; if there is no such value,
+.BR tempnam 
+uses the value of 
+.BR P_tmpdir 
+(defined in `
+.BR stdio.h ').
+
+If you don't need any particular prefix to the basename of temporary
+files, you can pass 
+.BR NULL 
+as the 
+.IR pfx 
+argument to 
+.BR tempnam .
+
+.BR _tmpnam_r 
+and 
+.BR _tempnam_r 
+are reentrant versions of 
+.BR tmpnam 
+and 
+.BR tempnam 
+respectively. The extra argument 
+.IR reent 
+is a
+pointer to a reentrancy structure.
+.SH WARNINGS
+The generated filenames are suitable for temporary files, but do not
+in themselves make files temporary. Files with these names must still
+be explicitly removed when you no longer want them.
+
+If you supply your own data area 
+.IR s 
+for 
+.BR tmpnam ,
+you must ensure
+that it has room for at least 
+.BR L_tmpnam 
+elements of type 
+.BR char .
+.SH RETURNS
+Both 
+.BR tmpnam 
+and 
+.BR tempnam 
+return a pointer to the newly
+generated filename.
+.SH PORTABILITY
+ANSI C requires 
+.BR tmpnam ,
+but does not specify the use of
+.BR P_tmpdir .
+The System V Interface Definition (Issue 2) requires
+both 
+.BR tmpnam 
+and 
+.BR tempnam .
+
+Supporting OS subroutines required: 
+.BR close ,
+.BR fstat ,
+.BR getpid ,
+.BR isatty ,
+.BR lseek ,
+.BR open ,
+.BR read ,
+.BR sbrk ,
+.BR write .
+
+The global pointer 
+.BR environ 
+is also required.
+.SH SOURCE
+src/newlib/libc/stdio/tmpnam.c

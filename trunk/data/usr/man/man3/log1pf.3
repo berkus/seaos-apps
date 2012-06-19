@@ -1,0 +1,71 @@
+.TH log1pf 3 "" "" ""
+.SH SYNOPSIS
+log1p, log1pf \- log of <<1 + <[x]>>>
+.SH ANSI_SYNOPSIS
+#include <math.h>
+.br
+double log1p(double 
+.IR x );
+.br
+float log1pf(float 
+.IR x );
+.br
+.SH TRAD_SYNOPSIS
+#include <math.h>
+.br
+double log1p(
+.IR x )
+.br
+double 
+.IR x ;
+.br
+
+float log1pf(
+.IR x )
+.br
+float 
+.IR x ;
+.br
+.SH DESCRIPTION
+.BR log1p 
+calculates 
+@tex
+$ln(1+x)$, 
+@end tex
+the natural logarithm of 
+.BR 1+<[x >>.
+You can use 
+.BR log1p 
+rather
+than `
+.BR log(1+<[x )>>'
+for greater precision when 
+.IR x 
+is very
+small.
+
+.BR log1pf 
+calculates the same thing, but accepts and returns
+.BR float 
+values rather than 
+.BR double .
+.SH RETURNS
+.BR log1p 
+returns a 
+.BR double ,
+the natural log of 
+.BR 1+<[x >>.
+.BR log1pf 
+returns a 
+.BR float ,
+the natural log of 
+.BR 1+<[x >>.
+.SH PORTABILITY
+Neither 
+.BR log1p 
+nor 
+.BR log1pf 
+is required by ANSI C or by the System V
+Interface Definition (Issue 2).
+.SH SOURCE
+src/newlib/libm/common/s_log1p.c

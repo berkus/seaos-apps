@@ -1,0 +1,78 @@
+.TH raise 3 "" "" ""
+.SH SYNOPSIS
+raise \- send a signal
+.SH ANSI_SYNOPSIS
+#include <signal.h>
+.br
+int raise(int 
+.IR sig );
+.br
+
+int _raise_r(void *
+.IR reent ,
+int 
+.IR sig );
+.br
+.SH TRAD_SYNOPSIS
+#include <signal.h>
+.br
+int raise(
+.IR sig )
+.br
+int 
+.IR sig ;
+.br
+
+int _raise_r(
+.IR reent ,
+.IR sig )
+.br
+char *
+.IR reent ;
+.br
+int 
+.IR sig ;
+.br
+.SH DESCRIPTION
+Send the signal 
+.IR sig 
+(one of the macros from `
+.BR sys/signal.h ').
+This interrupts your program's normal flow of execution, and allows a signal
+handler (if you've defined one, using 
+.BR signal )
+to take control.
+
+The alternate function 
+.BR _raise_r 
+is a reentrant version. The extra
+argument 
+.IR reent 
+is a pointer to a reentrancy structure.
+.SH RETURNS
+The result is 
+.BR 0 
+if 
+.IR sig 
+was successfully raised, 
+.BR 1 
+otherwise. However, the return value (since it depends on the normal
+flow of execution) may not be visible, unless the signal handler for
+.IR sig 
+terminates with a 
+.BR return 
+or unless 
+.BR SIG_IGN 
+is in
+effect for this signal.
+.SH PORTABILITY
+ANSI C requires 
+.BR raise ,
+but allows the full set of signal numbers
+to vary from one implementation to another.
+
+Required OS subroutines: 
+.BR getpid ,
+.BR kill .
+.SH SOURCE
+src/newlib/libc/signal/raise.c

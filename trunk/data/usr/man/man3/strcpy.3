@@ -1,0 +1,44 @@
+.TH strcpy 3 "" "" ""
+.SH SYNOPSIS
+strcpy \- copy string
+.SH ANSI_SYNOPSIS
+#include <string.h>
+.br
+char *strcpy(char *
+.IR dst ,
+const char *
+.IR src );
+.br
+.SH TRAD_SYNOPSIS
+#include <string.h>
+.br
+char *strcpy(
+.IR dst ,
+.IR src )
+.br
+char *
+.IR dst ;
+.br
+char *
+.IR src ;
+.br
+.SH DESCRIPTION
+.BR strcpy 
+copies the string pointed to by 
+.IR src 
+(including the terminating null character) to the array
+pointed to by 
+.IR dst .
+.SH RETURNS
+This function returns the initial value of 
+.IR dst .
+.SH PORTABILITY
+.BR strcpy 
+is ANSI C.
+
+.BR strcpy 
+requires no supporting OS subroutines.
+.SH QUICKREF
+strcpy ansi pure
+.SH SOURCE
+src/newlib/libc/string/strcpy.c

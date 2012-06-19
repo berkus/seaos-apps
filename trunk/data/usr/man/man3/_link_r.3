@@ -1,0 +1,39 @@
+.TH _link_r 3 "" "" ""
+.SH SYNOPSIS
+_link_r \- Reentrant version of link
+.SH ANSI_SYNOPSIS
+#include <reent.h>
+.br
+int _link_r(struct _reent *
+.IR ptr ,
+.br
+const char *
+.IR old ,
+const char *
+.IR new );
+.br
+.SH TRAD_SYNOPSIS
+#include <reent.h>
+.br
+int _link_r(
+.IR ptr ,
+.IR old ,
+.IR new )
+.br
+struct _reent *
+.IR ptr ;
+.br
+char *
+.IR old ;
+.br
+char *
+.IR new ;
+.br
+.SH DESCRIPTION
+This is a reentrant version of 
+.BR link .
+It
+takes a pointer to the global data block, which holds
+.BR errno .
+.SH SOURCE
+src/newlib/libc/reent/linkr.c

@@ -1,0 +1,42 @@
+.TH swab 3 "" "" ""
+.SH SYNOPSIS
+swab \- swap adjacent bytes
+.SH ANSI_SYNOPSIS
+#include <unistd.h>
+.br
+void swab(const void *
+.IR in ,
+void *
+.IR out ,
+ssize_t 
+.IR n );
+.br
+.SH TRAD_SYNOPSIS
+void swab(
+.IR in ,
+.IR out ,
+.IR n 
+.br
+void *
+.IR in ;
+.br
+void *
+.IR out ;
+.br
+ssize_t 
+.IR n ;
+.br
+.SH DESCRIPTION
+This function copies 
+.IR n 
+bytes from the memory region
+pointed to by 
+.IR in 
+to the memory region pointed to by
+.IR out ,
+exchanging adjacent even and odd bytes.
+.SH PORTABILITY
+.BR swab 
+requires no supporting OS subroutines.
+.SH SOURCE
+src/newlib/libc/string/swab.c

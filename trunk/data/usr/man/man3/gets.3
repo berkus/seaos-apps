@@ -1,0 +1,76 @@
+.TH gets 3 "" "" ""
+.SH SYNOPSIS
+gets \- get character string (obsolete, use <<fgets>> instead)
+.SH ANSI_SYNOPSIS
+#include <stdio.h>
+.br
+
+char *gets(char *
+.IR buf );
+.br
+
+char *_gets_r(void *
+.IR reent ,
+char *
+.IR buf );
+.br
+.SH TRAD_SYNOPSIS
+#include <stdio.h>
+.br
+
+char *gets(
+.IR buf )
+.br
+char *
+.IR buf ;
+.br
+
+char *_gets_r(
+.IR reent ,
+.IR buf )
+.br
+char *
+.IR reent ;
+.br
+char *
+.IR buf ;
+.br
+.SH DESCRIPTION
+Reads characters from standard input until a newline is found.
+The characters up to the newline are stored in 
+.IR buf .
+The
+newline is discarded, and the buffer is terminated with a 0.
+
+This is a @emph{dangerous} function, as it has no way of checking
+the amount of space available in 
+.IR buf .
+One of the attacks
+used by the Internet Worm of 1988 used this to overrun a
+buffer allocated on the stack of the finger daemon and
+overwrite the return address, causing the daemon to execute
+code downloaded into it over the connection.
+
+The alternate function 
+.BR _gets_r 
+is a reentrant version. The extra
+argument 
+.IR reent 
+is a pointer to a reentrancy structure.
+.SH RETURNS
+.BR gets 
+returns the buffer passed to it, with the data filled
+in. If end of file occurs with some data already accumulated,
+the data is returned with no other indication. If end of file
+occurs with no data in the buffer, NULL is returned.
+
+Supporting OS subroutines required: 
+.BR close ,
+.BR fstat ,
+.BR isatty ,
+.BR lseek ,
+.BR read ,
+.BR sbrk ,
+.BR write .
+.SH SOURCE
+src/newlib/libc/stdio/gets.c

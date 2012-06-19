@@ -1,0 +1,65 @@
+.TH strncmp 3 "" "" ""
+.SH SYNOPSIS
+strncmp \- character string compare
+.SH ANSI_SYNOPSIS
+#include <string.h>
+.br
+int strncmp(const char *
+.IR a ,
+const char * 
+.IR b ,
+size_t 
+.IR length );
+.br
+.SH TRAD_SYNOPSIS
+#include <string.h>
+.br
+int strncmp(
+.IR a ,
+.IR b ,
+.IR length )
+.br
+char *
+.IR a ;
+.br
+char *
+.IR b ;
+.br
+size_t 
+.IR length 
+.br
+.SH DESCRIPTION
+.BR strncmp 
+compares up to 
+.IR length 
+characters
+from the string at 
+.IR a 
+to the string at 
+.IR b .
+.SH RETURNS
+If 
+.BR *<[a >>
+sorts lexicographically after 
+.BR *<[b >>,
+.BR strncmp 
+returns a number greater than zero. If the two
+strings are equivalent, 
+.BR strncmp 
+returns zero. If 
+.BR *<[a >>
+sorts lexicographically before 
+.BR *<[b >>,
+.BR strncmp 
+returns a
+number less than zero.
+.SH PORTABILITY
+.BR strncmp 
+is ANSI C.
+
+.BR strncmp 
+requires no supporting OS subroutines.
+.SH QUICKREF
+strncmp ansi pure
+.SH SOURCE
+src/newlib/libc/string/strncmp.c

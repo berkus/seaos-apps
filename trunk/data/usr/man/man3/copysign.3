@@ -1,0 +1,72 @@
+.TH copysign 3 "" "" ""
+.SH SYNOPSIS
+copysign, copysignf \- sign of <[y]>, magnitude of <[x]>
+.SH ANSI_SYNOPSIS
+#include <math.h>
+.br
+double copysign (double 
+.IR x ,
+double 
+.IR y );
+.br
+float copysignf (float 
+.IR x ,
+float 
+.IR y );
+.br
+.SH TRAD_SYNOPSIS
+#include <math.h>
+.br
+double copysign (
+.IR x ,
+.IR y )
+.br
+double 
+.IR x ;
+.br
+double 
+.IR y ;
+.br
+
+float copysignf (
+.IR x ,
+.IR y )
+.br
+float 
+.IR x ;
+.br
+float 
+.IR y ;
+.br
+.SH DESCRIPTION
+.BR copysign 
+constructs a number with the magnitude (absolute value)
+of its first argument, 
+.IR x ,
+and the sign of its second argument,
+.IR y .
+
+.BR copysignf 
+does the same thing; the two functions differ only in
+the type of their arguments and result.
+.SH RETURNS
+.BR copysign 
+returns a 
+.BR double 
+with the magnitude of
+.IR x 
+and the sign of 
+.IR y .
+.BR copysignf 
+returns a 
+.BR float 
+with the magnitude of
+.IR x 
+and the sign of 
+.IR y .
+.SH PORTABILITY
+.BR copysign 
+is not required by either ANSI C or the System V Interface
+Definition (Issue 2).
+.SH SOURCE
+src/newlib/libm/common/s_copysign.c

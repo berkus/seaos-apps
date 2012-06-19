@@ -1,0 +1,114 @@
+.TH isinf 3 "" "" ""
+.SH SYNOPSIS
+isnan, isnanf, isinf, isinff, finite, finitef \- test
+
+for exceptional numbers
+.SH ANSI_SYNOPSIS
+#include <ieeefp.h>
+.br
+int isnan(double 
+.IR arg );
+.br
+int isinf(double 
+.IR arg );
+.br
+int finite(double 
+.IR arg );
+.br
+int isnanf(float 
+.IR arg );
+.br
+int isinff(float 
+.IR arg );
+.br
+int finitef(float 
+.IR arg );
+.br
+.SH TRAD_SYNOPSIS
+#include <ieeefp.h>
+.br
+int isnan(
+.IR arg )
+.br
+double 
+.IR arg ;
+.br
+int isinf(
+.IR arg )
+.br
+double 
+.IR arg ;
+.br
+int finite(
+.IR arg );
+.br
+double 
+.IR arg ;
+.br
+int isnanf(
+.IR arg );
+.br
+float 
+.IR arg ;
+.br
+int isinff(
+.IR arg );
+.br
+float 
+.IR arg ;
+.br
+int finitef(
+.IR arg );
+.br
+float 
+.IR arg ;
+.br
+.SH DESCRIPTION
+These functions provide information on the floating point
+argument supplied.
+
+There are five major number formats -
+o+
+o zero
+a number which contains all zero bits.
+o subnormal
+Is used to represent number with a zero exponent, but a non zero fract
+ion.
+o normal
+A number with an exponent, and a fraction
+o infinity
+A number with an all 1's exponent and a zero fraction.
+o NAN
+A number with an all 1's exponent and a non zero fraction.
+
+o-
+
+.BR isnan 
+returns 1 if the argument is a nan. 
+.BR isinf 
+returns 1 if the argument is infinity. 
+.BR finite 
+returns 1 if the
+argument is zero, subnormal or normal.
+
+The 
+.BR isnanf ,
+.BR isinff 
+and 
+.BR finitef 
+perform the same
+operations as their 
+.BR isnan ,
+.BR isinf 
+and 
+.BR finite 
+counterparts, but on single precision floating point numbers.
+.SH QUICKREF
+isnan - pure
+.SH QUICKREFisinf - pure
+.SH QUICKREFfinite - pure
+.SH QUICKREFisnan - pure
+.SH QUICKREFisinf - pure
+.SH QUICKREFfinite - pure
+.SH SOURCE
+src/newlib/libm/mathfp/s_isnan.c

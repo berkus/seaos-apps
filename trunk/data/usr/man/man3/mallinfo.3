@@ -1,0 +1,147 @@
+.TH mallinfo 3 "" "" ""
+.SH SYNOPSIS
+mallinfo, malloc_stats, mallopt \- malloc support
+.SH ANSI_SYNOPSIS
+#include <malloc.h>
+.br
+struct mallinfo mallinfo(void);
+.br
+void malloc_stats(void);
+.br
+int mallopt(int 
+.IR parameter ,
+.IR value );
+.br
+
+struct mallinfo _mallinfo_r(void *
+.IR reent );
+.br
+void _malloc_stats_r(void *
+.IR reent );
+.br
+int _mallopt_r(void *
+.IR reent ,
+int 
+.IR parameter ,
+.IR value );
+.br
+.SH TRAD_SYNOPSIS
+#include <malloc.h>
+.br
+struct mallinfo mallinfo();
+.br
+
+void malloc_stats();
+.br
+
+int mallopt(
+.IR parameter ,
+.IR value )
+.br
+int 
+.IR parameter ;
+.br
+int 
+.IR value ;
+.br
+
+struct mallinfo _mallinfo_r(
+.IR reent );
+.br
+char *
+.IR reent ;
+.br
+
+void _malloc_stats_r(
+.IR reent );
+.br
+char *
+.IR reent ;
+.br
+
+int _mallopt_r(
+.IR reent ,
+.IR parameter ,
+.IR value )
+.br
+char *
+.IR reent ;
+.br
+int 
+.IR parameter ;
+.br
+int 
+.IR value ;
+.br
+.SH DESCRIPTION
+.BR mallinfo 
+returns a structure describing the current state of
+memory allocation. The structure is defined in malloc.h. The
+following fields are defined: 
+.BR arena 
+is the total amount of space
+in the heap; 
+.BR ordblks 
+is the number of chunks which are not in use;
+.BR uordblks 
+is the total amount of space allocated by 
+.BR malloc ;
+.BR fordblks 
+is the total amount of space not in use; 
+.BR keepcost 
+is
+the size of the top most memory block.
+
+.BR malloc_stats 
+print some statistics about memory allocation on
+standard error.
+
+.BR mallopt 
+takes a parameter and a value. The parameters are defined
+in malloc.h, and may be one of the following: 
+.BR M_TRIM_THRESHOLD 
+sets the maximum amount of unused space in the top most block before
+releasing it back to the system in 
+.BR free 
+(the space is released by
+calling 
+.BR _sbrk_r 
+with a negative argument); 
+.BR M_TOP_PAD 
+is the
+amount of padding to allocate whenever 
+.BR _sbrk_r 
+is called to
+allocate more space.
+
+The alternate functions 
+.BR _mallinfo_r ,
+.BR _malloc_stats_r ,
+and
+.BR _mallopt_r 
+are reentrant versions. The extra argument 
+.IR reent 
+is a pointer to a reentrancy structure.
+.SH RETURNS
+.BR mallinfo 
+returns a mallinfo structure. The structure is defined
+in malloc.h.
+
+.BR malloc_stats 
+does not return a result.
+
+.BR mallopt 
+returns zero if the parameter could not be set, or
+non-zero if it could be set.
+.SH PORTABILITY
+.BR mallinfo 
+and 
+.BR mallopt 
+are provided by SVR4, but 
+.BR mallopt 
+takes different parameters on different systems. 
+.BR malloc_stats 
+is
+not portable.
+.SH SOURCE
+src/newlib/libc/stdlib/mstats.c

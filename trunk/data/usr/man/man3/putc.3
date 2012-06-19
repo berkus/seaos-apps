@@ -1,0 +1,82 @@
+.TH putc 3 "" "" ""
+.SH SYNOPSIS
+putc \- write a character (macro)
+.SH ANSI_SYNOPSIS
+#include <stdio.h>
+.br
+int putc(int 
+.IR ch ,
+FILE *
+.IR fp );
+.br
+.SH TRAD_SYNOPSIS
+#include <stdio.h>
+.br
+int putc(
+.IR ch ,
+.IR fp )
+.br
+int 
+.IR ch ;
+.br
+FILE *
+.IR fp ;
+.br
+.SH DESCRIPTION
+.BR putc 
+is a macro, defined in 
+.BR stdio.h .
+.BR putc 
+writes the argument 
+.IR ch 
+to the file or stream identified by
+.IR fp ,
+after converting it from an 
+.BR int 
+to an 
+.BR unsigned char .
+
+If the file was opened with append mode (or if the stream cannot
+support positioning), then the new character goes at the end of the
+file or stream. Otherwise, the new character is written at the
+current value of the position indicator, and the position indicator
+advances by one.
+
+For a subroutine version of this macro, see 
+.BR fputc .
+.SH RETURNS
+If successful, 
+.BR putc 
+returns its argument 
+.IR ch .
+If an error
+intervenes, the result is 
+.BR EOF .
+You can use `
+.BR ferror(<[fp )>>'
+to
+query for errors.
+.SH PORTABILITY
+ANSI C requires 
+.BR putc ;
+it suggests, but does not require, that
+.BR putc 
+be implemented as a macro. The standard explicitly permits
+macro implementations of 
+.BR putc 
+to use the 
+.IR fp 
+argument more than once;
+therefore, in a portable program, you should not use an expression
+with side effects as this argument.
+
+Supporting OS subroutines required: 
+.BR close ,
+.BR fstat ,
+.BR isatty ,
+.BR lseek ,
+.BR read ,
+.BR sbrk ,
+.BR write .
+.SH SOURCE
+src/newlib/libc/stdio/putc.c

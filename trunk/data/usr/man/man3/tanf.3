@@ -1,0 +1,49 @@
+.TH tanf 3 "" "" ""
+.SH SYNOPSIS
+tan, tanf \- tangent
+.SH ANSI_SYNOPSIS
+#include <math.h>
+.br
+double tan(double 
+.IR x );
+.br
+float tanf(float 
+.IR x );
+.br
+.SH TRAD_SYNOPSIS
+#include <math.h>
+.br
+double tan(
+.IR x )
+.br
+double 
+.IR x ;
+.br
+
+float tanf(
+.IR x )
+.br
+float 
+.IR x ;
+.br
+.SH DESCRIPTION
+.BR tan 
+computes the tangent of the argument 
+.IR x .
+Angles are specified in radians.
+
+.BR tanf 
+is identical, save that it takes and returns 
+.BR float 
+values.
+.SH RETURNS
+The tangent of 
+.IR x 
+is returned.
+.SH PORTABILITY
+.BR tan 
+is ANSI. 
+.BR tanf 
+is an extension.
+.SH SOURCE
+src/newlib/libm/mathfp/s_tan.c

@@ -1,0 +1,88 @@
+.TH setbuf 3 "" "" ""
+.SH SYNOPSIS
+setbuf \- specify full buffering for a file or stream
+.SH ANSI_SYNOPSIS
+#include <stdio.h>
+.br
+void setbuf(FILE *
+.IR fp ,
+char *
+.IR buf );
+.br
+.SH TRAD_SYNOPSIS
+#include <stdio.h>
+.br
+void setbuf(
+.IR fp ,
+.IR buf )
+.br
+FILE *
+.IR fp ;
+.br
+char *
+.IR buf ;
+.br
+.SH DESCRIPTION
+.BR setbuf 
+specifies that output to the file or stream identified by 
+.IR fp 
+should be fully buffered. All output for this file will go to a
+buffer (of size 
+.BR BUFSIZ ,
+specified in `
+.BR stdio.h ').
+Output will
+be passed on to the host system only when the buffer is full, or when
+an input operation intervenes.
+
+You may, if you wish, supply your own buffer by passing a pointer to
+it as the argument 
+.IR buf .
+It must have size 
+.BR BUFSIZ .
+You can
+also use 
+.BR NULL 
+as the value of 
+.IR buf ,
+to signal that the
+.BR setbuf 
+function is to allocate the buffer.
+.SH WARNINGS
+You may only use 
+.BR setbuf 
+before performing any file operation other
+than opening the file.
+
+If you supply a non-null 
+.IR buf ,
+you must ensure that the associated
+storage continues to be available until you close the stream
+identified by 
+.IR fp .
+.SH RETURNS
+.BR setbuf 
+does not return a result.
+.SH PORTABILITY
+Both ANSI C and the System V Interface Definition (Issue 2) require
+.BR setbuf .
+However, they differ on the meaning of a 
+.BR NULL 
+buffer
+pointer: the SVID issue 2 specification says that a 
+.BR NULL 
+buffer
+pointer requests unbuffered output. For maximum portability, avoid
+.BR NULL 
+buffer pointers.
+
+Supporting OS subroutines required: 
+.BR close ,
+.BR fstat ,
+.BR isatty ,
+.BR lseek ,
+.BR read ,
+.BR sbrk ,
+.BR write .
+.SH SOURCE
+src/newlib/libc/stdio/setbuf.c

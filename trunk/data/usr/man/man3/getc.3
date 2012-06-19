@@ -1,0 +1,77 @@
+.TH getc 3 "" "" ""
+.SH SYNOPSIS
+getc \- read a character (macro)
+.SH ANSI_SYNOPSIS
+#include <stdio.h>
+.br
+int getc(FILE *
+.IR fp );
+.br
+.SH TRAD_SYNOPSIS
+#include <stdio.h>
+.br
+int getc(
+.IR fp )
+.br
+FILE *
+.IR fp ;
+.br
+.SH DESCRIPTION
+.BR getc 
+is a macro, defined in 
+.BR stdio.h .
+You can use 
+.BR getc 
+to get the next single character from the file or stream
+identified by 
+.IR fp .
+As a side effect, 
+.BR getc 
+advances the file's
+current position indicator.
+
+For a subroutine version of this macro, see 
+.BR fgetc .
+.SH RETURNS
+The next character (read as an 
+.BR unsigned char ,
+and cast to
+.BR int ),
+unless there is no more data, or the host system reports a
+read error; in either of these situations, 
+.BR getc 
+returns 
+.BR EOF .
+
+You can distinguish the two situations that cause an 
+.BR EOF 
+result by
+using the 
+.BR ferror 
+and 
+.BR feof 
+functions.
+.SH PORTABILITY
+ANSI C requires 
+.BR getc ;
+it suggests, but does not require, that
+.BR getc 
+be implemented as a macro. The standard explicitly permits
+macro implementations of 
+.BR getc 
+to use the argument more than once;
+therefore, in a portable program, you should not use an expression
+with side effects as the 
+.BR getc 
+argument.
+
+Supporting OS subroutines required: 
+.BR close ,
+.BR fstat ,
+.BR isatty ,
+.BR lseek ,
+.BR read ,
+.BR sbrk ,
+.BR write .
+.SH SOURCE
+src/newlib/libc/stdio/getc.c

@@ -1,0 +1,32 @@
+.TH _sbrk_r 3 "" "" ""
+.SH SYNOPSIS
+_sbrk_r \- Reentrant version of sbrk
+.SH ANSI_SYNOPSIS
+#include <reent.h>
+.br
+void *_sbrk_r(struct _reent *
+.IR ptr ,
+size_t 
+.IR incr );
+.br
+.SH TRAD_SYNOPSIS
+#include <reent.h>
+.br
+void *_sbrk_r(
+.IR ptr ,
+.IR incr )
+.br
+struct _reent *
+.IR ptr ;
+.br
+size_t 
+.IR incr ;
+.br
+.SH DESCRIPTION
+This is a reentrant version of 
+.BR sbrk .
+It
+takes a pointer to the global data block, which holds
+.BR errno .
+.SH SOURCE
+src/newlib/libc/reent/sbrkr.c

@@ -1,0 +1,51 @@
+.TH strstr 3 "" "" ""
+.SH SYNOPSIS
+strstr \- find string segment
+.SH ANSI_SYNOPSIS
+#include <string.h>
+.br
+char *strstr(const char *
+.IR s1 ,
+const char *
+.IR s2 );
+.br
+.SH TRAD_SYNOPSIS
+#include <string.h>
+.br
+char *strstr(
+.IR s1 ,
+.IR s2 )
+.br
+char *
+.IR s1 ;
+.br
+char *
+.IR s2 ;
+.br
+.SH DESCRIPTION
+Locates the first occurence in the string pointed to by 
+.IR s1 
+of
+the sequence of characters in the string pointed to by 
+.IR s2 
+(excluding the terminating null character).
+.SH RETURNS
+Returns a pointer to the located string segment, or a null
+pointer if the string 
+.IR s2 
+is not found. If 
+.IR s2 
+points to
+a string with zero length, the 
+.IR s1 
+is returned.
+.SH PORTABILITY
+.BR strstr 
+is ANSI C.
+
+.BR strstr 
+requires no supporting OS subroutines.
+.SH QUICKREF
+strstr ansi pure
+.SH SOURCE
+src/newlib/libc/string/strstr.c

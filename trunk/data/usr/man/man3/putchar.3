@@ -1,0 +1,81 @@
+.TH putchar 3 "" "" ""
+.SH SYNOPSIS
+putchar \- write a character (macro)
+.SH ANSI_SYNOPSIS
+#include <stdio.h>
+.br
+int putchar(int 
+.IR ch );
+.br
+
+int _putchar_r(void *
+.IR reent ,
+int 
+.IR ch );
+.br
+.SH TRAD_SYNOPSIS
+#include <stdio.h>
+.br
+int putchar(
+.IR ch )
+.br
+int 
+.IR ch ;
+.br
+
+int _putchar_r(
+.IR reent ,
+.IR ch )
+.br
+char *
+.IR reent ;
+.br
+int 
+.IR ch ;
+.br
+.SH DESCRIPTION
+.BR putchar 
+is a macro, defined in 
+.BR stdio.h .
+.BR putchar 
+writes its argument to the standard output stream,
+after converting it from an 
+.BR int 
+to an 
+.BR unsigned char .
+
+The alternate function 
+.BR _putchar_r 
+is a reentrant version. The
+extra argument 
+.IR reent 
+is a pointer to a reentrancy structure.
+.SH RETURNS
+If successful, 
+.BR putchar 
+returns its argument 
+.IR ch .
+If an error
+intervenes, the result is 
+.BR EOF .
+You can use `
+.BR ferror(stdin) '
+to
+query for errors.
+.SH PORTABILITY
+ANSI C requires 
+.BR putchar ;
+it suggests, but does not require, that
+.BR putchar 
+be implemented as a macro.
+
+Supporting OS subroutines required: 
+.BR close ,
+.BR fstat ,
+.BR isatty ,
+.BR lseek ,
+.BR read ,
+.BR sbrk ,
+.BR write .
+.SH SOURCE
+src/newlib/libc/stdio/putchar.c

@@ -1,0 +1,80 @@
+.TH _mblen_r 3 "" "" ""
+.SH SYNOPSIS
+_mblen_r \- reentrant minimal multibyte length function
+.SH ANSI_SYNOPSIS
+#include <stdlib.h>
+.br
+int _mblen_r(struct _reent *
+.IR r ,
+const char *
+.IR s ,
+size_t 
+.IR n ,
+int *
+.IR state );
+.br
+.SH TRAD_SYNOPSIS
+#include <stdlib.h>
+.br
+int _mblen_r(
+.IR r ,
+.IR s ,
+.IR n ,
+.IR state )
+.br
+struct _reent *
+.IR r ;
+.br
+const char *
+.IR s ;
+.br
+size_t 
+.IR n ;
+.br
+int *
+.IR state ;
+.br
+.SH DESCRIPTION
+When MB_CAPABLE is not defined, this is a minimal ANSI-conforming 
+implementation of 
+.BR _mblen_r .
+In this case, the
+only ``multi-byte character sequences'' recognized are single bytes,
+and thus 
+.BR 1 
+is returned unless 
+.IR s 
+is the null pointer or
+has a length of 0 or is the empty string.
+
+When MB_CAPABLE is defined, this routine calls 
+.BR _mbtowc_r 
+to perform
+the conversion, passing a state variable to allow state dependent
+decoding. The result is based on the locale setting which may
+be restricted to a defined set of locales.
+.SH RETURNS
+This implementation of 
+.BR _mblen_r 
+returns 
+.BR 0 
+if
+.IR s 
+is 
+.BR NULL 
+or the empty string; it returns 
+.BR 1 
+if not MB_CAPABLE or
+the character is a single-byte character; it returns 
+.BR -1 
+if the multi-byte character is invalid; otherwise it returns
+the number of bytes in the multibyte character.
+.SH PORTABILITY
+.BR _mblen 
+is required in the ANSI C standard. However, the precise
+effects vary with the locale.
+
+.BR _mblen_r 
+requires no supporting OS subroutines.
+.SH SOURCE
+src/newlib/libc/stdlib/mblen_r.c

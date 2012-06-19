@@ -1,0 +1,27 @@
+.TH nanf 3 "" "" ""
+.SH SYNOPSIS
+nan, nanf \- representation of infinity
+.SH ANSI_SYNOPSIS
+#include <math.h>
+.br
+double nan(void);
+.br
+float nanf(void);
+.br
+.SH TRAD_SYNOPSIS
+#include <math.h>
+.br
+double nan();
+.br
+float nanf();
+.br
+.SH DESCRIPTION
+.BR nan 
+and 
+.BR nanf 
+return an IEEE NaN (Not a Number) in
+double and single precision arithmetic respectivly.
+.SH QUICKREF
+nan - pure
+.SH SOURCE
+src/newlib/libm/common/s_nan.c

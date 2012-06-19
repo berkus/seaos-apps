@@ -1,0 +1,86 @@
+.TH calloc 3 "" "" ""
+.SH SYNOPSIS
+calloc \- allocate space for arrays
+.SH ANSI_SYNOPSIS
+#include <stdlib.h>
+.br
+void *calloc(size_t 
+.IR n ,
+size_t 
+.IR s );
+.br
+void *calloc_r(void *
+.IR reent ,
+size_t <n>, <size_t> 
+.IR s );
+.br
+.SH TRAD_SYNOPSIS
+#include <stdlib.h>
+.br
+char *calloc(
+.IR n ,
+.IR s )
+.br
+size_t 
+.IR n ,
+.IR s ;
+.br
+
+char *_calloc_r(
+.IR reent ,
+.IR n ,
+.IR s )
+.br
+char *
+.IR reent ;
+.br
+size_t 
+.IR n ;
+.br
+size_t 
+.IR s ;
+.br
+.SH DESCRIPTION
+Use 
+.BR calloc 
+to request a block of memory sufficient to hold an
+array of 
+.IR n 
+elements, each of which has size 
+.IR s .
+
+The memory allocated by 
+.BR calloc 
+comes out of the same memory pool
+used by 
+.BR malloc ,
+but the memory block is initialized to all zero
+bytes. (To avoid the overhead of initializing the space, use
+.BR malloc 
+instead.)
+
+The alternate function 
+.BR _calloc_r 
+is reentrant.
+The extra argument 
+.IR reent 
+is a pointer to a reentrancy structure.
+.SH RETURNS
+If successful, a pointer to the newly allocated space.
+
+If unsuccessful, 
+.BR NULL .
+.SH PORTABILITY
+.BR calloc 
+is ANSI.
+
+Supporting OS subroutines required: 
+.BR close ,
+.BR fstat ,
+.BR isatty ,
+.BR lseek ,
+.BR read ,
+.BR sbrk ,
+.BR write .
+.SH SOURCE
+src/newlib/libc/stdlib/calloc.c

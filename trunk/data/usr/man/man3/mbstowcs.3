@@ -1,0 +1,80 @@
+.TH mbstowcs 3 "" "" ""
+.SH SYNOPSIS
+mbstowcs \- minimal multibyte string to wide char converter
+.SH ANSI_SYNOPSIS
+#include <stdlib.h>
+.br
+int mbstowcs(wchar_t *
+.IR pwc ,
+const char *
+.IR s ,
+size_t 
+.IR n );
+.br
+.SH TRAD_SYNOPSIS
+#include <stdlib.h>
+.br
+int mbstowcs(
+.IR pwc ,
+.IR s ,
+.IR n )
+.br
+wchar_t *
+.IR pwc ;
+.br
+const char *
+.IR s ;
+.br
+size_t 
+.IR n ;
+.br
+.SH DESCRIPTION
+When MB_CAPABLE is not defined, this is a minimal ANSI-conforming 
+implementation of 
+.BR mbstowcs .
+In this case, the
+only ``multi-byte character sequences'' recognized are single bytes,
+and they are ``converted'' to wide-char versions simply by byte
+extension.
+
+When MB_CAPABLE is defined, this routine calls 
+.BR _mbstowcs_r 
+to perform
+the conversion, passing a state variable to allow state dependent
+decoding. The result is based on the locale setting which may
+be restricted to a defined set of locales.
+.SH RETURNS
+This implementation of 
+.BR mbstowcs 
+returns 
+.BR 0 
+if
+.IR s 
+is 
+.BR NULL 
+or is the empty string; 
+it returns 
+.BR -1 
+if MB_CAPABLE and one of the
+multi-byte characters is invalid or incomplete;
+otherwise it returns the minimum of: 
+.BR n 
+or the
+number of multi-byte characters in 
+.BR s 
+plus 1 (to
+compensate for the nul character).
+If the return value is -1, the state of the 
+.BR pwc 
+string is
+indeterminate. If the input has a length of 0, the output
+string will be modified to contain a wchar_t nul terminator.
+.SH PORTABILITY
+.BR mbstowcs 
+is required in the ANSI C standard. However, the precise
+effects vary with the locale.
+
+.BR mbstowcs 
+requires no supporting OS subroutines.
+.SH SOURCE
+src/newlib/libc/stdlib/mbstowcs.c

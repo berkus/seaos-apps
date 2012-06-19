@@ -1,0 +1,66 @@
+.TH scalbn 3 "" "" ""
+.SH SYNOPSIS
+scalbn, scalbnf \- scale by integer
+.SH ANSI_SYNOPSIS
+#include <math.h>
+.br
+double scalbn(double 
+.IR x ,
+int 
+.IR y );
+.br
+float scalbnf(float 
+.IR x ,
+int 
+.IR y );
+.br
+.SH TRAD_SYNOPSIS
+#include <math.h>
+.br
+double scalbn(
+.IR x ,<[y]>)
+.br
+double 
+.IR x ;
+.br
+int 
+.IR y ;
+.br
+float scalbnf(
+.IR x ,<[y]>)
+.br
+float 
+.IR x ;
+.br
+int 
+.IR y ;
+.br
+.SH DESCRIPTION
+.BR scalbn 
+and 
+.BR scalbnf 
+scale 
+.IR x 
+by 
+.IR n ,
+returning 
+.IR x 
+times
+2 to the power 
+.IR n .
+The result is computed by manipulating the
+exponent, rather than by actually performing an exponentiation or
+multiplication.
+.SH RETURNS
+.IR x 
+times 2 to the power 
+.IR n .
+.SH PORTABILITY
+Neither 
+.BR scalbn 
+nor 
+.BR scalbnf 
+is required by ANSI C or by the System V
+Interface Definition (Issue 2).
+.SH SOURCE
+src/newlib/libm/common/s_scalbn.c

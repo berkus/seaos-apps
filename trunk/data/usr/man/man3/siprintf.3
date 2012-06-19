@@ -1,0 +1,53 @@
+.TH siprintf 3 "" "" ""
+.SH SYNOPSIS
+siprintf \- write formatted output (integer only)
+.SH ANSI_SYNOPSIS
+#include <stdio.h>
+.br
+
+int siprintf(char *
+.IR str ,
+const char *
+.IR format 
+[, 
+.IR arg ,
+...]);
+.br
+.SH DESCRIPTION
+.BR siprintf 
+is a restricted version of 
+.BR sprintf :
+it has the same
+arguments and behavior, save that it cannot perform any floating-point
+formatting: the 
+.BR f ,
+.BR g ,
+.BR G ,
+.BR e ,
+and 
+.BR F 
+type specifiers
+are not recognized.
+.SH RETURNS
+.BR siprintf 
+returns the number of bytes in the output string,
+save that the concluding 
+.BR NULL 
+is not counted.
+.BR siprintf 
+returns when the end of the format string is
+encountered.
+.SH PORTABILITY
+.BR siprintf 
+is not required by ANSI C.
+
+Supporting OS subroutines required: 
+.BR close ,
+.BR fstat ,
+.BR isatty ,
+.BR lseek ,
+.BR read ,
+.BR sbrk ,
+.BR write .
+.SH SOURCE
+src/newlib/libc/stdio/siprintf.c

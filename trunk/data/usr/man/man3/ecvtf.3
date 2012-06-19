@@ -1,0 +1,216 @@
+.TH ecvtf 3 "" "" ""
+.SH SYNOPSIS
+ecvt, ecvtf, fcvt, fcvtf \- double or float to string
+.SH ANSI_SYNOPSIS
+#include <stdlib.h>
+.br
+
+char *ecvt(double 
+.IR val ,
+int 
+.IR chars ,
+int *
+.IR decpt ,
+int *
+.IR sgn );
+.br
+char *ecvtf(float 
+.IR val ,
+int 
+.IR chars ,
+int *
+.IR decpt ,
+int *
+.IR sgn );
+.br
+
+char *fcvt(double 
+.IR val ,
+int 
+.IR decimals ,
+.br
+int *
+.IR decpt ,
+int *
+.IR sgn );
+.br
+char *fcvtf(float 
+.IR val ,
+int 
+.IR decimals ,
+.br
+int *
+.IR decpt ,
+int *
+.IR sgn );
+.br
+.SH TRAD_SYNOPSIS
+#include <stdlib.h>
+.br
+
+char *ecvt(
+.IR val ,
+.IR chars ,
+.IR decpt ,
+.IR sgn );
+.br
+double 
+.IR val ;
+.br
+int 
+.IR chars ;
+.br
+int *
+.IR decpt ;
+.br
+int *
+.IR sgn ;
+.br
+char *ecvtf(
+.IR val ,
+.IR chars ,
+.IR decpt ,
+.IR sgn );
+.br
+float 
+.IR val ;
+.br
+int 
+.IR chars ;
+.br
+int *
+.IR decpt ;
+.br
+int *
+.IR sgn ;
+.br
+
+char *fcvt(
+.IR val ,
+.IR decimals ,
+.IR decpt ,
+.IR sgn );
+.br
+double 
+.IR val ;
+.br
+int 
+.IR decimals ;
+.br
+int *
+.IR decpt ;
+.br
+int *
+.IR sgn ;
+.br
+char *fcvtf(
+.IR val ,
+.IR decimals ,
+.IR decpt ,
+.IR sgn );
+.br
+float 
+.IR val ;
+.br
+int 
+.IR decimals ;
+.br
+int *
+.IR decpt ;
+.br
+int *
+.IR sgn ;
+.br
+.SH DESCRIPTION
+.BR ecvt 
+and 
+.BR fcvt 
+produce (null-terminated) strings of digits
+representating the 
+.BR double 
+number 
+.IR val .
+.BR ecvtf 
+and 
+.BR fcvtf 
+produce the corresponding character
+representations of 
+.BR float 
+numbers.
+
+(The 
+.BR stdlib 
+functions 
+.BR ecvtbuf 
+and 
+.BR fcvtbuf 
+are reentrant
+versions of 
+.BR ecvt 
+and 
+.BR fcvt .)
+
+The only difference between 
+.BR ecvt 
+and 
+.BR fcvt 
+is the
+interpretation of the second argument (
+.IR chars 
+or 
+.IR decimals ).
+For 
+.BR ecvt ,
+the second argument 
+.IR chars 
+specifies the total number
+of characters to write (which is also the number of significant digits
+in the formatted string, since these two functions write only digits).
+For 
+.BR fcvt ,
+the second argument 
+.IR decimals 
+specifies the number of
+characters to write after the decimal point; all digits for the integer
+part of 
+.IR val 
+are always included.
+
+Since 
+.BR ecvt 
+and 
+.BR fcvt 
+write only digits in the output string,
+they record the location of the decimal point in 
+.BR *<[decpt >>,
+and
+the sign of the number in 
+.BR *<[sgn >>.
+After formatting a number,
+.BR *<[decpt >>
+contains the number of digits to the left of the
+decimal point. 
+.BR *<[sgn >>
+contains 
+.BR 0 
+if the number is positive,
+and 
+.BR 1 
+if it is negative.
+.SH RETURNS
+All four functions return a pointer to the new string containing a
+character representation of 
+.IR val .
+.SH PORTABILITY
+None of these functions are ANSI C.
+
+Supporting OS subroutines required: 
+.BR close ,
+.BR fstat ,
+.BR isatty ,
+.BR lseek ,
+.BR read ,
+.BR sbrk ,
+.BR write .
+.SH SOURCE
+src/newlib/libc/stdlib/efgcvt.c

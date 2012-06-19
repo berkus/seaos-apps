@@ -1,0 +1,149 @@
+.TH setlocale 3 "" "" ""
+.SH SYNOPSIS
+setlocale, localeconv \- select or query locale
+.SH ANSI_SYNOPSIS
+#include <locale.h>
+.br
+char *setlocale(int 
+.IR category ,
+const char *
+.IR locale );
+.br
+lconv *localeconv(void);
+.br
+
+char *_setlocale_r(void *
+.IR reent ,
+.br
+int 
+.IR category ,
+const char *
+.IR locale );
+.br
+lconv *_localeconv_r(void *
+.IR reent );
+.br
+.SH TRAD_SYNOPSIS
+#include <locale.h>
+.br
+char *setlocale(
+.IR category ,
+.IR locale )
+.br
+int 
+.IR category ;
+.br
+char *
+.IR locale ;
+.br
+
+lconv *localeconv();
+.br
+
+char *_setlocale_r(
+.IR reent ,
+.IR category ,
+.IR locale )
+.br
+char *
+.IR reent ;
+.br
+int 
+.IR category ;
+.br
+char *
+.IR locale ;
+.br
+
+lconv *_localeconv_r(
+.IR reent );
+.br
+char *
+.IR reent ;
+.br
+.SH DESCRIPTION
+.BR setlocale 
+is the facility defined by ANSI C to condition the
+execution environment for international collating and formatting
+information; 
+.BR localeconv 
+reports on the settings of the current
+locale.
+
+This is a minimal implementation, supporting only the required 
+.BR ``C'' 
+value for 
+.IR locale ;
+strings representing other locales are not
+honored unless MB_CAPABLE is defined in which case three new
+extensions are allowed for LC_CTYPE only: 
+.BR ''C-JIS'' ,
+.BR ''C-EUCJP'' ,
+and 
+.BR ''C-SJIS'' .
+(
+.BR ``'' 
+is also accepted; it represents the default locale
+for an implementation, here equivalent to 
+.BR ``C'' .)
+
+If you use 
+.BR NULL 
+as the 
+.IR locale 
+argument, 
+.BR setlocale 
+returns
+a pointer to the string representing the current locale (always
+.BR ``C'' 
+in this implementation). The acceptable values for
+.IR category 
+are defined in `
+.BR locale.h '
+as macros beginning with
+.BR "LC_" ,
+but this implementation does not check the values you pass
+in the 
+.IR category 
+argument.
+
+.BR localeconv 
+returns a pointer to a structure (also defined in
+`
+.BR locale.h ')
+describing the locale-specific conventions currently
+in effect. 
+
+.BR _localeconv_r 
+and 
+.BR _setlocale_r 
+are reentrant versions of
+.BR localeconv 
+and 
+.BR setlocale 
+respectively. The extra argument
+.IR reent 
+is a pointer to a reentrancy structure.
+.SH RETURNS
+.BR setlocale 
+returns either a pointer to a string naming the locale
+currently in effect (always 
+.BR ``C'' 
+for this implementation, or, if
+the locale request cannot be honored, 
+.BR NULL .
+
+.BR localeconv 
+returns a pointer to a structure of type 
+.BR lconv ,
+which describes the formatting and collating conventions in effect (in
+this implementation, always those of the C locale).
+.SH PORTABILITY
+ANSI C requires 
+.BR setlocale ,
+but the only locale required across all
+implementations is the C locale.
+
+No supporting OS subroutines are required.
+.SH SOURCE
+src/newlib/libc/locale/locale.c

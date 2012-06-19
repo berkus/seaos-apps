@@ -1,0 +1,48 @@
+.TH clearerr 3 "" "" ""
+.SH SYNOPSIS
+clearerr \- clear file or stream error indicator
+.SH ANSI_SYNOPSIS
+#include <stdio.h>
+.br
+void clearerr(FILE *
+.IR fp );
+.br
+.SH TRAD_SYNOPSIS
+#include <stdio.h>
+.br
+void clearerr(
+.IR fp )
+.br
+FILE *
+.IR fp ;
+.br
+.SH DESCRIPTION
+The 
+.BR stdio 
+functions maintain an error indicator with each file
+pointer 
+.IR fp ,
+to record whether any read or write errors have
+occurred on the associated file or stream. Similarly, it maintains an
+end-of-file indicator to record whether there is no more data in the
+file.
+
+Use 
+.BR clearerr 
+to reset both of these indicators.
+
+See 
+.BR ferror 
+and 
+.BR feof 
+to query the two indicators.
+.SH RETURNS
+.BR clearerr 
+does not return a result.
+.SH PORTABILITY
+ANSI C requires 
+.BR clearerr .
+
+No supporting OS subroutines are required.
+.SH SOURCE
+src/newlib/libc/stdio/clearerr.c

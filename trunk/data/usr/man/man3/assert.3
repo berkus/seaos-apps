@@ -1,0 +1,76 @@
+.TH assert 3 "" "" ""
+.SH SYNOPSIS
+assert \- Macro for Debugging Diagnostics
+.SH ANSI_SYNOPSIS
+#include <assert.h>
+.br
+void assert(int 
+.IR expression );
+.br
+.SH TRAD_SYNOPSIS
+#include <assert.h>
+.br
+assert(
+.IR expression )
+.br
+int 
+.IR expression ;
+.br
+.SH DESCRIPTION
+Use this macro to embed debuggging diagnostic statements in
+your programs. The argument 
+.IR expression 
+should be an
+expression which evaluates to true (nonzero) when your program
+is working as you intended.
+
+When 
+.IR expression 
+evaluates to false (zero), 
+.BR assert 
+calls 
+.BR abort ,
+after first printing a message showing what
+failed and where:
+
+. Assertion failed: 
+.IR expression ,
+file 
+.IR filename ,
+line 
+.IR lineno 
+
+The macro is defined to permit you to turn off all uses of
+.BR assert 
+at compile time by defining 
+.BR NDEBUG 
+as a
+preprocessor variable. If you do this, the 
+.BR assert 
+macro
+expands to
+
+. (void(0))
+.SH RETURNS
+.BR assert 
+does not return a value.
+.SH PORTABILITY
+The 
+.BR assert 
+macro is required by ANSI, as is the behavior
+when 
+.BR NDEBUG 
+is defined.
+
+Supporting OS subroutines required (only if enabled): 
+.BR close ,
+.BR fstat ,
+.BR getpid ,
+.BR isatty ,
+.BR kill ,
+.BR lseek ,
+.BR read ,
+.BR sbrk ,
+.BR write .
+.SH SOURCE
+src/newlib/libc/stdlib/assert.c

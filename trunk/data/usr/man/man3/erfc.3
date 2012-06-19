@@ -1,0 +1,92 @@
+.TH erfc 3 "" "" ""
+.SH SYNOPSIS
+erf, erff, erfc, erfcf \- error function 
+.SH ANSI_SYNOPSIS
+#include <math.h>
+.br
+double erf(double 
+.IR x );
+.br
+float erff(float 
+.IR x );
+.br
+double erfc(double 
+.IR x );
+.br
+float erfcf(float 
+.IR x );
+.br
+.SH TRAD_SYNOPSIS#include <math.h>
+.br
+
+double erf(
+.IR x )
+.br
+double 
+.IR x ;
+.br
+
+float erff(
+.IR x )
+.br
+float 
+.IR x ;
+.br
+
+double erfc(
+.IR x )
+.br
+double 
+.IR x ;
+.br
+
+float erfcf(
+.IR x )
+.br
+float 
+.IR x ;
+.br
+.SH DESCRIPTION
+.BR erf 
+calculates an approximation to the ``error function'',
+which estimates the probability that an observation will fall within
+.IR x 
+standard deviations of the mean (assuming a normal
+distribution).
+@tex
+The error function is defined as
+$${2\over\sqrt\pi}\times\int_0^x e^{-t^2}dt$$
+@end tex
+
+.BR erfc 
+calculates the complementary probability; that is,
+.BR erfc(<[x )>>
+is 
+.BR 1 - erf(<[x )>>.
+.BR erfc 
+is computed directly,
+so that you can use it to avoid the loss of precision that would
+result from subtracting large probabilities (on large 
+.IR x )
+from 1.
+
+.BR erff 
+and 
+.BR erfcf 
+differ from 
+.BR erf 
+and 
+.BR erfc 
+only in the
+argument and result types.
+.SH RETURNS
+For positive arguments, 
+.BR erf 
+and all its variants return a
+probability---a number between 0 and 1.
+.SH PORTABILITY
+None of the variants of 
+.BR erf 
+are ANSI C.
+.SH SOURCE
+src/newlib/libm/mathfp/s_erf.c

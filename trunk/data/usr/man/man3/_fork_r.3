@@ -1,0 +1,26 @@
+.TH _fork_r 3 "" "" ""
+.SH SYNOPSIS
+_fork_r \- Reentrant version of fork
+.SH ANSI_SYNOPSIS
+#include <reent.h>
+.br
+int _fork_r(struct _reent *
+.IR ptr );
+.br
+.SH TRAD_SYNOPSIS
+#include <reent.h>
+.br
+int _fork_r(
+.IR ptr )
+.br
+struct _reent *
+.IR ptr ;
+.br
+.SH DESCRIPTION
+This is a reentrant version of 
+.BR fork .
+It
+takes a pointer to the global data block, which holds
+.BR errno .
+.SH SOURCE
+src/newlib/libreent/execr.c

@@ -1,0 +1,78 @@
+.TH qsort 3 "" "" ""
+.SH SYNOPSIS
+qsort \- sort an array
+.SH ANSI_SYNOPSIS
+#include <stdlib.h>
+.br
+void qsort(void *
+.IR base ,
+size_t 
+.IR nmemb ,
+size_t 
+.IR size ,
+.br
+int (*
+.IR compar )(const
+void *, const void *) );
+.br
+.SH TRAD_SYNOPSIS
+#include <stdlib.h>
+.br
+qsort(
+.IR base ,
+.IR nmemb ,
+.IR size ,
+.IR compar 
+)
+.br
+char *
+.IR base ;
+.br
+size_t 
+.IR nmemb ;
+.br
+size_t 
+.IR size ;
+.br
+int (*
+.IR compar )();
+.br
+.SH DESCRIPTION
+.BR qsort 
+sorts an array (beginning at 
+.IR base )
+of 
+.IR nmemb 
+objects.
+.IR size 
+describes the size of each element of the array.
+
+You must supply a pointer to a comparison function, using the argument
+shown as 
+.IR compar .
+(This permits sorting objects of unknown
+properties.) Define the comparison function to accept two arguments,
+each a pointer to an element of the array starting at 
+.IR base .
+The
+result of 
+.BR (*<[compar )>>
+must be negative if the first argument is
+less than the second, zero if the two arguments match, and positive if
+the first argument is greater than the second (where ``less than'' and
+``greater than'' refer to whatever arbitrary ordering is appropriate).
+
+The array is sorted in place; that is, when 
+.BR qsort 
+returns, the
+array elements beginning at 
+.IR base 
+have been reordered.
+.SH RETURNS
+.BR qsort 
+does not return a result.
+.SH PORTABILITY
+.BR qsort 
+is required by ANSI (without specifying the sorting algorithm).
+.SH SOURCE
+src/newlib/libc/stdlib/qsort.c

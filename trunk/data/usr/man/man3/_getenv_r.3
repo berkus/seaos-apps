@@ -1,0 +1,49 @@
+.TH _getenv_r 3 "" "" ""
+.SH SYNOPSIS
+_getenv_r \- look up environment variable
+.SH ANSI_SYNOPSIS
+#include <stdlib.h>
+.br
+char *_getenv_r(struct _reent *
+.IR reent_ptr ,
+const char *
+.IR name );
+.br
+.SH TRAD_SYNOPSIS
+#include <stdlib.h>
+.br
+char *_getenv_r(
+.IR reent_ptr ,
+.IR name )
+.br
+struct _reent *
+.IR reent_ptr ;
+.br
+char *
+.IR name ;
+.br
+.SH DESCRIPTION
+.BR _getenv_r 
+searches the list of environment variable names and values
+(using the global pointer `
+.BR char **environ ')
+for a variable whose
+name matches the string at 
+.IR name .
+If a variable name matches,
+.BR _getenv_r 
+returns a pointer to the associated value.
+.SH RETURNS
+A pointer to the (string) value of the environment variable, or
+.BR NULL 
+if there is no such environment variable.
+.SH PORTABILITY
+.BR _getenv_r 
+is not ANSI; the rules for properly forming names of environment
+variables vary from one system to another.
+
+.BR _getenv_r 
+requires a global pointer 
+.BR environ .
+.SH SOURCE
+src/newlib/libc/stdlib/getenv_r.c

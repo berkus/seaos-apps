@@ -1,0 +1,45 @@
+.TH strpbrk 3 "" "" ""
+.SH SYNOPSIS
+strpbrk \- find chars in string
+.SH ANSI_SYNOPSIS
+#include <string.h>
+.br
+char *strpbrk(const char *
+.IR s1 ,
+const char *
+.IR s2 );
+.br
+.SH TRAD_SYNOPSIS
+#include <string.h>
+.br
+char *strpbrk(
+.IR s1 ,
+.IR s2 )
+.br
+char *
+.IR s1 ;
+.br
+char *
+.IR s2 ;
+.br
+.SH DESCRIPTION
+This function locates the first occurence in the string
+pointed to by 
+.IR s1 
+of any character in string pointed to by
+.IR s2 
+(excluding the terminating null character).
+.SH RETURNS
+.BR strpbrk 
+returns a pointer to the character found in 
+.IR s1 ,
+or a
+null pointer if no character from 
+.IR s2 
+occurs in 
+.IR s1 .
+.SH PORTABILITY
+.BR strpbrk 
+requires no supporting OS subroutines.
+.SH SOURCE
+src/newlib/libc/string/strpbrk.c

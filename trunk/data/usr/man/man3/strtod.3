@@ -1,0 +1,138 @@
+.TH strtod 3 "" "" ""
+.SH SYNOPSIS
+strtod, strtodf \- string to double or float
+.SH ANSI_SYNOPSIS
+#include <stdlib.h>
+.br
+double strtod(const char *
+.IR str ,
+char **
+.IR tail );
+.br
+float strtodf(const char *
+.IR str ,
+char **
+.IR tail );
+.br
+
+double _strtod_r(void *
+.IR reent ,
+.br
+const char *
+.IR str ,
+char **
+.IR tail );
+.br
+.SH TRAD_SYNOPSIS
+#include <stdlib.h>
+.br
+double strtod(
+.IR str ,<[tail]>)
+.br
+char *
+.IR str ;
+.br
+char **
+.IR tail ;
+.br
+
+float strtodf(
+.IR str ,<[tail]>)
+.br
+char *
+.IR str ;
+.br
+char **
+.IR tail ;
+.br
+
+double _strtod_r(
+.IR reent ,<[str]>,<[tail]>)
+.br
+char *
+.IR reent ;
+.br
+char *
+.IR str ;
+.br
+char **
+.IR tail ;
+.br
+.SH DESCRIPTION
+The function 
+.BR strtod 
+parses the character string 
+.IR str ,
+producing a substring which can be converted to a double
+value. The substring converted is the longest initial
+subsequence of 
+.IR str ,
+beginning with the first
+non-whitespace character, that has the format:
+.[+|-]
+.IR digits [.][<[digits]>][(e|E)[+|-]<[digits]>]
+The substring contains no characters if 
+.IR str 
+is empty, consists
+entirely of whitespace, or if the first non-whitespace
+character is something other than 
+.BR + ,
+.BR - ,
+.BR . ,
+or a
+digit. If the substring is empty, no conversion is done, and
+the value of 
+.IR str 
+is stored in 
+.BR *<[tail >>.
+Otherwise,
+the substring is converted, and a pointer to the final string
+(which will contain at least the terminating null character of
+.IR str )
+is stored in 
+.BR *<[tail >>.
+If you want no
+assignment to 
+.BR *<[tail >>,
+pass a null pointer as 
+.IR tail .
+.BR strtodf 
+is identical to 
+.BR strtod 
+except for its return type.
+
+This implementation returns the nearest machine number to the
+input decimal string. Ties are broken by using the IEEE
+round-even rule.
+
+The alternate function 
+.BR _strtod_r 
+is a reentrant version.
+The extra argument 
+.IR reent 
+is a pointer to a reentrancy structure.
+.SH RETURNS
+.BR strtod 
+returns the converted substring value, if any. If
+no conversion could be performed, 0 is returned. If the
+correct value is out of the range of representable values,
+plus or minus 
+.BR HUGE_VAL 
+is returned, and 
+.BR ERANGE 
+is
+stored in errno. If the correct value would cause underflow, 0
+is returned and 
+.BR ERANGE 
+is stored in errno.
+
+Supporting OS subroutines required: 
+.BR close ,
+.BR fstat ,
+.BR isatty ,
+.BR lseek ,
+.BR read ,
+.BR sbrk ,
+.BR write .
+.SH SOURCE
+src/newlib/libc/stdlib/strtod.c

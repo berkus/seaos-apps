@@ -1,0 +1,92 @@
+.TH atanhf 3 "" "" ""
+.SH SYNOPSIS
+atanh, atanhf \- inverse hyperbolic tangent
+.SH ANSI_SYNOPSIS
+#include <math.h>
+.br
+double atanh(double 
+.IR x );
+.br
+float atanhf(float 
+.IR x );
+.br
+.SH TRAD_SYNOPSIS
+#include <math.h>
+.br
+double atanh(
+.IR x )
+.br
+double 
+.IR x ;
+.br
+
+float atanhf(
+.IR x )
+.br
+float 
+.IR x ;
+.br
+.SH DESCRIPTION
+.BR atanh 
+calculates the inverse hyperbolic tangent of 
+.IR x .
+
+.BR atanhf 
+is identical, other than taking and returning
+.BR float 
+values.
+.SH RETURNS
+.BR atanh 
+and 
+.BR atanhf 
+return the calculated value.
+
+If
+@ifinfo
+|
+.IR x |
+@end ifinfo
+@tex
+$|x|$
+@end tex
+is greater than 1, the global 
+.BR errno 
+is set to 
+.BR EDOM 
+and
+the result is a NaN. A 
+.BR DOMAIN error 
+is reported.
+
+If
+@ifinfo
+|
+.IR x |
+@end ifinfo
+@tex
+$|x|$
+@end tex
+is 1, the global 
+.BR errno 
+is set to 
+.BR EDOM ;
+and the result is
+infinity with the same sign as 
+.BR x .
+A 
+.BR SING error 
+is reported.
+
+You can modify the error handling for these routines using
+.BR matherr .
+.SH PORTABILITY
+Neither 
+.BR atanh 
+nor 
+.BR atanhf 
+are ANSI C.
+.SH QUICKREF
+atanh - pure
+atanhf - pure
+.SH SOURCE
+src/newlib/libm/mathfp/e_atanh.c

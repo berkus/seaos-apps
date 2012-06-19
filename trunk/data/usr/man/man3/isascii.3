@@ -1,0 +1,39 @@
+.TH isascii 3 "" "" ""
+.SH SYNOPSIS
+isascii \- ASCII character predicate
+.SH ANSI_SYNOPSIS
+#include <ctype.h>
+.br
+int isascii(int 
+.IR c );
+.br
+.SH TRAD_SYNOPSIS
+#include <ctype.h>
+.br
+int isascii(
+.IR c );
+.br
+.SH DESCRIPTION
+.BR isascii 
+is a macro which returns non-zero when 
+.IR c 
+is an ASCII
+character, and 0 otherwise. It is defined for all integer values.
+
+You can use a compiled subroutine instead of the macro definition by
+undefining the macro using `
+.BR #undef isascii '.
+.SH RETURNS
+.BR isascii 
+returns non-zero if the low order byte of 
+.IR c 
+is in the range
+0 to 127 (
+.BR 0x00 --<<0x7F>>).
+.SH PORTABILITY
+.BR isascii 
+is ANSI C.
+
+No supporting OS subroutines are required.
+.SH SOURCE
+src/newlib/libc/ctype/isascii.c

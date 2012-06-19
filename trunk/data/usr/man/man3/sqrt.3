@@ -1,0 +1,43 @@
+.TH sqrt 3 "" "" ""
+.SH SYNOPSIS
+sqrt, sqrtf \- positive square root
+.SH ANSI_SYNOPSIS
+#include <math.h>
+.br
+double sqrt(double 
+.IR x );
+.br
+float  sqrtf(float 
+.IR x );
+.br
+.SH TRAD_SYNOPSIS
+#include <math.h>
+.br
+double sqrt(
+.IR x );
+.br
+float  sqrtf(
+.IR x );
+.br
+.SH DESCRIPTION
+.BR sqrt 
+computes the positive square root of the argument.
+.SH RETURNS
+On success, the square root is returned. If 
+.IR x 
+is real and
+positive, then the result is positive. If 
+.IR x 
+is real and
+negative, the global value 
+.BR errno 
+is set to 
+.BR EDOM 
+(domain error).
+.SH PORTABILITY
+.BR sqrt 
+is ANSI C. 
+.BR sqrtf 
+is an extension.
+.SH SOURCE
+src/newlib/libm/mathfp/s_sqrt.c

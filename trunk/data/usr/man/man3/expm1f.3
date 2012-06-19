@@ -1,0 +1,63 @@
+.TH expm1f 3 "" "" ""
+.SH SYNOPSIS
+expm1, expm1f \- exponential minus 1
+.SH ANSI_SYNOPSIS
+#include <math.h>
+.br
+double expm1(double 
+.IR x );
+.br
+float expm1f(float 
+.IR x );
+.br
+.SH TRAD_SYNOPSIS
+#include <math.h>
+.br
+double expm1(
+.IR x );
+.br
+double 
+.IR x ;
+.br
+
+float expm1f(
+.IR x );
+.br
+float 
+.IR x ;
+.br
+.SH DESCRIPTION
+.BR expm1 
+and 
+.BR expm1f 
+calculate the exponential of 
+.IR x 
+and subtract 1, that is,
+@ifinfo
+e raised to the power 
+.IR x 
+minus 1 (where e
+@end ifinfo
+@tex
+$e^x - 1$ (where $e$
+@end tex
+is the base of the natural system of logarithms, approximately
+2.71828). The result is accurate even for small values of
+.IR x ,
+where using 
+.BR exp(<[x )-1>>
+would lose many
+significant digits.
+.SH RETURNS
+e raised to the power 
+.IR x ,
+minus 1.
+.SH PORTABILITY
+Neither 
+.BR expm1 
+nor 
+.BR expm1f 
+is required by ANSI C or by
+the System V Interface Definition (Issue 2).
+.SH SOURCE
+src/newlib/libm/common/s_expm1.c

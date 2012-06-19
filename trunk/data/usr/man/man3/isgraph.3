@@ -1,0 +1,60 @@
+.TH isgraph 3 "" "" ""
+.SH SYNOPSIS
+isprint, isgraph \- printable character predicates
+.SH ANSI_SYNOPSIS
+#include <ctype.h>
+.br
+int isprint(int 
+.IR c );
+.br
+int isgraph(int 
+.IR c );
+.br
+.SH TRAD_SYNOPSIS
+#include <ctype.h>
+.br
+int isprint(
+.IR c );
+.br
+int isgraph(
+.IR c );
+.br
+.SH DESCRIPTION
+.BR isprint 
+is a macro which classifies ASCII integer values by table
+lookup. It is a predicate returning non-zero for printable
+characters, and 0 for other character arguments. 
+It is defined only when 
+.BR isascii (<[c]>)
+is true or 
+.IR c 
+is EOF.
+
+You can use a compiled subroutine instead of the macro definition by
+undefining either macro using `
+.BR #undef isprint '
+or `
+.BR #undef isgraph '.
+.SH RETURNS
+.BR isprint 
+returns non-zero if 
+.IR c 
+is a printing character,
+(
+.BR 0x20 --<<0x7E>>).
+.BR isgraph 
+behaves identically to 
+.BR isprint ,
+except that the space
+character (
+.BR 0x20 )
+is excluded.
+.SH PORTABILITY
+.BR isprint 
+and 
+.BR isgraph 
+are ANSI C.
+
+No supporting OS subroutines are required.
+.SH SOURCE
+src/newlib/libc/ctype/isprint.c

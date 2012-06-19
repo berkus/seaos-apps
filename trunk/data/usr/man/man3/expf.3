@@ -1,0 +1,67 @@
+.TH expf 3 "" "" ""
+.SH SYNOPSIS
+exp, expf \- exponential
+.SH ANSI_SYNOPSIS
+#include <math.h>
+.br
+double exp(double 
+.IR x );
+.br
+float expf(float 
+.IR x );
+.br
+.SH TRAD_SYNOPSIS
+#include <math.h>
+.br
+double exp(
+.IR x );
+.br
+double 
+.IR x ;
+.br
+
+float expf(
+.IR x );
+.br
+float 
+.IR x ;
+.br
+.SH DESCRIPTION
+.BR exp 
+and 
+.BR expf 
+calculate the exponential of 
+.IR x ,
+that is,
+@ifinfo
+e raised to the power 
+.IR x 
+(where e
+@end ifinfo
+@tex
+$e^x$ (where $e$
+@end tex
+is the base of the natural system of logarithms, approximately 2.71828).
+.SH RETURNS
+On success, 
+.BR exp 
+and 
+.BR expf 
+return the calculated value.
+If the result underflows, the returned value is 
+.BR 0 .
+If the
+result overflows, the returned value is 
+.BR HUGE_VAL .
+In
+either case, 
+.BR errno 
+is set to 
+.BR ERANGE .
+.SH PORTABILITY
+.BR exp 
+is ANSI C. 
+.BR expf 
+is an extension.
+.SH SOURCE
+src/newlib/libm/mathfp/s_exp.c

@@ -1,0 +1,84 @@
+.TH floor 3 "" "" ""
+.SH SYNOPSIS
+floor, floorf, ceil, ceilf \- floor and ceiling
+.SH ANSI_SYNOPSIS
+#include <math.h>
+.br
+double floor(double 
+.IR x );
+.br
+float floorf(float 
+.IR x );
+.br
+double ceil(double 
+.IR x );
+.br
+float ceilf(float 
+.IR x );
+.br
+.SH TRAD_SYNOPSIS
+#include <math.h>
+.br
+double floor(
+.IR x )
+.br
+double 
+.IR x ;
+.br
+float floorf(
+.IR x )
+.br
+float 
+.IR x ;
+.br
+double ceil(
+.IR x )
+.br
+double 
+.IR x ;
+.br
+float ceilf(
+.IR x )
+.br
+float 
+.IR x ;
+.br
+.SH DESCRIPTION
+.BR floor 
+and 
+.BR floorf 
+find
+@tex
+$\lfloor x \rfloor$,
+@end tex
+the nearest integer less than or equal to 
+.IR x .
+.BR ceil 
+and 
+.BR ceilf 
+find
+@tex
+$\lceil x\rceil$,
+@end tex
+the nearest integer greater than or equal to 
+.IR x .
+.SH RETURNS
+.BR floor 
+and 
+.BR ceil 
+return the integer result as a double.
+.BR floorf 
+and 
+.BR ceilf 
+return the integer result as a float.
+.SH PORTABILITY
+.BR floor 
+and 
+.BR ceil 
+are ANSI.
+.BR floorf 
+and 
+.BR ceilf 
+are extensions.
+.SH SOURCE
+src/newlib/libm/mathfp/s_floor.c

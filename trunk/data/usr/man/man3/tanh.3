@@ -1,0 +1,55 @@
+.TH tanh 3 "" "" ""
+.SH SYNOPSIS
+tanh, tanhf \- hyperbolic tangent
+.SH ANSI_SYNOPSIS
+#include <math.h>
+.br
+double tanh(double 
+.IR x );
+.br
+float tanhf(float 
+.IR x );
+.br
+.SH TRAD_SYNOPSIS
+#include <math.h>
+.br
+double tanh(
+.IR x )
+.br
+double 
+.IR x ;
+.br
+
+float tanhf(
+.IR x )
+.br
+float 
+.IR x ;
+.br
+.SH DESCRIPTION
+.BR tanh 
+computes the hyperbolic tangent of
+the argument 
+.IR x .
+Angles are specified in radians.
+
+.BR tanh(<[x )>>
+is defined as
+. sinh(
+.IR x )/cosh(<[x]>)
+
+.BR tanhf 
+is identical, save that it takes and returns 
+.BR float 
+values.
+.SH RETURNS
+The hyperbolic tangent of 
+.IR x 
+is returned.
+.SH PORTABILITY
+.BR tanh 
+is ANSI C. 
+.BR tanhf 
+is an extension.
+.SH SOURCE
+src/newlib/libm/mathfp/s_tanh.c

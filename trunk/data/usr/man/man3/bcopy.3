@@ -1,0 +1,46 @@
+.TH bcopy 3 "" "" ""
+.SH SYNOPSIS
+bcopy \- copy memory regions
+.SH ANSI_SYNOPSIS
+#include <string.h>
+.br
+void bcopy(const char *
+.IR in ,
+char  *
+.IR out ,
+size_t 
+.IR n );
+.br
+.SH TRAD_SYNOPSIS
+void bcopy(
+.IR in ,
+.IR out ,
+.IR n 
+.br
+char *
+.IR in ;
+.br
+char *
+.IR out ;
+.br
+size_t 
+.IR n ;
+.br
+.SH DESCRIPTION
+This function copies 
+.IR n 
+bytes from the memory region
+pointed to by 
+.IR in 
+to the memory region pointed to by
+.IR out .
+
+This function is implemented in term of 
+.BR memmove .
+.SH PORTABILITY
+.BR bcopy 
+requires no supporting OS subroutines.
+.SH QUICKREF
+bcopy - pure
+.SH SOURCE
+src/newlib/libc/string/bcopy.c

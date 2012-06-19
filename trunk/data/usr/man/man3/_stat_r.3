@@ -1,0 +1,39 @@
+.TH _stat_r 3 "" "" ""
+.SH SYNOPSIS
+_stat_r \- Reentrant version of stat
+.SH ANSI_SYNOPSIS
+#include <reent.h>
+.br
+int _stat_r(struct _reent *
+.IR ptr ,
+.br
+const char *
+.IR file ,
+struct stat *
+.IR pstat );
+.br
+.SH TRAD_SYNOPSIS
+#include <reent.h>
+.br
+int _stat_r(
+.IR ptr ,
+.IR file ,
+.IR pstat )
+.br
+struct _reent *
+.IR ptr ;
+.br
+char *
+.IR file ;
+.br
+struct stat *
+.IR pstat ;
+.br
+.SH DESCRIPTION
+This is a reentrant version of 
+.BR stat .
+It
+takes a pointer to the global data block, which holds
+.BR errno .
+.SH SOURCE
+src/newlib/libc/reent/statr.c

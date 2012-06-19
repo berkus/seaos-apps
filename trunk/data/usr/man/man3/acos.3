@@ -1,0 +1,116 @@
+.TH acos 3 "" "" ""
+.SH SYNOPSIS
+asin, asinf, acos, acosf, asine, asinef \- arc sine or cosine
+.SH ANSI_SYNOPSIS
+#include <math.h>
+.br
+double asine(double 
+.IR x );
+.br
+float asinef(float 
+.IR x );
+.br
+double asin(double 
+.IR x );
+.br
+float asinf(float 
+.IR x );
+.br
+double acos(double 
+.IR x );
+.br
+float acosf(float 
+.IR x );
+.br
+.SH TRAD_SYNOPSIS
+#include <math.h>
+.br
+double asine(
+.IR x );
+.br
+double 
+.IR x ;
+.br
+
+float asinef(
+.IR x );
+.br
+float 
+.IR x ;
+.br
+
+double asin(
+.IR x )
+.br
+double 
+.IR x ;
+.br
+
+float asinf(
+.IR x )
+.br
+float 
+.IR x ;
+.br
+
+double acos(
+.IR x )
+.br
+double 
+.IR x ;
+.br
+
+float acosf(
+.IR x )
+.br
+float 
+.IR x ;
+.br
+.SH DESCRIPTION
+.BR asin 
+computes the inverse sine or cosine of the argument 
+.IR x .
+Arguments to 
+.BR asin 
+and 
+.BR acos 
+must be in the range @minus{}1 to 1.
+
+.BR asinf 
+and 
+.BR acosf 
+are identical to 
+.BR asin 
+and 
+.BR acos ,
+other 
+than taking and returning floats.
+.SH RETURNS
+@ifinfo
+.BR asin 
+and 
+.BR acos 
+return values in radians, in the range of -pi/2 to pi/2.
+@end ifinfo
+@tex
+.BR asin 
+and 
+.BR acos 
+return values in radians, in the range of $-\pi/2$ to $\pi/2$.
+@end tex
+
+If 
+.IR x 
+is not in the range @minus{}1 to 1, 
+.BR asin 
+and 
+.BR asinf 
+return NaN (not a number), set the global variable 
+.BR errno 
+to
+.BR EDOM ,
+and issue a 
+.BR DOMAIN error 
+message.
+.SH SOURCE
+src/newlib/libm/mathfp/s_asine.c

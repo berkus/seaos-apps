@@ -1,0 +1,45 @@
+.TH _execve_r 3 "" "" ""
+.SH SYNOPSIS
+_execve_r \- Reentrant version of execve	
+.SH ANSI_SYNOPSIS
+#include <reent.h>
+.br
+int _execve_r(struct _reent *
+.IR ptr ,
+char *
+.IR name ,
+.br
+char **
+.IR argv ,
+char **
+.IR env );
+.br
+.SH TRAD_SYNOPSIS
+#include <reent.h>
+.br
+int _execve_r(
+.IR ptr ,
+.IR name ,
+.IR argv ,
+.IR env )
+.br
+struct _reent *
+.IR ptr ;
+.br
+char *
+.IR name ;
+.br
+char **
+.IR argv ;
+.br
+char **
+.IR env ;
+.br
+.SH DESCRIPTION
+This is a reentrant version of 
+.BR execve .
+It
+takes a pointer to the global data block, which holds
+.BR errno .
+.SH SOURCE
+src/newlib/libc/reent/execr.c

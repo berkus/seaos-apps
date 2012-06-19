@@ -1,0 +1,84 @@
+.TH fmodf 3 "" "" ""
+.SH SYNOPSIS
+fmod, fmodf \- floating-point remainder (modulo)
+.SH ANSI_SYNOPSIS
+#include <math.h>
+.br
+double fmod(double 
+.IR x ,
+double 
+.IR y )
+.br
+float fmodf(float 
+.IR x ,
+float 
+.IR y )
+.br
+.SH TRAD_SYNOPSIS
+#include <math.h>
+.br
+double fmod(
+.IR x ,
+.IR y )
+.br
+double (
+.IR x ,
+.IR y );
+.br
+
+float fmodf(
+.IR x ,
+.IR y )
+.br
+float (
+.IR x ,
+.IR y );
+.br
+.SH DESCRIPTION
+The 
+.BR fmod 
+and 
+.BR fmodf 
+functions compute the floating-point
+remainder of 
+.IR x /<[y]>
+(
+.IR x 
+modulo 
+.IR y ).
+.SH RETURNS
+The 
+.BR fmod 
+function returns the value
+@ifinfo
+.IR x -<[i]>*<[y]>,
+@end ifinfo
+@tex
+$x-i\times y$,
+@end tex
+for the largest integer 
+.IR i 
+such that, if 
+.IR y 
+is nonzero, the
+result has the same sign as 
+.IR x 
+and magnitude less than the
+magnitude of 
+.IR y .
+
+.BR fmod(<[x ,0)>>
+returns NaN, and sets 
+.BR errno 
+to 
+.BR EDOM .
+
+You can modify error treatment for these functions using 
+.BR matherr .
+.SH PORTABILITY
+.BR fmod 
+is ANSI C. 
+.BR fmodf 
+is an extension.
+.SH SOURCE
+src/newlib/libm/mathfp/s_fmod.c

@@ -1,0 +1,32 @@
+.TH _unlink_r 3 "" "" ""
+.SH SYNOPSIS
+_unlink_r \- Reentrant version of unlink
+.SH ANSI_SYNOPSIS
+#include <reent.h>
+.br
+int _unlink_r(struct _reent *
+.IR ptr ,
+const char *
+.IR file );
+.br
+.SH TRAD_SYNOPSIS
+#include <reent.h>
+.br
+int _unlink_r(
+.IR ptr ,
+.IR file )
+.br
+struct _reent *
+.IR ptr ;
+.br
+char *
+.IR file ;
+.br
+.SH DESCRIPTION
+This is a reentrant version of 
+.BR unlink .
+It
+takes a pointer to the global data block, which holds
+.BR errno .
+.SH SOURCE
+src/newlib/libc/reent/unlinkr.c

@@ -1,0 +1,69 @@
+.TH fputc 3 "" "" ""
+.SH SYNOPSIS
+fputc \- write a character on a stream or file
+.SH ANSI_SYNOPSIS
+#include <stdio.h>
+.br
+int fputc(int 
+.IR ch ,
+FILE *
+.IR fp );
+.br
+.SH TRAD_SYNOPSIS
+#include <stdio.h>
+.br
+int fputc(
+.IR ch ,
+.IR fp )
+.br
+int 
+.IR ch ;
+.br
+FILE *
+.IR fp ;
+.br
+.SH DESCRIPTION
+.BR fputc 
+converts the argument 
+.IR ch 
+from an 
+.BR int 
+to an
+.BR unsigned char ,
+then writes it to the file or stream identified by
+.IR fp .
+
+If the file was opened with append mode (or if the stream cannot
+support positioning), then the new character goes at the end of the
+file or stream. Otherwise, the new character is written at the
+current value of the position indicator, and the position indicator
+oadvances by one.
+
+For a macro version of this function, see 
+.BR putc .
+.SH RETURNS
+If successful, 
+.BR fputc 
+returns its argument 
+.IR ch .
+If an error
+intervenes, the result is 
+.BR EOF .
+You can use `
+.BR ferror(<[fp )>>'
+to
+query for errors.
+.SH PORTABILITY
+.BR fputc 
+is required by ANSI C.
+
+Supporting OS subroutines required: 
+.BR close ,
+.BR fstat ,
+.BR isatty ,
+.BR lseek ,
+.BR read ,
+.BR sbrk ,
+.BR write .
+.SH SOURCE
+src/newlib/libc/stdio/fputc.c

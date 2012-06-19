@@ -1,0 +1,47 @@
+.TH isxdigit 3 "" "" ""
+.SH SYNOPSIS
+isxdigit \- hexadecimal digit predicate
+.SH ANSI_SYNOPSIS
+#include <ctype.h>
+.br
+int isxdigit(int 
+.IR c );
+.br
+.SH TRAD_SYNOPSIS
+#include <ctype.h>
+.br
+int isxdigit(int 
+.IR c );
+.br
+.SH DESCRIPTION
+.BR isxdigit 
+is a macro which classifies ASCII integer values by table
+lookup. It is a predicate returning non-zero for hexadecimal digits,
+and 
+.BR 0 
+for other characters. It is defined only when
+.BR isascii (<[c]>)
+is true or 
+.IR c 
+is EOF.
+
+You can use a compiled subroutine instead of the macro definition by
+undefining the macro using `
+.BR #undef isxdigit '.
+.SH RETURNS
+.BR isxdigit 
+returns non-zero if 
+.IR c 
+is a hexadecimal digit
+(
+.BR 0 --<<9>>,
+.BR a --<<f>>,
+or 
+.BR A --<<F>>).
+.SH PORTABILITY
+.BR isxdigit 
+is ANSI C.
+
+No supporting OS subroutines are required.
+.SH SOURCE
+src/newlib/libc/ctype/isxdigit.c

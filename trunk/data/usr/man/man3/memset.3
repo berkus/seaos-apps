@@ -1,0 +1,54 @@
+.TH memset 3 "" "" ""
+.SH SYNOPSIS
+memset \- set an area of memory
+.SH ANSI_SYNOPSIS
+#include <string.h>
+.br
+void *memset(const void *
+.IR dst ,
+int 
+.IR c ,
+size_t 
+.IR length );
+.br
+.SH TRAD_SYNOPSIS
+#include <string.h>
+.br
+void *memset(
+.IR dst ,
+.IR c ,
+.IR length )
+.br
+void *
+.IR dst ;
+.br
+int 
+.IR c ;
+.br
+size_t 
+.IR length ;
+.br
+.SH DESCRIPTION
+This function converts the argument 
+.IR c 
+into an unsigned
+char and fills the first 
+.IR length 
+characters of the array
+pointed to by 
+.IR dst 
+to the value.
+.SH RETURNS
+.BR memset 
+returns the value of 
+.IR m .
+.SH PORTABILITY
+.BR memset 
+is ANSI C.
+
+.BR memset 
+requires no supporting OS subroutines.
+.SH QUICKREF
+memset ansi pure
+.SH SOURCE
+src/newlib/libc/string/memset.c

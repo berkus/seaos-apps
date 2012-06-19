@@ -1,0 +1,109 @@
+.TH cosh 3 "" "" ""
+.SH SYNOPSIS
+sinh, sinhf, cosh, coshf, sineh \- hyperbolic sine or cosine
+.SH ANSI_SYNOPSIS
+#include <math.h>
+.br
+double sinh(double 
+.IR x );
+.br
+float  sinhf(float 
+.IR x );
+.br
+double cosh(double 
+.IR x );
+.br
+float  coshf(float 
+.IR x );
+.br
+.SH TRAD_SYNOPSIS#include <math.h>
+.br
+double sinh(
+.IR x )
+.br
+double 
+.IR x ;
+.br
+
+float  sinhf(
+.IR x )
+.br
+float 
+.IR x ;
+.br
+
+double cosh(
+.IR x )
+.br
+double 
+.IR x ;
+.br
+
+float  coshf(
+.IR x )
+.br
+float 
+.IR x ;
+.br
+.SH DESCRIPTION
+.BR sinh 
+and 
+.BR cosh 
+compute the hyperbolic sine or cosine
+of the argument 
+.IR x .
+Angles are specified in radians. 
+.BR sinh (<[x]>)
+is defined as
+@ifinfo
+. (exp(
+.IR x )
+- exp(-
+.IR x ))/2
+@end ifinfo
+@tex
+$${e^x - e^{-x}}\over 2$$
+@end tex
+.BR cosh 
+is defined as
+@ifinfo
+. (exp(
+.IR x )
+- exp(-
+.IR x ))/2
+@end ifinfo
+@tex
+$${e^x + e^{-x}}\over 2$$
+@end tex
+
+.BR sinhf 
+and 
+.BR coshf 
+are identical, save that they take 
+and returns 
+.BR float 
+values.
+.SH RETURNS
+The hyperbolic sine or cosine of 
+.IR x 
+is returned.
+
+When the correct result is too large to be representable (an
+overflow), the functions return 
+.BR HUGE_VAL 
+with the
+appropriate sign, and sets the global value 
+.BR errno 
+to
+.BR ERANGE .
+.SH PORTABILITY
+.BR sinh 
+is ANSI C.
+.BR sinhf 
+is an extension.
+.BR cosh 
+is ANSI C.
+.BR coshf 
+is an extension.
+.SH SOURCE
+src/newlib/libm/mathfp/s_sineh.c

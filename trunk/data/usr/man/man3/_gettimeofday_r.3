@@ -1,0 +1,47 @@
+.TH _gettimeofday_r 3 "" "" ""
+.SH SYNOPSIS
+_gettimeofday_r \- Reentrant version of gettimeofday
+.SH ANSI_SYNOPSIS
+#include <reent.h>
+.br
+#include <time.h>
+.br
+int _gettimeofday_r(struct _reent *
+.IR ptr ,
+.br
+struct timeval *
+.IR ptimeval ,
+.br
+struct timezone *
+.IR ptimezone );
+.br
+.SH TRAD_SYNOPSIS
+#include <reent.h>
+.br
+#include <time.h>
+.br
+int _gettimeofday_r(
+.IR ptr ,
+.IR ptimeval ,
+.IR ptimezone )
+.br
+struct _reent *
+.IR ptr ;
+.br
+struct timeval *
+.IR ptimeval ;
+.br
+struct timezone *
+.IR ptimezone ;
+.br
+.SH DESCRIPTION
+This is a reentrant version of 
+.BR gettimeofday .
+It
+takes a pointer to the global data block, which holds
+.BR errno .
+
+This function is only available for a few targets.
+Check libc.a to see if its available on yours.
+.SH SOURCE
+src/newlib/libreent/timer.c

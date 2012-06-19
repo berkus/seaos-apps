@@ -1,0 +1,56 @@
+.TH __env_unlock 3 "" "" ""
+.SH SYNOPSIS
+__env_lock, __env_unlock \- lock environ variable
+.SH ANSI_SYNOPSIS
+#include "envlock.h"
+.br
+void __env_lock (struct _reent *
+.IR reent );
+.br
+void __env_unlock (struct _reent *
+.IR reent );
+.br
+.SH TRAD_SYNOPSIS
+void __env_lock(
+.IR reent )
+.br
+struct _reent *
+.IR reent ;
+.br
+
+void __env_unlock(
+.IR reent )
+.br
+struct _reent *
+.IR reent ;
+.br
+.SH DESCRIPTION
+The 
+.BR setenv 
+family of routines call these functions when they need
+to modify the environ variable. The version of these routines supplied
+in the library does not do anything. If multiple threads of execution
+can call 
+.BR setenv ,
+or if 
+.BR setenv 
+can be called reentrantly, then
+you need to define your own versions of these functions in order to
+safely lock the memory pool during a call. If you do not, the memory
+pool may become corrupted.
+
+A call to 
+.BR setenv 
+may call 
+.BR __env_lock 
+recursively; that is,
+the sequence of calls may go 
+.BR __env_lock ,
+.BR __env_lock ,
+.BR __env_unlock ,
+.BR __env_unlock .
+Any implementation of these
+routines must be careful to avoid causing a thread to wait for a lock
+that it already holds.
+.SH SOURCE
+src/newlib/libc/stdlib/envlock.c
