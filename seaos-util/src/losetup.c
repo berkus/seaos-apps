@@ -2,10 +2,13 @@
 #include <errno.h>
 #include <string.h>
 #include <unistd.h>
+#include <sys/stat.h>
+#include <stdlib.h>
+#include <assert.h>
 
 void usage()
 {
-	fprintf(stderr, "usage: losetup [-r] [-c | -x | -d] [-o offset] [-s size] loop_device [file]\n");
+	fprintf(stderr, "usage: losetup [-r] [-c | -x | -d] [-o offset] [-s size] loop_device [file | loop_num]\n");
 }
 
 int main(int argc, char **argv)
@@ -42,7 +45,7 @@ int main(int argc, char **argv)
 		usage();
 		return 1;
 	}
-	if(!dis && !create && !remove) {
+	if(!dis && !remove) {
 		file = argv[optind+1];
 		if(!file) {
 			usage();
@@ -50,15 +53,29 @@ int main(int argc, char **argv)
 		}
 	}
 	FILE *f = fopen(loop, "rw");
-	if(!f)
+	if(!f && !create)
 	{
 		fprintf(stderr, "%s: could not open loop device '%s': %s\n", progname, argv[optind], strerror(errno));
 		return 2;
 	}
-	int ret;
-
+	int ret=0;
 	if(create) {
-		ret = ioctl(fileno(f), 4, 0);
+		if(!f) {
+			f = fopen("/dev/loop0", "r");
+			if(!f) {
+				fprintf(stderr, "%s: could not open loop device '%s': %s\n", progname, "/dev/loop0", strerror(errno));
+				return 2;
+			}
+			int rret = ioctl(fileno(f), 7, atoi(file));
+			if(rret < 0) {
+				fprintf(stderr, "%s: could not create loop device '%s': %s\n", progname, loop, strerror(errno));
+			}
+			fclose(f);
+		} else
+		{
+			fprintf(stderr, "%s: could not create loop device '%s': file exists\n", progname, loop);
+			return 2;
+		}
 	} else if(remove) {
 		ret = ioctl(fileno(f), 5, 0);
 	} else if(dis) {
