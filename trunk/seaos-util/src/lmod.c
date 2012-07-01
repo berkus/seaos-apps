@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <errno.h>
+#include <string.h>
+#include <errno.h>
 int main(int argc, char **argv)
 {
 	if(argc < 2)
@@ -11,7 +13,7 @@ int main(int argc, char **argv)
 	int i;
 	for(i=1;i<argc;i++) {
 		int ret = load_module(argv[i], 0);
-		if(ret)
+		if(ret < 0)
 			fprintf(stderr, "lmod: failed to load module '%s': ", argv[i]), err=1;
 		switch(ret)
 		{
@@ -27,6 +29,9 @@ int main(int argc, char **argv)
 			case -EEXIST:
 				fprintf(stderr, "module already loaded\n");
 				break;
+		}
+		if(ret > 0) {
+			fprintf(stderr, "lmod: %s: module initialization returned %d (%s)\n", argv[i], ret, strerror(ret));
 		}
 	}
 	return err ? 1 : 0;
