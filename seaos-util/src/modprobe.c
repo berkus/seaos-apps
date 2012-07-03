@@ -50,7 +50,7 @@ int check_module_exists(char *name)
 
 void usage()
 {
-	fprintf(stderr, "%s: usage: [-qvfp] [-r | -e] module [args]\n", prog);
+	fprintf(stderr, "%s: usage: [-qvfp] [-r | -e | -l] module [args]\n", prog);
 }
 
 int main(int argc, char **argv)
@@ -59,7 +59,7 @@ int main(int argc, char **argv)
 	prog = basename(argv[0]);
 	opterr = 0;
 	int c;
-	while((c = getopt(argc, argv, "d:efqrv")) != -1)
+	while((c = getopt(argc, argv, "d:efqrvl")) != -1)
 	{
 		switch(c) {
 			case 'd':
@@ -79,10 +79,17 @@ int main(int argc, char **argv)
 			case 'v':
 				verbose = 1;
 				break;
+			case 'l':
+				list=1;
+				break;
 			default:
 				usage();
 				exit(1);
 		}
+	}
+	if(list) {
+		execl("/bin/cat", "/bin/cat", "/proc/modules");
+		return 1;
 	}
 	if(remove && check_exist)
 	{
@@ -92,7 +99,7 @@ int main(int argc, char **argv)
 	if(!directory) directory = get_default_dir();
 	struct stat st;
 	if(stat(directory, &st) == -1) {
-		fprintf(stderr, "%s: could not stat module directory %s: %s\n", prog, directory, strerror(errno));
+		if(!quiet) fprintf(stderr, "%s: could not stat module directory %s: %s\n", prog, directory, strerror(errno));
 		exit(2);
 	}
 	char *args=0;
