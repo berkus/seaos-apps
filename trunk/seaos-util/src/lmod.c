@@ -13,7 +13,7 @@ int main(int argc, char **argv)
 	int err = 0;
 	int i;
 	for(i=1;i<argc;i++) {
-		int ret = load_module(argv[i], 0);
+		int ret = sea_load_module(argv[i], 0, 0);
 		if(ret < 0)
 			fprintf(stderr, "lmod: failed to load module '%s': ", argv[i]), err=1;
 		switch(ret)
