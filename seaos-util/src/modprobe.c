@@ -6,9 +6,19 @@
 #include <errno.h>
 #include <sys/stat.h>
 #include <libgen.h>
+#include <sys/utsname.h>
 char *prog=0;
 char *directory=0; /* directory to look for modules in */
-#define DEFAULT_DIR "/sys/modules"
+
+char *get_default_dir()
+{
+	struct utsname u;
+	uname(&u);
+	
+	char *dir = malloc(128);
+	sprintf(dir, "/sys/modules-%s", u.release);
+	return dir;
+}
 
 char *get_module_path(char *name)
 {
@@ -78,7 +88,7 @@ int main(int argc, char **argv)
 		usage();
 		exit(1);
 	}
-	if(!directory) directory = DEFAULT_DIR;
+	if(!directory) directory = get_default_dir();
 	struct stat st;
 	if(stat(directory, &st) == -1) {
 		fprintf(stderr, "%s: could not stat module directory %s: %s\n", prog, directory, strerror(errno));
@@ -123,9 +133,8 @@ int main(int argc, char **argv)
 		if(!remove && ret > 0)
 			fprintf(stderr, "%s: module %s init routine returned code %d\n", prog, module, ret);
 	}
-	
 	if(check_exist)
-		return ret ? 0 : 3;
+		return ret ? 0 : 1;
 	
 	if(ret < 0) return 4;
 	if(ret > 0) return 5;
