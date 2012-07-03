@@ -34,7 +34,7 @@ int main(int argc, char **argv)
 		fprintf(stderr, "usage: mount [-t type] device directory\n");
 		return 1;
 	}
-	int ret = mount_filesystem(argv[optind], argv[optind+1], type, 0, 0);
+	int ret = sea_mount_filesystem(argv[optind], argv[optind+1], type, 0, 0);
 	if(ret < 0)
 		fprintf(stderr, "%s: %s -> %s: %s\n", (char *)basename(argv[0]), argv[optind], argv[optind+1], strerror(errno));
 	

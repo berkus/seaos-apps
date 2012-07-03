@@ -7,7 +7,7 @@ int main(int argc, char **argv)
 		fprintf(stderr, "usage: dmod module-name\n");
 		return 1;
 	}
-	int ret = unload_module(argv[1]);
+	int ret = sea_unload_module(argv[1], 0);
 	if(ret)
 		fprintf(stderr, "dmod: could not unload module '%s': ", argv[1]);
 	switch(ret)

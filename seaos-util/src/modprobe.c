@@ -7,6 +7,7 @@
 #include <sys/stat.h>
 #include <libgen.h>
 #include <sys/utsname.h>
+#include <sys/seaos.h>
 char *prog=0;
 char *directory=0; /* directory to look for modules in */
 
@@ -32,19 +33,19 @@ char *get_module_path(char *name)
 int load(char *name, char *args, int force)
 {
 	char *path = get_module_path(name);
-	int r = sea_load_module(path, args, force ? 1 : 0);
+	int r = sea_load_module(path, args, force ? SEA_MODULE_FORCE : 0);
 	free(path);
 	return r;
 }
 
-int unload(char *name, char *args)
+int unload(char *name, int force)
 {
-	return sea_unload_module(name);
+	return sea_unload_module(name, force ? SEA_MODULE_FORCE : 0);
 }
 
 int check_module_exists(char *name)
 {
-	return sea_load_module(name, 0, 2);
+	return sea_load_module(name, 0, SEA_MODULE_CHECK);
 }
 
 void usage()
@@ -112,7 +113,7 @@ int main(int argc, char **argv)
 		printf("Removing module %s...\n", module);
 	int ret=0;
 	if(remove)
-		ret = unload(module, args);
+		ret = unload(module, force);
 	else if(check_exist)
 		ret = check_module_exists(module);
 	else
