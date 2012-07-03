@@ -6,6 +6,7 @@
 #include <string.h>
 #include <signal.h>
 #include <sys/utsname.h>
+#include <libgen.h>
 char out_tty=0;
 int pid;
 char *name;
@@ -52,12 +53,7 @@ int check_password(char *username)
 
 int main(int argc, char **argv)
 {
-	name = argv[0];
-	int i;
-	for(i=1;i<argc;i++)
-	{
-		/* Test arguments */
-	}
+	name = basename(argv[0]);
 	/* First do some checks */
 	unsigned myuid = getuid();
 	if(myuid)

@@ -21,6 +21,7 @@ int main(int argc, char **argv)
 	}
 	f = fopen(argv[1], "rw");
 	cmd = atoi(argv[2]);
+	/* -[arg] is interpreted as a string */
 	if(argv[3][0] == '-')
 		arg = (int)argv[3]+1;
 	else
@@ -30,6 +31,5 @@ int main(int argc, char **argv)
 		fprintf(stderr, "%s: %s: %s\n", progname, argv[1], strerror(errno));
 		return 2;
 	}
-	int ret = ioctl(fileno(f), cmd, arg);
-	return ret;
+	return ioctl(fileno(f), cmd, arg);
 }

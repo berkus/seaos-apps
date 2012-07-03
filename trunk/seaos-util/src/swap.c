@@ -2,40 +2,44 @@
 #include <string.h>
 #include <unistd.h>
 #include <stdlib.h>
+
+char *prog=0;
 int usage()
 {
-	printf("swap - Add or remove devices from the swap devices list\n");
-	printf("Usage: swap [options] device-name\n");
-	printf("Options:\n\tswap with no options adds a device\n\t-r: Remove device\n\t-f: Force operation\n\t-l: List swap devices\n");
+	fprintf(stderr, "%s: usage: [-lrfh] [-p pid] [device]\n", prog);
 	return 0;
 }
 
 int main(int argc, char **argv)
 {
+	prog = basename(argv[0]);
 	int list=0, off=1, force=0;
 	int i;
 	int pid=0;
-	for(i=1;i<argc;i++)
+	opterr=0;
+	while ((i=getopt(argc, argv, "lrfhp:")) != -1)
 	{
-		if(argv[i][0] == '-')
+		switch(i)
 		{
-			if(argv[i][1] == 'l')
+			case 'l':
 				list=1;
-			if(argv[i][1] == 'r')
+				break;
+			case 'r':
 				off=2;
-			if(argv[i][1] == 'f')
+				break;
+			case 'f':
 				force=1;
-			if(argv[i][1] == 'h')
+				break;
+			case 'p':
+				pid = atoi(optarg);
+				break;
+			case 'h':
+			default:
 				return usage();
-			if(argv[i][1] == 'p')
-			{
-				pid = atoi(argv[++i]);
-			}
+			
 		}
-		else
-			break;
 	}
-	char *dev = argv[i];
+	char *dev = argv[optind];
 	
 	if(list)
 	{
