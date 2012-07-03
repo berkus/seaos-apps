@@ -32,11 +32,10 @@ POST_INSTALL = :
 NORMAL_UNINSTALL = :
 PRE_UNINSTALL = :
 POST_UNINSTALL = :
-bin_PROGRAMS = dmod$(EXEEXT) ioctl$(EXEEXT) lmod$(EXEEXT) \
-	login$(EXEEXT) losetup$(EXEEXT) lscpu$(EXEEXT) lsmod$(EXEEXT) \
-	lspci$(EXEEXT) modprobe$(EXEEXT) mon$(EXEEXT) mount$(EXEEXT) \
-	sps$(EXEEXT) shutdown$(EXEEXT) sudo$(EXEEXT) swap$(EXEEXT) \
-	t$(EXEEXT) umount$(EXEEXT)
+bin_PROGRAMS = ioctl$(EXEEXT) login$(EXEEXT) losetup$(EXEEXT) \
+	lscpu$(EXEEXT) lspci$(EXEEXT) modprobe$(EXEEXT) mon$(EXEEXT) \
+	mount$(EXEEXT) sps$(EXEEXT) shutdown$(EXEEXT) sudo$(EXEEXT) \
+	swap$(EXEEXT) t$(EXEEXT) umount$(EXEEXT)
 subdir = src
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -49,15 +48,9 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
-am_dmod_OBJECTS = dmod.$(OBJEXT)
-dmod_OBJECTS = $(am_dmod_OBJECTS)
-dmod_LDADD = $(LDADD)
 am_ioctl_OBJECTS = ioctl.$(OBJEXT)
 ioctl_OBJECTS = $(am_ioctl_OBJECTS)
 ioctl_LDADD = $(LDADD)
-am_lmod_OBJECTS = lmod.$(OBJEXT)
-lmod_OBJECTS = $(am_lmod_OBJECTS)
-lmod_LDADD = $(LDADD)
 am_login_OBJECTS = login.$(OBJEXT)
 login_OBJECTS = $(am_login_OBJECTS)
 login_LDADD = $(LDADD)
@@ -67,9 +60,6 @@ losetup_LDADD = $(LDADD)
 am_lscpu_OBJECTS = lscpu.$(OBJEXT)
 lscpu_OBJECTS = $(am_lscpu_OBJECTS)
 lscpu_LDADD = $(LDADD)
-am_lsmod_OBJECTS = lsmod.$(OBJEXT)
-lsmod_OBJECTS = $(am_lsmod_OBJECTS)
-lsmod_LDADD = $(LDADD)
 am_lspci_OBJECTS = lspci.$(OBJEXT)
 lspci_OBJECTS = $(am_lspci_OBJECTS)
 lspci_LDADD = $(LDADD)
@@ -108,15 +98,13 @@ COMPILE = $(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) \
 	$(CPPFLAGS) $(AM_CFLAGS) $(CFLAGS)
 CCLD = $(CC)
 LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
-SOURCES = $(dmod_SOURCES) $(ioctl_SOURCES) $(lmod_SOURCES) \
-	$(login_SOURCES) $(losetup_SOURCES) $(lscpu_SOURCES) \
-	$(lsmod_SOURCES) $(lspci_SOURCES) $(modprobe_SOURCES) \
+SOURCES = $(ioctl_SOURCES) $(login_SOURCES) $(losetup_SOURCES) \
+	$(lscpu_SOURCES) $(lspci_SOURCES) $(modprobe_SOURCES) \
 	$(mon_SOURCES) $(mount_SOURCES) $(shutdown_SOURCES) \
 	$(sps_SOURCES) $(sudo_SOURCES) $(swap_SOURCES) $(t_SOURCES) \
 	$(umount_SOURCES)
-DIST_SOURCES = $(dmod_SOURCES) $(ioctl_SOURCES) $(lmod_SOURCES) \
-	$(login_SOURCES) $(losetup_SOURCES) $(lscpu_SOURCES) \
-	$(lsmod_SOURCES) $(lspci_SOURCES) $(modprobe_SOURCES) \
+DIST_SOURCES = $(ioctl_SOURCES) $(login_SOURCES) $(losetup_SOURCES) \
+	$(lscpu_SOURCES) $(lspci_SOURCES) $(modprobe_SOURCES) \
 	$(mon_SOURCES) $(mount_SOURCES) $(shutdown_SOURCES) \
 	$(sps_SOURCES) $(sudo_SOURCES) $(swap_SOURCES) $(t_SOURCES) \
 	$(umount_SOURCES)
@@ -209,13 +197,10 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-dmod_SOURCES = dmod.c
 ioctl_SOURCES = ioctl.c
-lmod_SOURCES = lmod.c
 login_SOURCES = login.c
 losetup_SOURCES = losetup.c
 lscpu_SOURCES = lscpu.c
-lsmod_SOURCES = lsmod.c
 lspci_SOURCES = lspci.c
 modprobe_SOURCES = modprobe.c
 mon_SOURCES = mon.c
@@ -297,15 +282,9 @@ uninstall-binPROGRAMS:
 
 clean-binPROGRAMS:
 	-test -z "$(bin_PROGRAMS)" || rm -f $(bin_PROGRAMS)
-dmod$(EXEEXT): $(dmod_OBJECTS) $(dmod_DEPENDENCIES) 
-	@rm -f dmod$(EXEEXT)
-	$(LINK) $(dmod_OBJECTS) $(dmod_LDADD) $(LIBS)
 ioctl$(EXEEXT): $(ioctl_OBJECTS) $(ioctl_DEPENDENCIES) 
 	@rm -f ioctl$(EXEEXT)
 	$(LINK) $(ioctl_OBJECTS) $(ioctl_LDADD) $(LIBS)
-lmod$(EXEEXT): $(lmod_OBJECTS) $(lmod_DEPENDENCIES) 
-	@rm -f lmod$(EXEEXT)
-	$(LINK) $(lmod_OBJECTS) $(lmod_LDADD) $(LIBS)
 login$(EXEEXT): $(login_OBJECTS) $(login_DEPENDENCIES) 
 	@rm -f login$(EXEEXT)
 	$(LINK) $(login_OBJECTS) $(login_LDADD) $(LIBS)
@@ -315,9 +294,6 @@ losetup$(EXEEXT): $(losetup_OBJECTS) $(losetup_DEPENDENCIES)
 lscpu$(EXEEXT): $(lscpu_OBJECTS) $(lscpu_DEPENDENCIES) 
 	@rm -f lscpu$(EXEEXT)
 	$(LINK) $(lscpu_OBJECTS) $(lscpu_LDADD) $(LIBS)
-lsmod$(EXEEXT): $(lsmod_OBJECTS) $(lsmod_DEPENDENCIES) 
-	@rm -f lsmod$(EXEEXT)
-	$(LINK) $(lsmod_OBJECTS) $(lsmod_LDADD) $(LIBS)
 lspci$(EXEEXT): $(lspci_OBJECTS) $(lspci_DEPENDENCIES) 
 	@rm -f lspci$(EXEEXT)
 	$(LINK) $(lspci_OBJECTS) $(lspci_LDADD) $(LIBS)
@@ -355,13 +331,10 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/dmod.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ioctl.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lmod.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/login.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/losetup.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lscpu.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lsmod.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lspci.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/modprobe.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mon.Po@am__quote@
