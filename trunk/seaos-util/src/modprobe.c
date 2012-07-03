@@ -55,7 +55,7 @@ void usage()
 
 int main(int argc, char **argv)
 {
-	char check_exist=0, quiet=0, remove=0, verbose=0, force=0;
+	char check_exist=0, quiet=0, remove=0, verbose=0, force=0, list=0;
 	prog = basename(argv[0]);
 	opterr = 0;
 	int c;
