@@ -34,9 +34,9 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 bin_PROGRAMS = dmod$(EXEEXT) ioctl$(EXEEXT) lmod$(EXEEXT) \
 	login$(EXEEXT) losetup$(EXEEXT) lscpu$(EXEEXT) lsmod$(EXEEXT) \
-	lspci$(EXEEXT) mon$(EXEEXT) mount$(EXEEXT) sps$(EXEEXT) \
-	shutdown$(EXEEXT) sudo$(EXEEXT) swap$(EXEEXT) t$(EXEEXT) \
-	umount$(EXEEXT)
+	lspci$(EXEEXT) modprobe$(EXEEXT) mon$(EXEEXT) mount$(EXEEXT) \
+	sps$(EXEEXT) shutdown$(EXEEXT) sudo$(EXEEXT) swap$(EXEEXT) \
+	t$(EXEEXT) umount$(EXEEXT)
 subdir = src
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -73,6 +73,9 @@ lsmod_LDADD = $(LDADD)
 am_lspci_OBJECTS = lspci.$(OBJEXT)
 lspci_OBJECTS = $(am_lspci_OBJECTS)
 lspci_LDADD = $(LDADD)
+am_modprobe_OBJECTS = modprobe.$(OBJEXT)
+modprobe_OBJECTS = $(am_modprobe_OBJECTS)
+modprobe_LDADD = $(LDADD)
 am_mon_OBJECTS = mon.$(OBJEXT)
 mon_OBJECTS = $(am_mon_OBJECTS)
 mon_LDADD = $(LDADD)
@@ -107,14 +110,16 @@ CCLD = $(CC)
 LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
 SOURCES = $(dmod_SOURCES) $(ioctl_SOURCES) $(lmod_SOURCES) \
 	$(login_SOURCES) $(losetup_SOURCES) $(lscpu_SOURCES) \
-	$(lsmod_SOURCES) $(lspci_SOURCES) $(mon_SOURCES) \
-	$(mount_SOURCES) $(shutdown_SOURCES) $(sps_SOURCES) \
-	$(sudo_SOURCES) $(swap_SOURCES) $(t_SOURCES) $(umount_SOURCES)
+	$(lsmod_SOURCES) $(lspci_SOURCES) $(modprobe_SOURCES) \
+	$(mon_SOURCES) $(mount_SOURCES) $(shutdown_SOURCES) \
+	$(sps_SOURCES) $(sudo_SOURCES) $(swap_SOURCES) $(t_SOURCES) \
+	$(umount_SOURCES)
 DIST_SOURCES = $(dmod_SOURCES) $(ioctl_SOURCES) $(lmod_SOURCES) \
 	$(login_SOURCES) $(losetup_SOURCES) $(lscpu_SOURCES) \
-	$(lsmod_SOURCES) $(lspci_SOURCES) $(mon_SOURCES) \
-	$(mount_SOURCES) $(shutdown_SOURCES) $(sps_SOURCES) \
-	$(sudo_SOURCES) $(swap_SOURCES) $(t_SOURCES) $(umount_SOURCES)
+	$(lsmod_SOURCES) $(lspci_SOURCES) $(modprobe_SOURCES) \
+	$(mon_SOURCES) $(mount_SOURCES) $(shutdown_SOURCES) \
+	$(sps_SOURCES) $(sudo_SOURCES) $(swap_SOURCES) $(t_SOURCES) \
+	$(umount_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -212,6 +217,7 @@ losetup_SOURCES = losetup.c
 lscpu_SOURCES = lscpu.c
 lsmod_SOURCES = lsmod.c
 lspci_SOURCES = lspci.c
+modprobe_SOURCES = modprobe.c
 mon_SOURCES = mon.c
 mount_SOURCES = mount.c
 sps_SOURCES = ps.c
@@ -315,6 +321,9 @@ lsmod$(EXEEXT): $(lsmod_OBJECTS) $(lsmod_DEPENDENCIES)
 lspci$(EXEEXT): $(lspci_OBJECTS) $(lspci_DEPENDENCIES) 
 	@rm -f lspci$(EXEEXT)
 	$(LINK) $(lspci_OBJECTS) $(lspci_LDADD) $(LIBS)
+modprobe$(EXEEXT): $(modprobe_OBJECTS) $(modprobe_DEPENDENCIES) 
+	@rm -f modprobe$(EXEEXT)
+	$(LINK) $(modprobe_OBJECTS) $(modprobe_LDADD) $(LIBS)
 mon$(EXEEXT): $(mon_OBJECTS) $(mon_DEPENDENCIES) 
 	@rm -f mon$(EXEEXT)
 	$(LINK) $(mon_OBJECTS) $(mon_LDADD) $(LIBS)
@@ -354,6 +363,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lscpu.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lsmod.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lspci.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/modprobe.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mon.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mount.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ps.Po@am__quote@
