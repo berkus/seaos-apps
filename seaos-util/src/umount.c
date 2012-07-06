@@ -24,8 +24,13 @@ int main(int argc, char **argv)
 {
 	int force=0;
 	if(argc < 2) {
-		fprintf(stderr, "usage: umount [-f] directory\n");
+		fprintf(stderr, "%s: usage: umount [-f] directory\n", argv[0]);
 		return 1;
+	}
+	if(getuid())
+	{
+		fprintf(stderr, "%s: you must be god to use this program\n", argv[0]);
+		return 2;
 	}
 	if(!strcmp(argv[1], "-f"))
 		force=1;

@@ -47,8 +47,13 @@ int main(int argc, char **argv)
 	}
 	if((optind + 2) > argc)
 	{
-		fprintf(stderr, "usage: mount [-t type] device directory\n");
+		fprintf(stderr, "%s: usage: [-t type] device directory\n", argv[0]);
 		return 1;
+	}
+	if(getuid())
+	{
+		fprintf(stderr, "%s: you must be god to use this program\n", argv[0]);
+		return 2;
 	}
 	int ret = sea_mount_filesystem(argv[optind], argv[optind+1], type, 0, 0);
 	if(ret < 0)
