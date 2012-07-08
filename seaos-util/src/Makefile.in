@@ -35,7 +35,7 @@ POST_UNINSTALL = :
 bin_PROGRAMS = ioctl$(EXEEXT) login$(EXEEXT) losetup$(EXEEXT) \
 	lscpu$(EXEEXT) lspci$(EXEEXT) modprobe$(EXEEXT) mon$(EXEEXT) \
 	mount$(EXEEXT) sps$(EXEEXT) shutdown$(EXEEXT) sudo$(EXEEXT) \
-	swap$(EXEEXT) t$(EXEEXT) umount$(EXEEXT)
+	swap$(EXEEXT) t$(EXEEXT) umount$(EXEEXT) useradd$(EXEEXT)
 subdir = src
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -90,6 +90,9 @@ t_LDADD = $(LDADD)
 am_umount_OBJECTS = umount.$(OBJEXT)
 umount_OBJECTS = $(am_umount_OBJECTS)
 umount_LDADD = $(LDADD)
+am_useradd_OBJECTS = useradd.$(OBJEXT)
+useradd_OBJECTS = $(am_useradd_OBJECTS)
+useradd_LDADD = $(LDADD)
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/depcomp
 am__depfiles_maybe = depfiles
@@ -102,12 +105,12 @@ SOURCES = $(ioctl_SOURCES) $(login_SOURCES) $(losetup_SOURCES) \
 	$(lscpu_SOURCES) $(lspci_SOURCES) $(modprobe_SOURCES) \
 	$(mon_SOURCES) $(mount_SOURCES) $(shutdown_SOURCES) \
 	$(sps_SOURCES) $(sudo_SOURCES) $(swap_SOURCES) $(t_SOURCES) \
-	$(umount_SOURCES)
+	$(umount_SOURCES) $(useradd_SOURCES)
 DIST_SOURCES = $(ioctl_SOURCES) $(login_SOURCES) $(losetup_SOURCES) \
 	$(lscpu_SOURCES) $(lspci_SOURCES) $(modprobe_SOURCES) \
 	$(mon_SOURCES) $(mount_SOURCES) $(shutdown_SOURCES) \
 	$(sps_SOURCES) $(sudo_SOURCES) $(swap_SOURCES) $(t_SOURCES) \
-	$(umount_SOURCES)
+	$(umount_SOURCES) $(useradd_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -211,6 +214,7 @@ sudo_SOURCES = sudo.c
 swap_SOURCES = swap.c
 t_SOURCES = t.c
 umount_SOURCES = umount.c
+useradd_SOURCES = useradd.c
 all: all-am
 
 .SUFFIXES:
@@ -324,6 +328,9 @@ t$(EXEEXT): $(t_OBJECTS) $(t_DEPENDENCIES)
 umount$(EXEEXT): $(umount_OBJECTS) $(umount_DEPENDENCIES) 
 	@rm -f umount$(EXEEXT)
 	$(LINK) $(umount_OBJECTS) $(umount_LDADD) $(LIBS)
+useradd$(EXEEXT): $(useradd_OBJECTS) $(useradd_DEPENDENCIES) 
+	@rm -f useradd$(EXEEXT)
+	$(LINK) $(useradd_OBJECTS) $(useradd_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -345,6 +352,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/swap.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/t.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/umount.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/useradd.Po@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
