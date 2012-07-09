@@ -107,6 +107,10 @@ int main(int argc, char **argv)
 		execl("/bin/cat", "/bin/cat", "/proc/modules");
 		return 1;
 	}
+	if(get_uid() && !check_exist) {
+		fprintf(stderr, "%s: you must be root to use this program!\n", prog);
+		return 1;
+	}
 	if(remove && check_exist)
 	{
 		usage();

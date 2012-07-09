@@ -29,7 +29,7 @@ int main(int argc, char **argv)
 	}
 	if(getuid())
 	{
-		fprintf(stderr, "%s: you must be god to use this program\n", argv[0]);
+		fprintf(stderr, "%s: you must be root to use this program\n", argv[0]);
 		return 2;
 	}
 	if(!strcmp(argv[1], "-f"))
