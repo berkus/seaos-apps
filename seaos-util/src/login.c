@@ -35,7 +35,7 @@ void sigint_h(int g)
 int check_password(char *username)
 {
 	int psgood=1;
-	FILE *ps = fopen("/config/pswd", "r");
+	FILE *ps = fopen("/etc/pswd", "r");
 	if(ps) {
 		char ps_b[128];
 		while(1) {
@@ -77,7 +77,7 @@ int main(int argc, char **argv)
 		fprintf(stderr, "%s: login cannot be invoked as non-root user.\n", argv[0]);
 		return -1;
 	}
-	FILE *f = fopen("/config/passwd", "r");
+	FILE *f = fopen("/etc/passwd", "r");
 	if(!f)
 	{
 		fprintf(stderr, "%s: unable to read user listing.\n", argv[0]);

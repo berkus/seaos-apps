@@ -24,7 +24,7 @@
 int check_password(char *username)
 {
 	int psgood=1;
-	FILE *ps = fopen("/config/pswd", "r");
+	FILE *ps = fopen("/etc/pswd", "r");
 	if(ps) {
 		char ps_b[128];
 		while(1) {
@@ -64,7 +64,7 @@ int main(int argc, char **argv)
 		return 1;
 	}
 	setbuf(stdout, 0);
-	int r = check_password("god");
+	int r = check_password("root");
 	if(r) {
 		setuid(0);
 		char *buf;

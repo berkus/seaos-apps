@@ -78,7 +78,7 @@ int main(int argc, char **argv)
 		}
 	}
 	if(get_uid()) {
-		fprintf(stderr, "%s: you must be god to use this program\n", prog);
+		fprintf(stderr, "%s: you must be root to use this program\n", prog);
 		return 1;
 	}
 	if(optind >= argc)
@@ -113,7 +113,7 @@ int main(int argc, char **argv)
 		fprintf(stderr, "%s: login '%s' is unavailable\n", prog, login);
 		return 2;
 	}
-	FILE *p = fopen("/config/passwd", "r+");
+	FILE *p = fopen("/etc/passwd", "r+");
 	if(!p) {
 		fprintf(stderr, "%s: /etc/passwd: %s\n", prog, strerror(errno));
 		return 3;
