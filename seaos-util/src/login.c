@@ -26,45 +26,11 @@
 char out_tty=0;
 int pid;
 char *name;
+int check_password(char *);
 char def_shell[8] = "/bin/sh";
 void sigint_h(int g)
 {
 	
-}
-
-int check_password(char *username)
-{
-	int psgood=1;
-	FILE *ps = fopen("/etc/pswd", "r");
-	if(ps) {
-		char ps_b[128];
-		while(1) {
-			if(!fgets((char *)ps_b, 128, ps))
-				break;
-			if(ps_b[0] == '#') continue;
-			char *r = strchr(ps_b, ';');
-			if(r) *r=0;
-			r = strchr(ps_b, ':');
-			if(!strncmp(username, ps_b, r - ps_b) && (strlen(username) == (r - ps_b)))
-			{
-				printf("Password: ");
-				char ps_t[128];
-				memset(ps_t, 0, 128);
-				ioctl(1, 1, 0);
-				read(0, ps_t, 128);
-				ioctl(1, 1, 15);
-				char *w = strchr(ps_t, '\n');
-				if(w) *w=0;
-				fclose(ps);
-				if(!strcmp(ps_t, r+1))
-					return 1;
-				return 0;
-			}
-			
-		}
-		fclose(ps);
-	}
-	return 1;
 }
 
 int main(int argc, char **argv)
