@@ -34,7 +34,7 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 bin_PROGRAMS = ioctl$(EXEEXT) login$(EXEEXT) losetup$(EXEEXT) \
 	lscpu$(EXEEXT) lspci$(EXEEXT) modprobe$(EXEEXT) mon$(EXEEXT) \
-	mount$(EXEEXT) sps$(EXEEXT) shutdown$(EXEEXT) sudo$(EXEEXT) \
+	mount$(EXEEXT) passwd$(EXEEXT) sps$(EXEEXT) shutdown$(EXEEXT) \
 	swap$(EXEEXT) t$(EXEEXT) umount$(EXEEXT) useradd$(EXEEXT)
 subdir = src
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
@@ -51,7 +51,7 @@ PROGRAMS = $(bin_PROGRAMS)
 am_ioctl_OBJECTS = ioctl.$(OBJEXT)
 ioctl_OBJECTS = $(am_ioctl_OBJECTS)
 ioctl_LDADD = $(LDADD)
-am_login_OBJECTS = login.$(OBJEXT)
+am_login_OBJECTS = login.$(OBJEXT) check_password.$(OBJEXT)
 login_OBJECTS = $(am_login_OBJECTS)
 login_LDADD = $(LDADD)
 am_losetup_OBJECTS = losetup.$(OBJEXT)
@@ -72,15 +72,15 @@ mon_LDADD = $(LDADD)
 am_mount_OBJECTS = mount.$(OBJEXT)
 mount_OBJECTS = $(am_mount_OBJECTS)
 mount_LDADD = $(LDADD)
+am_passwd_OBJECTS = passwd.$(OBJEXT) check_password.$(OBJEXT)
+passwd_OBJECTS = $(am_passwd_OBJECTS)
+passwd_LDADD = $(LDADD)
 am_shutdown_OBJECTS = shutdown.$(OBJEXT)
 shutdown_OBJECTS = $(am_shutdown_OBJECTS)
 shutdown_LDADD = $(LDADD)
 am_sps_OBJECTS = ps.$(OBJEXT)
 sps_OBJECTS = $(am_sps_OBJECTS)
 sps_LDADD = $(LDADD)
-am_sudo_OBJECTS = sudo.$(OBJEXT)
-sudo_OBJECTS = $(am_sudo_OBJECTS)
-sudo_LDADD = $(LDADD)
 am_swap_OBJECTS = swap.$(OBJEXT)
 swap_OBJECTS = $(am_swap_OBJECTS)
 swap_LDADD = $(LDADD)
@@ -103,14 +103,14 @@ CCLD = $(CC)
 LINK = $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
 SOURCES = $(ioctl_SOURCES) $(login_SOURCES) $(losetup_SOURCES) \
 	$(lscpu_SOURCES) $(lspci_SOURCES) $(modprobe_SOURCES) \
-	$(mon_SOURCES) $(mount_SOURCES) $(shutdown_SOURCES) \
-	$(sps_SOURCES) $(sudo_SOURCES) $(swap_SOURCES) $(t_SOURCES) \
-	$(umount_SOURCES) $(useradd_SOURCES)
+	$(mon_SOURCES) $(mount_SOURCES) $(passwd_SOURCES) \
+	$(shutdown_SOURCES) $(sps_SOURCES) $(swap_SOURCES) \
+	$(t_SOURCES) $(umount_SOURCES) $(useradd_SOURCES)
 DIST_SOURCES = $(ioctl_SOURCES) $(login_SOURCES) $(losetup_SOURCES) \
 	$(lscpu_SOURCES) $(lspci_SOURCES) $(modprobe_SOURCES) \
-	$(mon_SOURCES) $(mount_SOURCES) $(shutdown_SOURCES) \
-	$(sps_SOURCES) $(sudo_SOURCES) $(swap_SOURCES) $(t_SOURCES) \
-	$(umount_SOURCES) $(useradd_SOURCES)
+	$(mon_SOURCES) $(mount_SOURCES) $(passwd_SOURCES) \
+	$(shutdown_SOURCES) $(sps_SOURCES) $(swap_SOURCES) \
+	$(t_SOURCES) $(umount_SOURCES) $(useradd_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -201,16 +201,16 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 ioctl_SOURCES = ioctl.c
-login_SOURCES = login.c
+login_SOURCES = login.c check_password.c
 losetup_SOURCES = losetup.c
 lscpu_SOURCES = lscpu.c
 lspci_SOURCES = lspci.c
 modprobe_SOURCES = modprobe.c
 mon_SOURCES = mon.c
 mount_SOURCES = mount.c
+passwd_SOURCES = passwd.c check_password.c
 sps_SOURCES = ps.c
 shutdown_SOURCES = shutdown.c
-sudo_SOURCES = sudo.c
 swap_SOURCES = swap.c
 t_SOURCES = t.c
 umount_SOURCES = umount.c
@@ -310,15 +310,15 @@ mon$(EXEEXT): $(mon_OBJECTS) $(mon_DEPENDENCIES)
 mount$(EXEEXT): $(mount_OBJECTS) $(mount_DEPENDENCIES) 
 	@rm -f mount$(EXEEXT)
 	$(LINK) $(mount_OBJECTS) $(mount_LDADD) $(LIBS)
+passwd$(EXEEXT): $(passwd_OBJECTS) $(passwd_DEPENDENCIES) 
+	@rm -f passwd$(EXEEXT)
+	$(LINK) $(passwd_OBJECTS) $(passwd_LDADD) $(LIBS)
 shutdown$(EXEEXT): $(shutdown_OBJECTS) $(shutdown_DEPENDENCIES) 
 	@rm -f shutdown$(EXEEXT)
 	$(LINK) $(shutdown_OBJECTS) $(shutdown_LDADD) $(LIBS)
 sps$(EXEEXT): $(sps_OBJECTS) $(sps_DEPENDENCIES) 
 	@rm -f sps$(EXEEXT)
 	$(LINK) $(sps_OBJECTS) $(sps_LDADD) $(LIBS)
-sudo$(EXEEXT): $(sudo_OBJECTS) $(sudo_DEPENDENCIES) 
-	@rm -f sudo$(EXEEXT)
-	$(LINK) $(sudo_OBJECTS) $(sudo_LDADD) $(LIBS)
 swap$(EXEEXT): $(swap_OBJECTS) $(swap_DEPENDENCIES) 
 	@rm -f swap$(EXEEXT)
 	$(LINK) $(swap_OBJECTS) $(swap_LDADD) $(LIBS)
@@ -338,6 +338,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/check_password.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ioctl.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/login.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/losetup.Po@am__quote@
@@ -346,9 +347,9 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/modprobe.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mon.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/mount.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/passwd.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/ps.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/shutdown.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sudo.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/swap.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/t.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/umount.Po@am__quote@
