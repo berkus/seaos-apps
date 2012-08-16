@@ -4,5 +4,5 @@ cd gcc-4.7.1
 patch -p1 -i ../patches/gcc-4.7.1-seaos.patch
 cp ../files/seaos.h gcc/config/
 cd libstdc++-v3
-autoconf
+autoconf2.64
 cd ..
